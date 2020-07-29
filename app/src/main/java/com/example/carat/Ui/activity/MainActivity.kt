@@ -1,4 +1,4 @@
-package com.example.carat.activity
+package com.example.carat.Ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
