@@ -223,3 +223,9 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,android,androidstudio
+
+.gradle/6.1.1/fileHashes/fileHashes.lock
+
+.idea/caches/build_file_checksums.ser
+
+.gradle/6.1.1/fileHashes/fileHashes.bin
