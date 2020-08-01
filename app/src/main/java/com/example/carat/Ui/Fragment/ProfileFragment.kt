@@ -1,4 +1,4 @@
-package com.example.carat.Ui.fragment
+package com.example.carat.Ui.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
