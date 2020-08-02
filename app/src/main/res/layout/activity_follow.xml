@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Ui.Activity.followActivity">
 
-    <include layout="@layout/layout_profile_tab"/>
+    <include layout="@layout/widget_appbar" />
+
+    <include layout="@layout/layout_profile_tab" />
 
 </LinearLayout>
