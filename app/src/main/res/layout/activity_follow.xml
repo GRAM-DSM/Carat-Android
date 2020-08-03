@@ -6,8 +6,12 @@
     android:orientation="vertical"
     tools:context=".Ui.Activity.FollowActivity">
 
-    <include layout="@layout/widget_appbar" />
+    <include
+        android:id="@+id/follow_appbar_include"
+        layout="@layout/widget_appbar" />
 
-    <include layout="@layout/layout_profile_tab" />
+    <include
+        android:id="@+id/follow_tab_include"
+        layout="@layout/layout_profile_tab" />
 
 </LinearLayout>
