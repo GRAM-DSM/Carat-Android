@@ -34,8 +34,8 @@
             android:id="@+id/appbar_save_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="21sp"
             android:paddingEnd="30dp"
+            android:textSize="21sp"
             tools:ignore="RtlSymmetry" />
     </LinearLayout>
 

@@ -15,14 +15,14 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tablayout_first_tabItem"
+            android:id="@+id/tabLayout_first_tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:text="캐링" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tablayout_second_tabItem"
+            android:id="@+id/tabLayout_second_tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -30,7 +30,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tablayout_show_recyclerView"
+        android:id="@+id/tabLayout_show_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
