@@ -35,5 +35,5 @@ Value
 - string은 string.xml에 관리
 
 코드 정리
-- Ctrl + l(소문자 L)
+- Ctrl + Alt + l(소문자 L)
 - Lint 사용(Analyze > Inspect Code > OK)
