@@ -10,5 +10,8 @@
     <string name="password">비밀번호</string>
     <string name="carat_login">캐럿에 로그인하세요</string>
     <string name="forgot_password">비밀번호를 잊으셨나요?</string>
-    <string name="start_comment">당신의 보석같은 순간을\n캐럿에 공유하세요.</string>
+    <string name="introduction">자기소개</string>
+    <string name="logOut">로그아웃</string>
+    <string name="recarring_carring">내가 리캐링한 캐링</string>
+    <string name="change_profile">프로필 수정</string>
 </resources>
