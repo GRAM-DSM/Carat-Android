@@ -1,33 +1,44 @@
 package com.example.carat.Ui.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.carat.R
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.android.synthetic.main.fragment_create_user.*
 
 class CreateUserFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    var name:String? = null
+    var email:String? = null
+    var password:String?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        create_sign_button.setOnClickListener {
+            getData()
+            
+        }
+
+        create_login_button.setOnClickListener{
+            goLogin()
+        }
+
         return inflater.inflate(R.layout.fragment_create_user, container, false)
+    }
+
+    fun getData() {
+        name = create_name_editText.text?.toString()
+        email = create_email_editText.text?.toString()
+        password = create_password_editText.text?.toString()
+    }
+
+    fun goLogin() {
+        val intent = Intent(context, LoginFragment::class.java)
+        startActivity(intent)
     }
 
 }
