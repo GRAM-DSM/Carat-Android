@@ -1,6 +1,5 @@
-
-# Created by https://www.toptal.com/developers/gitignore/api/androidstudio,android,kotlin,java,gradle
-# Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,android,kotlin,java,gradle
+# Created by https://www.toptal.com/developers/gitignore/api/kotlin,android,androidstudio
+# Edit at https://www.toptal.com/developers/gitignore?templates=kotlin,android,androidstudio
 
 ### Android ###
 # Built application files
@@ -22,7 +21,7 @@ out/
 #  Uncomment the following line in case you need and you don't have the release build type files in your app
 # release/
 
-# Ignore Gradle files
+# Gradle files
 .gradle/
 build/
 
@@ -80,7 +79,7 @@ fastlane/test_output
 fastlane/readme.md
 
 # Version control
-vcs.xml
+.idea/vcs.xml
 
 # lint
 lint/intermediates/
@@ -96,7 +95,7 @@ output.json
 # Replacement of .externalNativeBuild directories introduced
 # with Android Studio 3.5.
 
-### Java ###
+### Kotlin ###
 # Compiled class file
 
 # Log file
@@ -119,37 +118,6 @@ output.json
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-### Kotlin ###
-# Compiled class file
-
-# Log file
-
-# BlueJ files
-
-# Mobile Tools for Java (J2ME)
-
-# Package Files #
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-
-### Gradle ###
-.gradle
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
-
-# Cache of project
-.gradletasknamecache
-
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
-
-### Gradle Patch ###
-**/build/
-
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
@@ -162,6 +130,7 @@ gradle-app.setting
 # Generated files
 
 # Gradle files
+.gradle
 
 # Signing files
 .signing/
@@ -253,4 +222,10 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/androidstudio,android,kotlin,java,gradle
+# End of https://www.toptal.com/developers/gitignore/api/kotlin,android,androidstudio
+
+.gradle/6.1.1/fileHashes/fileHashes.lock
+
+.idea/caches/build_file_checksums.ser
+
+.gradle/6.1.1/fileHashes/fileHashes.bin
