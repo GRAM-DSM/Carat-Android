@@ -35,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0000"
-            android:hint="무슨 일이 일어나고 있나요?"
+            android:hint="@string/writing_message"
             android:inputType="textPersonName" />
     </LinearLayout>
 
