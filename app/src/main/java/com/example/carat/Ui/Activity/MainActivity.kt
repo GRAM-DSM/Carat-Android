@@ -1,8 +1,10 @@
 package com.example.carat.Ui.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.carat.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,11 +12,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        show()
-
+        clickWritingButton()
     }
 
-    fun show(){
-        
+    fun clickWritingButton() {
+        main_writing_floatingActionButton.setOnClickListener {
+            val intent = Intent(this, WritingActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
