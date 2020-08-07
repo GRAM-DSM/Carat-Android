@@ -19,6 +19,7 @@
         <activity android:name=".Ui.Activity.ChangeProfile" />
         <activity android:name=".Ui.Activity.FollowActivity" />
         <activity android:name=".Ui.Activity.MainActivity" />
+        <activity android:name=".Ui.Activity.WritingActivity" />
     </application>
 
 </manifest>
