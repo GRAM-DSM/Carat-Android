@@ -17,5 +17,7 @@
     <string name="check">확인</string>
     <string name="cancellation">취소</string>
     <string name="logout_message">정말로 로그아웃 하시겠습니까?</string>
+    <string name="home">홈</string>
+    <string name="profile">프로필</string>
     <string name="writing_message">무슨 일이 일어나고 있나요?</string>
 </resources>

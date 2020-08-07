@@ -4,7 +4,7 @@
     <item android:drawable="#FFF" />
 
     <item>
-        <bitmap android:src="@mipmap/ic_launcher_carat_round"
+        <bitmap android:src="@mipmap/ic_launcher_carat"
             android:gravity="center" />
     </item>
 
