@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Ui.Activity.WritingActivity"></activity>
         <activity
             android:name=".Ui.Activity.SplashActivity"
             android:theme="@style/SplashTheme">
