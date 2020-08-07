@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="홈"
+        android:title="@string/home"
         />
     <item
-        android:title="프로필"
+        android:title="@string/profile"
         />
 </menu>
