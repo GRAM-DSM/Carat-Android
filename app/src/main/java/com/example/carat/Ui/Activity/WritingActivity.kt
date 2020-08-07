@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import com.bumptech.glide.Glide
 import com.example.carat.R
 import kotlinx.android.synthetic.main.activity_writing.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
@@ -17,7 +18,7 @@ class WritingActivity : AppCompatActivity() {
         setProfileImageForm()
     }
 
-    fun settingActionBar() {
+    private fun settingActionBar() {
         writing_appbar_include.widget_toolbar.apply {
             setSupportActionBar(this)
             appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
@@ -26,7 +27,10 @@ class WritingActivity : AppCompatActivity() {
         }
     }
 
-    fun setProfileImageForm() {
-        
+    private fun setProfileImageForm() {
+        Glide.with(this)
+            .load(R.drawable.image_default_profile)
+            .circleCrop()
+            .into(writing_profile_imageView)
     }
 }

@@ -22,15 +22,14 @@
         app:layout_constraintTop_toBottomOf="@+id/writing_appbar_include">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/writing_profile_imageView"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            app:srcCompat="@drawable/image_default_profile" />
+            android:layout_marginEnd="14dp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/writing_content_editText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
