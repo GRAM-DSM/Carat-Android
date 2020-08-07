@@ -3,8 +3,10 @@
 
     <item
         android:title="@string/home"
+        android:icon="@drawable/icon_home_fill"
         />
     <item
+        android:icon="@drawable/icon_profile_outline"
         android:title="@string/profile"
         />
 </menu>
