@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
+import com.example.carat.Presenter.WritingContract
+import com.example.carat.Presenter.WritingPresenter
 import com.example.carat.R
 import kotlinx.android.synthetic.main.activity_writing.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
-class WritingActivity : AppCompatActivity() {
+class WritingActivity : AppCompatActivity(), WritingContract.View {
+    private val writingPresenter: WritingContract.Presenter by lazy {
+        WritingPresenter(this)
+    }
     private val appbar: Toolbar by lazy {
         writing_appbar_include.widget_toolbar
     }
@@ -19,7 +24,7 @@ class WritingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_writing)
 
         settingActionBar()
-        setProfileImageForm()
+        getProfileImage()
         setClickEvents()
     }
 
@@ -32,11 +37,8 @@ class WritingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setProfileImageForm() {
-        Glide.with(this)
-            .load(R.drawable.image_default_profile)
-            .circleCrop()
-            .into(writing_profile_imageView)
+    private fun getProfileImage() {
+        writingPresenter.getProfileImage()
     }
 
     private fun setClickEvents() {
@@ -45,13 +47,17 @@ class WritingActivity : AppCompatActivity() {
                 finish()
             }
             appbar_save_textView.setOnClickListener {
-                saveContent()
+                writingPresenter.saveContent()
                 finish()
             }
         }
     }
 
-    private fun saveContent() {
-        TODO()
+    override fun setProfileImageForm(result: String) {
+        Glide.with(this)
+            .load(result)
+            .error(R.drawable.image_default_profile)
+            .circleCrop()
+            .into(writing_profile_imageView)
     }
 }
