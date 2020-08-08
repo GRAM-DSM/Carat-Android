@@ -23,7 +23,6 @@
             android:id="@+id/appbar_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/carat_font"
             android:textSize="25sp"
             android:textColor="#000"/>
 
@@ -36,7 +35,6 @@
             android:id="@+id/appbar_save_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/carat_font"
             android:paddingEnd="30dp"
             android:textSize="21sp"
             tools:ignore="RtlSymmetry" />
