@@ -2,6 +2,6 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <font
-        android:font="@font/arita_buri"
+        android:font="@font/angmuburi"
         tools:targetApi="o" />
 </font-family>
