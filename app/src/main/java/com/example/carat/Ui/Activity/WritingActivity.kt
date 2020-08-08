@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
-import com.example.carat.Presenter.WritingContract
-import com.example.carat.Presenter.WritingPresenter
+import com.example.carat.Presenter.Writing.WritingContract
+import com.example.carat.Presenter.Writing.WritingPresenter
 import com.example.carat.R
 import kotlinx.android.synthetic.main.activity_writing.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
