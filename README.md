@@ -11,7 +11,6 @@
     - 회원가입&로그인
     - 타임라인
 - 정유빈
-    - 알림
     - 글쓰기
     - 프로필
 
@@ -22,7 +21,7 @@ To
 ## Github 관리
 - 기능별로 브랜치를 생성 후 각 기능을 맡은 담당이 개발
 - 기능이 완성되면 pull request로 코드 리뷰 후 master에 merge
-- 기능 단위별 브랜치는 다음과 같다. (SignInUp, Timeline, Notification, Writing, Profile)
+- 기능 단위별 브랜치는 다음과 같다. (SignInUp, Timeline, Writing, Profile)
 
 ## Resource 관리
 Naming
