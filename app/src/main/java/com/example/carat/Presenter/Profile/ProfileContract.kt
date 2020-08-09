@@ -1,13 +1,10 @@
 package com.example.carat.Presenter.Profile
 
-interface LoginContract {
-
+interface ProfileContract {
     interface View {
 
     }
-
-    interface Presenter{
+    interface Presenter {
 
     }
-
 }
