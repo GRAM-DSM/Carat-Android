@@ -7,8 +7,8 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class SetActionBar(var context: Context, var appbar: Toolbar) {
-    fun setBackKey(action: View.OnClickListener? = null) {
-        appbar.appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
+    fun setBackKey(isChange: Boolean, action: View.OnClickListener? = null) {
+        if(isChange) appbar.appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
         appbar.appbar_backKey_imageView.setOnClickListener(action)
     }
 
