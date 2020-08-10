@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout_carat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,18 +19,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="8dp">
 
             <ImageView
                 android:id="@+id/itemCarat_showIcon_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/icon_recarring"
                 android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/itemCarat_profile_imageView"
-                android:layout_width="108dp"
-                android:layout_height="108dp"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:paddingTop="11dp"
                 android:src="@drawable/image_default_profile" />
         </LinearLayout>
 
@@ -42,6 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/recarring_carring"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:visibility="gone"
                 tools:layout_editor_absoluteX="94dp"
                 tools:layout_editor_absoluteY="0dp" />
@@ -69,18 +76,26 @@
                             android:id="@+id/itemCarat_name_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
                             tools:text="이름" />
 
                         <TextView
                             android:id="@+id/itemCarat_email_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="20dp"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
                             tools:text="이메일" />
 
                         <TextView
                             android:id="@+id/itemCarat_time_textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
                             tools:text="시간" />
 
                         <View
@@ -92,20 +107,27 @@
                             android:id="@+id/itemCarat_menu_imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="20dp"
                             android:src="@drawable/icon_downward_menu"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/itemCarat_content_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
                         tools:text="내용" />
 
                     <TextView
                         android:id="@+id/itemCarat_link_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:textSize="15sp"
                         tools:text="링크" />
 
                     <GridLayout
@@ -144,6 +166,8 @@
         android:id="@+id/linearLayout_recarring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout_likeCarat"
         app:layout_constraintHorizontal_bias="0.5"
@@ -153,12 +177,17 @@
         <ImageView
             android:id="@+id/itemCarat_recarring_imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_recarring" />
 
         <TextView
             android:id="@+id/itemCarat_recarring_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="6dp"
+            android:paddingEnd="0dp"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
             tools:text="리캐링" />
     </LinearLayout>
 
@@ -166,6 +195,8 @@
         android:id="@+id/linearLayout_likeCarat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -175,12 +206,17 @@
         <ImageView
             android:id="@+id/itemCarat_like_imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_carat_gray" />
 
         <TextView
             android:id="@+id/itemCarat_like_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="6dp"
+            android:paddingEnd="0dp"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
             tools:text="좋아요" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
+        android:src="@drawable/image_default_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/image_default_background"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/profile_user_imageView"
@@ -49,6 +49,7 @@
             android:id="@+id/profile_userName_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:textSize="24sp"
             tools:text="LightOfCarat" />
 
@@ -57,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
+            android:textColor="@color/gray"
             android:textSize="19sp"
             tools:text="ilovlight" />
 
@@ -65,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
+            android:textColor="@color/black"
             android:textSize="19sp"
             tools:text="Hello" />
 
@@ -85,7 +88,8 @@
                 android:id="@+id/profile_subscriptionDay_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textColor="@color/gray"
+                android:textSize="19sp"
                 tools:text="2020년 7월에 가입함" />
         </LinearLayout>
 
@@ -99,15 +103,33 @@
                 android:id="@+id/profile_followingCount_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="19sp"
+                tools:text="11" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingEnd="18dp"
+                android:textColor="@color/gray"
+                android:textSize="19sp"
                 tools:ignore="RtlSymmetry"
-                tools:text="11 팔로잉" />
+                tools:text=" 팔로잉" />
 
             <TextView
                 android:id="@+id/profile_followersCount_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="1K 팔로워" />
+                android:textSize="19sp"
+                android:textColor="@color/black"
+                tools:text="1K" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textColor="@color/gray"
+                tools:text=" 팔로워" />
 
         </LinearLayout>
     </LinearLayout>
