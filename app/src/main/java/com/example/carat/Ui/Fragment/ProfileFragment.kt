@@ -6,25 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.carat.Presenter.Profile.ProfileContract
+import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.activity_follow.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
+    private val profilePresenter: ProfilePresenter by lazy {
+        ProfilePresenter(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        profilePresenter.getProfileInfo()
+        setProfileCarat()
+        return view
     }
 
-    fun setProfileInfo() {
-        
+    override fun setProfileInfo() {
+
     }
 
-    fun setProfileCarat() {
+    private fun setProfileCarat() {
         val tab = profile_tab_include.tabLayout_carat
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}

@@ -1,3 +1,7 @@
 package com.example.carat.Presenter.Profile
 
-class ProfilePresenter: ProfileContract.Presenter
+class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter {
+    override fun getProfileInfo() {
+
+    }
+}
