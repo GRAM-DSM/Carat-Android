@@ -20,4 +20,6 @@
     <string name="home">홈</string>
     <string name="profile">프로필</string>
     <string name="writing_message">무슨 일이 일어나고 있나요?</string>
+    <string name="carring">캐링</string>
+    <string name="carat">캐럿</string>
 </resources>

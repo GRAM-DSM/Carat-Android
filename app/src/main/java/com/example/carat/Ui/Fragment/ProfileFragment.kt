@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.R
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_follow.*
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
     override fun onCreateView(
@@ -14,5 +18,26 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    fun setProfileInfo() {
+        
+    }
+
+    fun setProfileCarat() {
+        val tab = profile_tab_include.tabLayout_carat
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val pos = tab!!.position
+//                val recyclerView = profile_tab_include.tabLayout_show_recyclerView
+//                recyclerView.adapter = if (pos == 0) {
+//
+//                } else if(pos == 1) {
+//
+//                }
+            }
+        })
     }
 }

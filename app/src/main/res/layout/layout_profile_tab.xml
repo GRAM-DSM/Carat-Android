@@ -18,15 +18,15 @@
             android:id="@+id/tabLayout_first_tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:text="캐링" />
+            android:text="@string/carring"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabLayout_second_tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:text="캐럿" />
+            android:text="@string/carat"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
