@@ -2,19 +2,15 @@ package com.example.carat.Ui.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ChangeProfileContract
 import com.example.carat.R
+import com.example.carat.Ui.Util.SetActionBar
 import kotlinx.android.synthetic.main.activity_change_profile.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
-    private val appbar: Toolbar by lazy {
-        changeProfile_appbar_include.widget_toolbar
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_profile)
@@ -24,10 +20,10 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     }
 
     private fun settingActionBar() {
-        appbar.apply {
-            setSupportActionBar(this)
-            appbar_title_textView.text = "프로필 수정"
-            appbar_save_textView.text = "저장하기"
+        SetActionBar(this, changeProfile_appbar_include.widget_toolbar).apply {
+            setSupportActionBar(appbar)
+            setTitle("프로필 수정")
+            setSave("저장하기")
         }
     }
 
