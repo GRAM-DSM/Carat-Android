@@ -4,13 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.carat.Model.UserData
-import com.example.carat.Presenter.Profile.ChangeProfileContract
+import com.example.carat.Presenter.Profile.ChangeProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Util.SetActionBar
 import kotlinx.android.synthetic.main.activity_change_profile.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
-class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
+class ChangeProfile : AppCompatActivity() {
+    private val changeProfilePresenter = ChangeProfilePresenter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_profile)

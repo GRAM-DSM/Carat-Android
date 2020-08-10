@@ -16,12 +16,7 @@ class SetActionBar(var context: Context, var appbar: Toolbar) {
         appbar.appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
     }
 
-    fun setSave(text: String, isColor: Boolean = false) {
+    fun setSave(text: String) {
         appbar.appbar_save_textView.text = text
-        if (isColor) {
-            appbar.appbar_save_textView.setTextColor(context.resources.getColor(R.color.mainColor))
-        } else {
-            appbar.appbar_save_textView.setTextColor(context.resources.getColor(R.color.gray))
-        }
     }
 }
