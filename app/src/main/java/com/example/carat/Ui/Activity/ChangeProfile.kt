@@ -30,8 +30,13 @@ class ChangeProfile : AppCompatActivity() {
     private fun settingActionBar() {
         SetActionBar(this, changeProfile_appbar_include.widget_toolbar).apply {
             setSupportActionBar(appbar)
+
+            setBackKey(View.OnClickListener { finish() })
             setTitle("프로필 수정")
-            setSave("저장하기")
+            setSave("저장하기", View.OnClickListener {
+                changeProfilePresenter.uploadCarat()
+                finish()
+            })
         }
     }
 

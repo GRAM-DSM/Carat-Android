@@ -7,16 +7,18 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class SetActionBar(var context: Context, var appbar: Toolbar) {
+    fun setBackKey(action: View.OnClickListener? = null) {
+        appbar.appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
+        appbar.appbar_backKey_imageView.setOnClickListener(action)
+    }
+
     fun setTitle(title: String, isVisible: Boolean = true) {
         appbar.appbar_title_textView.text = title
         appbar.appbar_title_textView.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
-    fun setBackKey() {
-        appbar.appbar_backKey_imageView.setImageResource(R.drawable.icon_close_button)
-    }
-
-    fun setSave(text: String) {
+    fun setSave(text: String, action: View.OnClickListener? = null) {
         appbar.appbar_save_textView.text = text
+        appbar.appbar_save_textView.setOnClickListener(action)
     }
 }
