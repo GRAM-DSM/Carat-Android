@@ -9,8 +9,8 @@ import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ChangeProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Fragment.LoginFragment
-import com.example.carat.Ui.Util.CustomDialog
-import com.example.carat.Ui.Util.SetActionBar
+import com.example.carat.Util.CustomDialog
+import com.example.carat.Util.SetActionBar
 import kotlinx.android.synthetic.main.activity_change_profile.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.FollowContract
 import com.example.carat.R
-import com.example.carat.Ui.Util.SetActionBar
+import com.example.carat.Util.SetActionBar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_follow.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*

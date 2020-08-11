@@ -1,4 +1,4 @@
-package com.example.carat.Ui.Util
+package com.example.carat.Util
 
 import android.app.Dialog
 import android.content.Context
