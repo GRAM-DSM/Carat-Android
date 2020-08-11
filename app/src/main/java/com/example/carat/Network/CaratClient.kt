@@ -10,10 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 object CaratClient {
     private const val baseUrl = "https://api.carat.com"
 
-    var client: OkHttpClient = OkHttpClient.Builder()
-    .addInterceptor { chain ->
-        val newRequest: Request  = chain.request().newBuilder()
-            .addHeader("Authorization", TokenData.access_token)
+    var client: OkHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
+        val newRequest: Request = chain.request().newBuilder()
+            .addHeader("Authorization", TokenData().access_token)
             .build()
         chain.proceed(newRequest)
     }.build()
