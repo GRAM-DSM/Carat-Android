@@ -26,6 +26,7 @@ class TimeLineAdapter(val postList: ArrayList<Post>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+
     }
 
     
