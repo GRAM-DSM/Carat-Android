@@ -7,10 +7,6 @@
         />
 
     <item
-        android:title="알림"
-        android:icon="@android:drawable/ic_popup_reminder" />
-
-    <item
         android:icon="@drawable/icon_profile_outline"
         android:title="@string/profile"
         />
