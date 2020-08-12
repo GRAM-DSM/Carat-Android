@@ -20,7 +20,6 @@ class CreateUserFragment : Fragment() {
     ): View? {
         create_sign_button.setOnClickListener {
             getData()
-            
         }
 
         create_login_button.setOnClickListener{

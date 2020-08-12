@@ -1,9 +1,9 @@
 package com.example.carat.Model
 
 data class Post(
-    val name: String,
-    var email: String,
-    var time: String,
-    var content: String,
-    var link: String
+    var post_name: String,
+    var post_email: String,
+    var post_time: String,
+    var post_content: String,
+    var post_image: String
 )
