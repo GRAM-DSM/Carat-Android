@@ -3,7 +3,7 @@ package com.example.carat.Repository
 import android.content.Context
 import android.content.SharedPreferences
 
-class SharedPreferencesManager private constructor(context: Context) {
+class SharedPreferencesManager(context: Context) {
     private val sharedPrefs: SharedPreferences = context.applicationContext.getSharedPreferences(
         MY_APP_PREFERENCES,
         Context.MODE_PRIVATE
