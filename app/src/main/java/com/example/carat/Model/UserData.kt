@@ -10,9 +10,11 @@ data class UserData private constructor(
     var following: String? = null,
     var follower: String? = null
 ) {
-    companion object{
-        @Volatile private var instance: UserData? = null
-        @JvmStatic fun getInstance(): UserData =
+    companion object {
+        @Volatile
+        private var instance: UserData? = null
+        @JvmStatic
+        fun getInstance(): UserData =
             instance ?: synchronized(this) {
                 instance ?: UserData().also {
                     instance = it

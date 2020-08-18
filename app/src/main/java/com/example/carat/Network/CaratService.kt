@@ -8,8 +8,8 @@ import retrofit2.http.POST
 
 interface CaratService {
     @POST("/user/auth")
-    suspend fun login(@Field("password") password: String, @Field("email") email: String) : TokenData
+    suspend fun login(@Field("password") password: String, @Field("email") email: String): TokenData
 
     @GET("/user/auth")
-    suspend fun reissueToken() : ResponseBody
+    suspend fun reissueToken(): ResponseBody
 }

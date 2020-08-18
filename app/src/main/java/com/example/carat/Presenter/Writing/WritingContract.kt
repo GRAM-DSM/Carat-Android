@@ -5,7 +5,7 @@ interface WritingContract {
         fun setProfileImageForm(result: String)
     }
 
-    interface Presenter{
+    interface Presenter {
         fun saveContent()
         fun getProfileImage()
     }

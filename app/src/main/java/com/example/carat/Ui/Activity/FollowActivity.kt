@@ -32,7 +32,7 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
         val tab = follow_tab_include.tabLayout_carat
         tab.getTabAt(0)?.text = "팔로잉"
         tab.getTabAt(1)?.text = "팔로워"
-        tab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
