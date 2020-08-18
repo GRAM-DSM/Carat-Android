@@ -1,6 +1,8 @@
 package com.example.carat.Presenter.Profile
 
-class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter {
+import com.example.carat.Util.BaseCoroutineScope
+
+class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter, BaseCoroutineScope() {
     override fun getProfileInfo() {
 
     }
