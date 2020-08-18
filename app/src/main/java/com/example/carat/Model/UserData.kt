@@ -1,6 +1,6 @@
 package com.example.carat.Model
 
-data class UserData(
+data class UserData private constructor(
     var background: String? = null,
     var profile: String? = null,
     var name: String? = null,
@@ -9,4 +9,14 @@ data class UserData(
     var date: String? = null,
     var following: String? = null,
     var follower: String? = null
-)
+) {
+    companion object{
+        @Volatile private var instance: UserData? = null
+        @JvmStatic fun getInstance(): UserData =
+            instance ?: synchronized(this) {
+                instance ?: UserData().also {
+                    instance = it
+                }
+            }
+    }
+}
