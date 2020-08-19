@@ -1,11 +1,7 @@
 package com.example.carat.Presenter.SignInUp
 
-class CreateUserPresenter :
+open class CreateUserPresenter(val view:CreateUserContract.View):
     CreateUserContract.Presenter {
-
     override fun saveData() {}
-    override fun makeToast(msg: String) {}
     override fun sendDataToServer() {}
-    override fun sendDataToLogin() {}
-
 }
