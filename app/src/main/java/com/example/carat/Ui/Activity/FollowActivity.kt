@@ -41,4 +41,6 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
             }
         })
     }
+
+    override fun changeButtonImage() {}
 }

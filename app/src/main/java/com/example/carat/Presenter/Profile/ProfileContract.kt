@@ -7,5 +7,7 @@ interface ProfileContract {
 
     interface Presenter {
         fun getProfileInfo()
+        fun getCarat()
+        fun getCaring()
     }
 }

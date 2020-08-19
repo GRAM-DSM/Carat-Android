@@ -28,9 +28,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         return view
     }
 
-    override fun setProfileInfo() {
-
-    }
+    override fun setProfileInfo() {}
 
     private fun setProfileCarat() {
         val tab = profile_tab_include.tabLayout_carat

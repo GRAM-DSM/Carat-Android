@@ -34,7 +34,7 @@ class ChangeProfile : AppCompatActivity() {
             setBackKey(false) { finish() }
             setTitle("프로필 수정")
             setSave("저장하기") {
-                changeProfilePresenter.uploadCarat()
+                changeProfilePresenter.updateProfile()
                 finish()
             }
         }

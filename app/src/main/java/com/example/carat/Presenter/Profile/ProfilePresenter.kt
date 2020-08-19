@@ -4,7 +4,7 @@ import com.example.carat.Util.BaseCoroutineScope
 
 class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter,
     BaseCoroutineScope() {
-    override fun getProfileInfo() {
-
-    }
+    override fun getProfileInfo() {}
+    override fun getCarat() {}
+    override fun getCaring() {}
 }
