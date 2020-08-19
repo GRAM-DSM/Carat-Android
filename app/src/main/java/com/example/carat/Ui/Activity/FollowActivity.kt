@@ -23,7 +23,7 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
 
     private fun settingActionBar() {
         SetActionBar(this, follow_appbar_include.widget_toolbar).apply {
-            setBackKey(false, View.OnClickListener { finish() })
+            setBackKey(false) { finish() }
             this.setTitle(UserData.getInstance().name ?: "")
         }
     }
