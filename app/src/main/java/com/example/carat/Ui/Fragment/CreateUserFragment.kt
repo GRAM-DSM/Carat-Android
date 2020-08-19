@@ -12,27 +12,34 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.fragment_create_user.*
 
 class CreateUserFragment : Fragment() ,CreateUserContract.View{
-    var name:String? = null
-    var email:String? = null
-    var password:String?= null
+    private val createuserPresenter: CreateUserContract.Presenter by lazy{
+        CreateUserPresenter(this)
+    }
+
+    private var name:String? = null
+    private var email:String? = null
+    private var password:String?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        create_sign_button.setOnClickListener {
-            getData()
+
+        create_login_button.setOnClickListener {
+            val intent = Intent(context, LoginFragment::class.java)
+            startActivity(intent)
         }
 
-        create_login_button.setOnClickListener{
-            goLogin()
+        create_sign_button.setOnClickListener {
+            getData()
+
+            val intent = Intent(context,LoginFragment::class.java)
+            intent.putExtra("createUser_email",email)
+            intent.putExtra("createUser_password",password)
+            startActivity(intent)
         }
 
         return inflater.inflate(R.layout.fragment_create_user, container, false)
-    }
-
-    override fun showInfo() {
-
     }
 
     override fun getData() {
@@ -41,9 +48,6 @@ class CreateUserFragment : Fragment() ,CreateUserContract.View{
         password = create_password_editText.text?.toString()
     }
 
-    fun goLogin() {
-        val intent = Intent(context, LoginFragment::class.java)
-        startActivity(intent)
-    }
+
 
 }
