@@ -10,7 +10,7 @@ object CaratClient {
     private const val baseUrl = "https://api.carat.com"
 
     val client = OkHttpClient.Builder()
-        .authenticator(TokenAuthenticator(MyApp.context!!))
+        .addInterceptor(TokenAuthenticator(MyApp.context!!))
         .build()
 
     val caratApi: CaratService by lazy {
