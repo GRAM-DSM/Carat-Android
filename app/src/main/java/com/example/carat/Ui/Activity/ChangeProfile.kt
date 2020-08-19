@@ -74,4 +74,9 @@ class ChangeProfile : AppCompatActivity() {
         customDialog = CustomDialog(this, negativeListener, positiveListener)
         customDialog!!.show()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        changeProfilePresenter.job.cancel()
+    }
 }

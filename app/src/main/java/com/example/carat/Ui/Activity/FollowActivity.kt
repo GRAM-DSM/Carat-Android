@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.carat.Model.FollowData
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.FollowContract
+import com.example.carat.Presenter.Profile.FollowPresenter
+import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Adapter.FollowAdapter
 import com.example.carat.Util.SetActionBar
@@ -14,6 +16,10 @@ import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class FollowActivity : AppCompatActivity(), FollowContract.View {
+    private val followPresenter: FollowPresenter by lazy {
+        FollowPresenter(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_follow)
@@ -43,4 +49,9 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     }
 
     override fun changeButtonImage() {}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        followPresenter.job.cancel()
+    }
 }

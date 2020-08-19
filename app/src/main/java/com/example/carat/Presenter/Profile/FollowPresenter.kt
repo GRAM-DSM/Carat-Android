@@ -2,7 +2,7 @@ package com.example.carat.Presenter.Profile
 
 import com.example.carat.Util.BaseCoroutineScope
 
-class FollowPresenter(var view: ProfileContract.View) : FollowContract.Presenter,
+class FollowPresenter(var view: FollowContract.View) : FollowContract.Presenter,
     BaseCoroutineScope() {
     override fun getFollowingList() {}
     override fun getFollowerList() {}

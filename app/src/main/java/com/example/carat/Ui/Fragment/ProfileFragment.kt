@@ -46,4 +46,9 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             }
         })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        profilePresenter.job.cancel()
+    }
 }
