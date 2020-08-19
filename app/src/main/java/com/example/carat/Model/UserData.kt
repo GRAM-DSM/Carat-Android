@@ -1,14 +1,15 @@
 package com.example.carat.Model
 
 data class UserData private constructor(
-    var background: String? = null,
-    var profile: String? = null,
-    var name: String? = null,
-    var email: String? = null,
-    var introduction: String? = null,
-    var date: String? = null,
-    var following: String? = null,
-    var follower: String? = null
+    var background: String = "",
+    var profile: String = "",
+    var name: String = "",
+    var email: String = "",
+    var introduction: String = "",
+    var date: String = "",
+    var following: String = "",
+    var follower: String = "",
+    var message: String = ""
 ) {
     companion object {
         @Volatile
