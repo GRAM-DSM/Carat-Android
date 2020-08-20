@@ -28,21 +28,15 @@ class Repository() {
     fun getAccess(): String? = sharedPreferences?.saveToken
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
 
-    suspend fun login(): Call<Unit> {
-        return withContext(Dispatchers.IO) {
-            api.doLogout(TokenData.getInstance().access_token)
-        }
-    }
-
-    suspend fun deleteAccount(): ServerMessage {
-        return withContext(Dispatchers.IO) {
-            api.deleteAccount(TokenData.getInstance().access_token)
-        }
-    }
-
     suspend fun getProfile(path: String): UserData {
         return withContext(Dispatchers.IO) {
             api.getProfile(TokenData.getInstance().access_token, path)
+        }
+    }
+
+    suspend fun updateProifle(hash: HashMap<String, Any>): Call<Unit> {
+        return withContext(Dispatchers.IO) {
+            api.modifyProfile(TokenData.getInstance().access_token, hash)
         }
     }
 
@@ -60,7 +54,7 @@ class Repository() {
 
     suspend fun doFollow(path: String): Call<Unit> {
         return withContext(Dispatchers.IO) {
-            api.cancelFollow(TokenData.getInstance().access_token, path)
+            api.doFollow(TokenData.getInstance().access_token, path)
         }
     }
 
