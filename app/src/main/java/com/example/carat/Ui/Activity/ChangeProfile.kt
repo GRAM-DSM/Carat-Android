@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.carat.Model.EditUserData
 import com.example.carat.Model.UserObject
 import com.example.carat.Presenter.Profile.ChangeProfileContract
 import com.example.carat.Presenter.Profile.ChangeProfilePresenter
@@ -28,6 +29,7 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     private val PROFILE_REQUEST_CODE = 100
     private val COVER_REQUEST_CODE = 101
     private val intentForImage: Intent = Intent()
+    private var editUserData: EditUserData = EditUserData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +49,9 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
             setBackKey(false) { finish() }
             setTitle("프로필 수정")
             setSave("저장하기") {
-                changeProfilePresenter.updateProfile(
-                    changeProfile_name_editText.text.toString(),
-                    changeProfile_introduction_editText.text.toString()
-                )
+                editUserData.name = changeProfile_name_editText.text.toString()
+                editUserData.intro = changeProfile_introduction_editText.text.toString()
+                changeProfilePresenter.updateProfile(editUserData)
                 finish()
             }
         }
@@ -110,12 +111,16 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         if (resultCode == RESULT_OK) {
             val uri = data?.data
 
-            when(requestCode) {
-                PROFILE_REQUEST_CODE -> Glide.with(this).load(uri).into(changeProfile_profile_imageView)
-                COVER_REQUEST_CODE -> Glide.with(this).load(uri).into(changeProfile_cover_imageView)
+            when (requestCode) {
+                PROFILE_REQUEST_CODE -> {
+                    Glide.with(this).load(uri).into(changeProfile_profile_imageView)
+                    editUserData.profileUri = uri
+                }
+                COVER_REQUEST_CODE -> {
+                    Glide.with(this).load(uri).into(changeProfile_cover_imageView)
+                    editUserData.backUri = uri
+                }
             }
-
-            changeProfilePresenter.setProfileImage(uri!!)
         }
     }
 
@@ -124,23 +129,24 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         changeProfilePresenter.job.cancel()
     }
 
-    override fun convertToImage(profileUri: Uri?, backUri: Uri?) {
-        var profileToUpload: MultipartBody.Part? = null
-        var backToUpload: MultipartBody.Part? = null
+    override fun convertToImage(editUserData: EditUserData) {
+        val profileUri = editUserData.profileUri
+        val backUri = editUserData.backUri
+
 
         if (profileUri != null) {
             val profile = File(getPathFromUri(profileUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), profile)
-            profileToUpload = MultipartBody.Part.createFormData("file", profile.name, file)
+            editUserData.profileToUpload = MultipartBody.Part.createFormData("file", profile.name, file)
         }
 
         if (backUri != null) {
             val backfile = File(getPathFromUri(backUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), backfile)
-            backToUpload = MultipartBody.Part.createFormData("file", backfile.name, file)
+            editUserData.backToUpload = MultipartBody.Part.createFormData("file", backfile.name, file)
         }
 
-        changeProfilePresenter.updateProfileWithImage(profileToUpload, backToUpload)
+        changeProfilePresenter.updateProfileWithImage(editUserData)
     }
 
     private fun getPathFromUri(uri: Uri): String? {
