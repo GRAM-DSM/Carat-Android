@@ -27,7 +27,7 @@
                 android:id="@+id/itemCarat_showIcon_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_recarring"
+                android:src="@drawable/icon_re_gray"
                 android:visibility="gone" />
 
             <ImageView
@@ -178,7 +178,7 @@
             android:id="@+id/itemCarat_recarring_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_recarring" />
+            android:src="@drawable/icon_re_gray" />
 
         <TextView
             android:id="@+id/itemCarat_recarring_textView"
