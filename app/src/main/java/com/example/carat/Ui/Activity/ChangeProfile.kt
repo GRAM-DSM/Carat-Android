@@ -25,6 +25,9 @@ import java.io.File
 class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     private val changeProfilePresenter = ChangeProfilePresenter(this)
     private var customDialog: CustomDialog? = null
+    private val PROFILE_REQUEST_CODE = 100
+    private val COVER_REQUEST_CODE = 101
+    private val intentForImage: Intent = Intent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,8 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         settingActionBar()
         initUserInfo()
         setDialog()
+        settingIntent()
+        selectImage()
     }
 
     private fun settingActionBar() {
@@ -86,6 +91,34 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         customDialog!!.show()
     }
 
+    private fun settingIntent() {
+        intentForImage.type = "image/*"
+        intentForImage.action = Intent.ACTION_GET_CONTENT
+    }
+
+    private fun selectImage() {
+        changeProfile_cover_imageView.setOnClickListener {
+            startActivityForResult(intent, PROFILE_REQUEST_CODE)
+        }
+        changeProfile_cover_imageView.setOnClickListener {
+            startActivityForResult(intent, COVER_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val uri = data?.data
+
+            when(requestCode) {
+                PROFILE_REQUEST_CODE -> Glide.with(this).load(uri).into(changeProfile_profile_imageView)
+                COVER_REQUEST_CODE -> Glide.with(this).load(uri).into(changeProfile_cover_imageView)
+            }
+
+            changeProfilePresenter.setProfileImage(uri!!)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         changeProfilePresenter.job.cancel()
@@ -100,11 +133,11 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), profile)
             profileToUpload = MultipartBody.Part.createFormData("file", profile.name, file)
         }
+
         if (backUri != null) {
             val backfile = File(getPathFromUri(backUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), backfile)
             backToUpload = MultipartBody.Part.createFormData("file", backfile.name, file)
-
         }
 
         changeProfilePresenter.updateProfileWithImage(profileToUpload, backToUpload)
