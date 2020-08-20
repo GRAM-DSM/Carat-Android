@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.carat.Model.UserData
+import com.example.carat.Model.UserObject
 import com.example.carat.Presenter.Profile.ChangeProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Fragment.LoginFragment
@@ -41,7 +41,7 @@ class ChangeProfile : AppCompatActivity() {
     }
 
     private fun initUserInfo() {
-        val data = UserData.getInstance()
+        val data = UserObject.getInstance()
 
         Glide.with(this)
             .load(data.background)

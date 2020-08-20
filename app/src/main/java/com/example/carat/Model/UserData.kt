@@ -1,25 +1,12 @@
 package com.example.carat.Model
 
-data class UserData private constructor(
-    var background: String = "",
-    var profile: String = "",
+data class UserData(
     var name: String = "",
-    var email: String = "",
-    var introduction: String = "",
-    var date: String = "",
-    var following: String = "",
-    var follower: String = "",
-    var message: String = ""
-) {
-    companion object {
-        @Volatile
-        private var instance: UserData? = null
-        @JvmStatic
-        fun getInstance(): UserData =
-            instance ?: synchronized(this) {
-                instance ?: UserData().also {
-                    instance = it
-                }
-            }
-    }
-}
+    var cover_image: String = "",
+    var profile_image: String = "",
+    var about_me: String = "",
+    var following_count: Int = 0,
+    var follower_count: Int = 0,
+    var created_at: String = "",
+    var myself: Boolean = false
+)

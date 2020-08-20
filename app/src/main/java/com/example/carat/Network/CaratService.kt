@@ -1,8 +1,6 @@
 package com.example.carat.Network
 
-import com.example.carat.Model.ServerMessage
-import com.example.carat.Model.TokenData
-import com.example.carat.Model.UserData
+import com.example.carat.Model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -23,13 +21,13 @@ interface CaratService {
     suspend fun getFollowingList(
         @Header("Authorization") authorization: String,
         @Path("email") email: String
-    )
+    ): FollowingData
 
     @GET("profile/{email}/followers")
     suspend fun getFollowersList(
         @Header("Authorization") authorization: String,
         @Path("email") email: String
-    )
+    ): FollowerData
 
     @POST("profile/{email}/following")
     suspend fun doFollow(

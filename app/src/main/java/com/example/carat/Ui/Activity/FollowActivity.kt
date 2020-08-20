@@ -2,13 +2,10 @@ package com.example.carat.Ui.Activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.carat.Model.FollowData
-import com.example.carat.Model.UserData
+import com.example.carat.Model.UserObject
 import com.example.carat.Presenter.Profile.FollowContract
 import com.example.carat.Presenter.Profile.FollowPresenter
-import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
-import com.example.carat.Ui.Adapter.FollowAdapter
 import com.example.carat.Util.SetActionBar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_follow.*
@@ -31,7 +28,7 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     private fun settingActionBar() {
         SetActionBar(this, follow_appbar_include.widget_toolbar).apply {
             setBackKey(false) { finish() }
-            this.setTitle(UserData.getInstance().name ?: "")
+            this.setTitle(UserObject.getInstance().name ?: "")
         }
     }
 

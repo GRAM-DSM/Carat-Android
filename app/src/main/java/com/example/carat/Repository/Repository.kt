@@ -1,7 +1,7 @@
 package com.example.carat.Repository
 
 import android.content.Context
-import com.example.carat.Model.UserData
+import com.example.carat.Model.UserObject
 
 class Repository(var context: Context) {
     private val sharedPreferences = SharedPreferencesManager.getInstance(context)
@@ -16,7 +16,7 @@ class Repository(var context: Context) {
     }
 
     fun saveEmail() {
-        sharedPreferences?.saveEmail = UserData.getInstance().email
+        sharedPreferences?.saveEmail = UserObject.getInstance().email
     }
 
     fun getLoginState(): Boolean? = sharedPreferences?.isLogin
