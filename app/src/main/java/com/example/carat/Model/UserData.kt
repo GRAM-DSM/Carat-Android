@@ -8,5 +8,6 @@ data class UserData(
     var following_count: Int = 0,
     var follower_count: Int = 0,
     var created_at: String = "",
-    var myself: Boolean = false
+    var myself: Boolean = false,
+    var message: String = ""
 )

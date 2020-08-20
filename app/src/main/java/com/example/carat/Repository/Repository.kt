@@ -1,10 +1,15 @@
 package com.example.carat.Repository
 
-import android.content.Context
-import com.example.carat.Model.UserObject
+import com.example.carat.Model.*
+import com.example.carat.Network.CaratClient
+import com.example.carat.Util.MyApp
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Call
 
-class Repository(var context: Context) {
-    private val sharedPreferences = SharedPreferencesManager.getInstance(context)
+class Repository() {
+    private val sharedPreferences = SharedPreferencesManager.getInstance(MyApp.context!!)
+    private val api = CaratClient.caratApi
 
     fun saveLoginState(isLogin: Boolean) {
         sharedPreferences?.isLogin = isLogin
@@ -22,4 +27,46 @@ class Repository(var context: Context) {
     fun getLoginState(): Boolean? = sharedPreferences?.isLogin
     fun getAccess(): String? = sharedPreferences?.saveToken
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
+
+    suspend fun login(): Call<Unit> {
+        return withContext(Dispatchers.IO) {
+            api.doLogout(TokenData.getInstance().access_token)
+        }
+    }
+
+    suspend fun deleteAccount(): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.deleteAccount(TokenData.getInstance().access_token)
+        }
+    }
+
+    suspend fun getProfile(path: String): UserData {
+        return withContext(Dispatchers.IO) {
+            api.getProfile(TokenData.getInstance().access_token, path)
+        }
+    }
+
+    suspend fun getFollowingList(path: String): FollowingData {
+        return withContext(Dispatchers.IO) {
+            api.getFollowingList(TokenData.getInstance().access_token, path)
+        }
+    }
+
+    suspend fun getFollowersList(path: String): FollowerData {
+        return withContext(Dispatchers.IO) {
+            api.getFollowersList(TokenData.getInstance().access_token, path)
+        }
+    }
+
+    suspend fun doFollow(path: String): Call<Unit> {
+        return withContext(Dispatchers.IO) {
+            api.cancelFollow(TokenData.getInstance().access_token, path)
+        }
+    }
+
+    suspend fun cancelFollow(path: String): Call<Unit> {
+        return withContext(Dispatchers.IO) {
+            api.cancelFollow(TokenData.getInstance().access_token, path)
+        }
+    }
 }

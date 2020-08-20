@@ -5,11 +5,14 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface CaratService {
-    @POST("user/auth")
-    suspend fun login(@Field("password") password: String, @Field("email") email: String): TokenData
-
     @GET("user/auth")
-    suspend fun reissueToken(@Header("Authorization") authorization: String): ServerMessage
+    suspend fun doLogout(@Header("Authorization") authorization: String): Call<Unit>
+
+    @GET("user/refresh")
+    suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
+
+    @DELETE("user")
+    suspend fun deleteAccount(@Header("Authorization") authorization: String): ServerMessage
 
     @GET("profile/{email}")
     suspend fun getProfile(
@@ -33,11 +36,11 @@ interface CaratService {
     suspend fun doFollow(
         @Header("Authorization") authorization: String,
         @Path("email") email: String
-    ): Call<Void>
+    ): Call<Unit>
 
     @DELETE("profile/{email}/following")
     suspend fun cancelFollow(
         @Header("Authorization") authorization: String,
         @Path("email") email: String
-    ): Call<Void>
+    ): Call<Unit>
 }
