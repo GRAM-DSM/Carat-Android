@@ -13,17 +13,23 @@ class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
 
     override fun getFollowingList() {
         CoroutineScope(coroutineContext).launch(handler) {
-            view.setFollowAdapter(
-                repository.getFollowingList(UserObject.getInstance().email).followings
-            )
+            val result = repository.getFollowingList(UserObject.getInstance().email)
+            if (result.message != "") {
+                view.setFollowAdapter(result.followings)
+            } else {
+                view.showError(result.message)
+            }
         }
     }
 
     override fun getFollowerList() {
         CoroutineScope(coroutineContext).launch(handler) {
-            view.setFollowAdapter(
-                repository.getFollowersList(UserObject.getInstance().email).followers
-            )
+            val result = repository.getFollowersList(UserObject.getInstance().email)
+            if (result.message != "") {
+                view.setFollowAdapter(result.followers)
+            } else {
+                view.showError(result.message)
+            }
         }
     }
 

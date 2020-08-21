@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.carat.Model.FollowData
 import com.example.carat.Model.UserObject
@@ -80,6 +81,10 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
         }
 
         tabLayout_show_recyclerView.adapter = FollowAdapter(followData, toFollow, showUser)
+    }
+
+    override fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private fun distinguishButtonImage(data: FollowData, btn: Button) {

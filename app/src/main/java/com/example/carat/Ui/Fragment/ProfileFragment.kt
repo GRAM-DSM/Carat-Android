@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
@@ -32,18 +33,22 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun setProfileInfo(profile: UserData) {
-        val info = profile_info_include
-        Glide.with(this).load(profile.cover_image_url).into(info.profile_background_imageView)
-        Glide.with(this).load(profile.profile_image_url).into(info.profile_user_imageView)
-        info.profile_userName_textView.text = profile.name
-        info.profile_userEmail_textView.text = profile.user_email
-        info.profile_introduce_textView.text = profile.about_me
-        info.profile_subscriptionDay_textView.text = profile.created_at
-        info.profile_followingCount_textView.text = profile.following_count.toString()
-        info.profile_followersCount_textView.text = profile.follower_count.toString()
+        if (profile.message != "") {
+            val info = profile_info_include
+            Glide.with(this).load(profile.cover_image_url).into(info.profile_background_imageView)
+            Glide.with(this).load(profile.profile_image_url).into(info.profile_user_imageView)
+            info.profile_userName_textView.text = profile.name
+            info.profile_userEmail_textView.text = profile.user_email
+            info.profile_introduce_textView.text = profile.about_me
+            info.profile_subscriptionDay_textView.text = profile.created_at
+            info.profile_followingCount_textView.text = profile.following_count.toString()
+            info.profile_followersCount_textView.text = profile.follower_count.toString()
 
-        info.profile_button_imageView.setOnClickListener {
-            startActivity(Intent(activity, ChangeProfile::class.java))
+            info.profile_button_imageView.setOnClickListener {
+                startActivity(Intent(activity, ChangeProfile::class.java))
+            }
+        } else {
+            Toast.makeText(activity, profile.message, Toast.LENGTH_LONG).show()
         }
     }
 

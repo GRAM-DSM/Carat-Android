@@ -24,18 +24,6 @@ interface CaratService {
         @FieldMap parameter: HashMap<String, Any>
     ): Call<Unit>
 
-    @GET("profile/{email}/following")
-    suspend fun getFollowingList(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
-    ): FollowingData
-
-    @GET("profile/{email}/followers")
-    suspend fun getFollowersList(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
-    ): FollowerData
-
     @POST("profile/{email}/following")
     suspend fun doFollow(
         @Header("Authorization") authorization: String,
@@ -47,4 +35,16 @@ interface CaratService {
         @Header("Authorization") authorization: String,
         @Path("email") email: String
     ): Call<Unit>
+
+    @GET("profile/{email}/following")
+    suspend fun getFollowingList(
+        @Header("Authorization") authorization: String,
+        @Path("email") email: String
+    ): FollowingData
+
+    @GET("profile/{email}/followers")
+    suspend fun getFollowersList(
+        @Header("Authorization") authorization: String,
+        @Path("email") email: String
+    ): FollowerData
 }
