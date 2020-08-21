@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.item_follow.view.*
 
 class FollowAdapter(
     private val followList: ArrayList<FollowData>,
-    private val clickAction: (FollowData) -> Unit
+    private val settingButtonView: (FollowData, View) -> Unit,
+    private val showUser: (FollowData) -> Unit
 ) : RecyclerView.Adapter<FollowAdapter.FollowVH>() {
     class FollowVH(view: View) : RecyclerView.ViewHolder(view)
 
@@ -27,9 +28,10 @@ class FollowAdapter(
                 .load(data.profile_image)
                 .circleCrop()
                 .into(itemFollow_profile_imageView)
+            itemFollow_profile_imageView.setOnClickListener { showUser(data) }
             itemFollow_name_textView.text = data.name
             itemFollow_email_textView.text = data.email
-            itemFollow_follow_button.setOnClickListener { clickAction }
+            settingButtonView(data, this)
         }
     }
 }

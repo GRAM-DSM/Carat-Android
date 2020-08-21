@@ -3,6 +3,7 @@ package com.example.carat.Ui.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.carat.Model.FollowData
 import com.example.carat.Model.UserObject
@@ -13,6 +14,7 @@ import com.example.carat.Ui.Adapter.FollowAdapter
 import com.example.carat.Util.SetActionBar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_follow.*
+import kotlinx.android.synthetic.main.item_follow.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
@@ -54,13 +56,37 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     }
 
     override fun setFollowAdapter(followData: ArrayList<FollowData>) {
-        tabLayout_show_recyclerView.adapter = FollowAdapter(
-            followData
-        ) {
+        val toFollow = { data: FollowData, view: View ->
+            val btn = view.itemFollow_follow_button
+            distinguishButtonImage(data, btn)
+
+            btn.setOnClickListener {
+                data.following = !data.following
+                distinguishButtonImage(data, btn)
+
+                if (data.currentIndex == 0) {
+                    followPresenter.sendFollowingState()
+                } else {
+                    followPresenter.sendFollowerState()
+                }
+            }
+        }
+
+        val showUser = { it: FollowData ->
             val intent = Intent()
             intent.putExtra("user_email", it.email)
             startActivity(intent)
             finish()
+        }
+
+        tabLayout_show_recyclerView.adapter = FollowAdapter(followData, toFollow, showUser)
+    }
+
+    private fun distinguishButtonImage(data: FollowData, btn: Button) {
+        if (data.following) {
+            btn.background = getDrawable(R.drawable.following_button)
+        } else {
+            btn.background = getDrawable(R.drawable.to_follow_button)
         }
     }
 
