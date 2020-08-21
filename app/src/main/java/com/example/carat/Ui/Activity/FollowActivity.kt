@@ -65,9 +65,9 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
                 distinguishButtonImage(data, btn)
 
                 if (data.currentIndex == 0) {
-                    followPresenter.sendFollowingState()
+                    followPresenter.sendFollowingState(data.email)
                 } else {
-                    followPresenter.sendFollowerState()
+                    followPresenter.sendFollowerState(data.email)
                 }
             }
         }
