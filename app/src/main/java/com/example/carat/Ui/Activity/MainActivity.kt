@@ -4,21 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.example.carat.Model.UserObject
 import com.example.carat.R
 import com.example.carat.Repository.Repository
-import com.example.carat.Ui.Fragment.ProfileFragment
+import com.example.carat.Ui.Adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var prevMenuItem: MenuItem? = null
+    private var isHave: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         clickWritingButton()
+        getProfile()
+        setPagerAdapter()
         setBottomNavigation()
     }
 
@@ -29,65 +30,41 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBottomNavigation() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.menu_home_item, Fragment())
-            .commitAllowingStateLoss()
+    private fun getProfile() {
+        isHave = intent.getBooleanExtra("follow", false)
 
+        if (isHave) {
+            main_tab_bottomNavigation.selectedItemId = R.id.menu_profile_item
+            UserObject.getInstance().email =
+                intent.getStringExtra("email") ?: UserObject.getInstance().email
+        } else {
+            UserObject.getInstance().email = Repository().getEmail()!!
+        }
+    }
+
+    private fun setPagerAdapter() {
+        main_frameLayout.adapter = ViewPagerAdapter(supportFragmentManager, isHave)
+        if (!isHave) main_frameLayout.currentItem = 0
+    }
+
+    private fun setBottomNavigation() {
         main_tab_bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home_item -> {
-                    transaction.replace(R.id.main_frameLayout, ProfileFragment())
-                        .commitAllowingStateLoss()
-
                     it.setIcon(R.drawable.icon_home_fill)
                     main_tab_bottomNavigation.menu.findItem(R.id.menu_profile_item)
                         .setIcon(R.drawable.icon_profile_outline)
+                    main_frameLayout.currentItem = 0
                 }
                 R.id.menu_profile_item -> {
-                    if (intent.getBooleanExtra("follow", false)) {
-                        main_tab_bottomNavigation.selectedItemId = R.id.menu_profile_item
-                        UserObject.getInstance().email = intent.getStringExtra("email") ?: UserObject.getInstance().email
-                    } else {
-                        UserObject.getInstance().email = Repository().getEmail()!!
-                    }
-
-                    transaction.replace(R.id.main_frameLayout, ProfileFragment())
-                        .commitAllowingStateLoss()
-
                     it.setIcon(R.drawable.icon_profile_fill)
                     main_tab_bottomNavigation.menu.findItem(R.id.menu_home_item)
                         .setIcon(R.drawable.icon_home_outline)
+                    main_frameLayout.currentItem = 1
                 }
             }
 
             true
         }
     }
-
-//    private fun setupViewPager() {
-//        main_page_viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
-//    }
-//
-//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.menu_home_item -> main_page_viewpager.currentItem = 0
-//            R.id.menu_profile_item -> main_page_viewpager.currentItem = 1
-//        }
-//        return false
-//    }
-//
-//    override fun onPageSelected(position: Int) {
-//        if (prevMenuItem != null) {
-//            prevMenuItem!!.isChecked = false
-//        } else {
-//            main_tab_bottomNavigation.menu.getItem(0).isChecked = false
-//        }
-//
-//        main_tab_bottomNavigation.menu.getItem(position).isChecked = true
-//        prevMenuItem = main_tab_bottomNavigation.menu.getItem(position)
-//    }
-//
-//    override fun onPageScrollStateChanged(state: Int) {}
-//    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 }
