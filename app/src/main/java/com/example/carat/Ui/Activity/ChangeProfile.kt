@@ -60,15 +60,8 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     private fun initUserInfo() {
         val data = UserObject.getInstance()
 
-        Glide.with(this)
-            .load(data.background)
-            .error(R.drawable.image_default_background)
-            .into(changeProfile_cover_imageView)
-        Glide.with(this)
-            .load(data.profile)
-            .error(R.drawable.image_default_profile)
-            .circleCrop()
-            .into(changeProfile_profile_imageView)
+        Glide.with(this).load(data.background).into(changeProfile_cover_imageView)
+        Glide.with(this).load(data.profile).circleCrop().into(changeProfile_profile_imageView)
         changeProfile_name_editText.setText(data.name)
         changeProfile_introduction_editText.setText(data.introduction)
     }
@@ -136,13 +129,15 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         if (profileUri != null) {
             val profile = File(getPathFromUri(profileUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), profile)
-            editUserData.profileToUpload = MultipartBody.Part.createFormData("file", profile.name, file)
+            editUserData.profileToUpload =
+                MultipartBody.Part.createFormData("file", profile.name, file)
         }
 
         if (backUri != null) {
             val backfile = File(getPathFromUri(backUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), backfile)
-            editUserData.backToUpload = MultipartBody.Part.createFormData("file", backfile.name, file)
+            editUserData.backToUpload =
+                MultipartBody.Part.createFormData("file", backfile.name, file)
         }
 
         changeProfilePresenter.updateProfileWithImage(editUserData)
