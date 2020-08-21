@@ -27,6 +27,7 @@ class Repository() {
     fun getLoginState(): Boolean? = sharedPreferences?.isLogin
     fun getAccess(): String? = sharedPreferences?.saveToken
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
+    fun getEmail() = sharedPreferences?.saveEmail
 
     suspend fun getProfile(path: String): UserData {
         return withContext(Dispatchers.IO) {

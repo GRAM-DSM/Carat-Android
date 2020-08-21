@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.carat.R
+import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ViewPagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         clickWritingButton()
         setupViewPager()
+
+        if (intent.getBooleanExtra("follow", false)) {
+            main_tab_bottomNavigation.selectedItemId = R.id.menu_profile_item
+        }
     }
 
     private fun clickWritingButton() {
