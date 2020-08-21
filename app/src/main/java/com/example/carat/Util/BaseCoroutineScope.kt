@@ -4,14 +4,15 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
 open class BaseCoroutineScope : CoroutineScope {
     val job = Job()
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.IO
+    override val coroutineContext: CoroutineContext   // 3
+        get() = Main + job
 
     val handler = CoroutineExceptionHandler { _, throwable ->
         val e: HttpException = throwable as HttpException

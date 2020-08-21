@@ -5,6 +5,7 @@ import com.example.carat.Model.EditUserData
 interface ChangeProfileContract {
     interface View {
         fun convertToImage(editUserData: EditUserData)
+        fun moveLoginPage()
     }
 
     interface Presenter {

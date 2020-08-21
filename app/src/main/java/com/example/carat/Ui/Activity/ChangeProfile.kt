@@ -133,7 +133,6 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         val profileUri = editUserData.profileUri
         val backUri = editUserData.backUri
 
-
         if (profileUri != null) {
             val profile = File(getPathFromUri(profileUri)!!)
             val file: RequestBody = RequestBody.create(MediaType.parse("image/*"), profile)
@@ -147,6 +146,12 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
         }
 
         changeProfilePresenter.updateProfileWithImage(editUserData)
+    }
+
+    override fun moveLoginPage() {
+        val loginIntent = Intent(this, SignInUpActivity::class.java)
+        loginIntent.putExtra("isLogin", true)
+        startActivity(loginIntent)
     }
 
     private fun getPathFromUri(uri: Uri): String? {
