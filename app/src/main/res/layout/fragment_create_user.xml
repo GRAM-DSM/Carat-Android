@@ -71,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:maxEms="30"
         android:textSize="18dp" />
 
     <TextView
@@ -87,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
+        android:maxEms="30"
         android:textSize="18dp" />
 
     <TextView
