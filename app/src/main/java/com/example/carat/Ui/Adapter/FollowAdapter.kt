@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.item_follow.view.*
 
 class FollowAdapter(
     private val followList: ArrayList<FollowData>,
-    private val clickListener: View.OnClickListener
+    private val clickAction: (FollowData) -> Unit
 ) : RecyclerView.Adapter<FollowAdapter.FollowVH>() {
     class FollowVH(view: View) : RecyclerView.ViewHolder(view)
 
@@ -24,13 +24,12 @@ class FollowAdapter(
         val data: FollowData = followList[position]
         holder.itemView.apply {
             Glide.with(this)
-                .load(data.image)
-                .error(R.drawable.image_default_background)
+                .load(data.profile_image)
                 .circleCrop()
                 .into(itemFollow_profile_imageView)
             itemFollow_name_textView.text = data.name
             itemFollow_email_textView.text = data.email
-            itemFollow_follow_button.setOnClickListener(clickListener)
+            itemFollow_follow_button.setOnClickListener { clickAction }
         }
     }
 }

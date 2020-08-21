@@ -19,7 +19,7 @@ class TokenAuthenticator(val context: Context) : Interceptor {
             CoroutineScope(Dispatchers.Main).launch {
                 val token = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
                         CaratClient.caratApi.reissueToken(TokenData.getInstance().refresh_token)
-                    }.token
+                    }.access_token
 
                 SharedPreferencesManager(MyApp.context!!).saveToken = token
                 TokenData.getInstance().access_token = token

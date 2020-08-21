@@ -1,8 +1,10 @@
 package com.example.carat.Presenter.Profile
 
+import com.example.carat.Model.FollowData
+
 interface FollowContract {
     interface View {
-        fun changeButtonImage()
+        fun setFollowAdapter(followData: ArrayList<FollowData>)
     }
 
     interface Presenter {

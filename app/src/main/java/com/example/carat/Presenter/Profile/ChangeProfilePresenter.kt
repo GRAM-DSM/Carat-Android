@@ -13,7 +13,7 @@ import retrofit2.Call
 class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
     ChangeProfileContract.Presenter, BaseCoroutineScope() {
 
-    val data = UserObject.getInstance()
+    private val data = UserObject.getInstance()
     private val repository: Repository = Repository()
     private val hashMap: HashMap<String, Any> = HashMap()
 
