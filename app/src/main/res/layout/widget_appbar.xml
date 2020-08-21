@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="top"
         android:orientation="horizontal">
 
         <ImageView
@@ -23,9 +23,8 @@
             android:id="@+id/appbar_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/carat_font"
             android:textSize="25sp"
-            android:textColor="#000"/>
+            android:textColor="@color/black"/>
 
         <View
             android:layout_width="0dp"
@@ -36,7 +35,6 @@
             android:id="@+id/appbar_save_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/carat_font"
             android:paddingEnd="30dp"
             android:textSize="21sp"
             tools:ignore="RtlSymmetry" />

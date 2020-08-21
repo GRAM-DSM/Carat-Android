@@ -1,4 +1,4 @@
-package com.example.carat.Presenter.Profile
+package com.example.carat.Presenter.SignInUp
 
 interface LoginContract {
 

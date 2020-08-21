@@ -44,7 +44,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#0000"
-            android:fontFamily="@font/carat_font"
             android:hint="@string/writing_message"
             android:inputType="textPersonName" />
     </LinearLayout>

@@ -1,6 +1,9 @@
 package com.example.carat.Presenter.Writing
 
-class WritingPresenter(var writingView: WritingContract.View): WritingContract.Presenter {
+import com.example.carat.Util.BaseCoroutineScope
+
+class WritingPresenter(var writingView: WritingContract.View) : WritingContract.Presenter,
+    BaseCoroutineScope() {
     override fun getProfileImage() {}
     override fun saveContent() {}
 }

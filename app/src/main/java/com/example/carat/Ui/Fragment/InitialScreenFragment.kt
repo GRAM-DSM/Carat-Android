@@ -15,23 +15,18 @@ class InitialScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        changedView()
 
-        return inflater.inflate(R.layout.fragment_initial_screen, container, false)
-    }
-
-
-    fun changedView() {
-        initial_create_button.setOnClickListener{
+        initial_create_button.setOnClickListener {
             val intent = Intent(context, CreateUserFragment::class.java)
             startActivity(intent)
         }
 
-        initial_login_button.setOnClickListener {
+        initial_login_button.setOnClickListener{
             val intent = Intent(context,LoginFragment::class.java)
             startActivity(intent)
         }
-    }
 
+        return inflater.inflate(R.layout.fragment_initial_screen, container, false)
+    }
 
 }

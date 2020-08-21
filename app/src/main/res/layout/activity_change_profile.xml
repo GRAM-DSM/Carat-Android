@@ -45,27 +45,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name" />
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/changeProfile_name_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="24dp"
-            android:text="@string/introduction" />
+            android:text="@string/introduction"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/changeProfile_introduction_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <TextView
@@ -75,6 +81,8 @@
         android:layout_marginBottom="16dp"
         android:paddingBottom="36dp"
         android:text="@string/logOut"
+        android:textColor="@color/gray"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
