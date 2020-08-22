@@ -6,9 +6,7 @@ import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
 
 class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
     ChangeProfileContract.Presenter, BaseCoroutineScope() {
@@ -33,7 +31,7 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
                 view.convertToImage(editUserData)
             } else {
                 CoroutineScope(coroutineContext).launch(handler) {
-                    repository.updateProifle(hashMap)
+                    repository.updateProfile(hashMap)
                 }
             }
         }
@@ -48,7 +46,7 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
         }
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.updateProifle(hashMap)
+            repository.updateProfile(hashMap)
         }
     }
 }

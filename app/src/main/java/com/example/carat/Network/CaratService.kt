@@ -1,10 +1,8 @@
 package com.example.carat.Network
 
 import com.example.carat.Model.*
-import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
-import java.util.*
 import kotlin.collections.HashMap
 
 interface CaratService {
@@ -17,7 +15,7 @@ interface CaratService {
         @Header("Authorization") authorization: String,
         @FieldMap image: HashMap<String, Any>,
         @Body caring: String
-    )
+    ): CreateCaringData
 
     @GET("profile/{email}")
     suspend fun getProfile(

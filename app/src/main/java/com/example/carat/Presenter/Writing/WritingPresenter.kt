@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 class WritingPresenter(val writingView: WritingContract.View) : WritingContract.Presenter,
     BaseCoroutineScope() {
 
-    val repository: Repository = Repository()
+    private val repository: Repository = Repository()
 
     override fun saveContent() {
         CoroutineScope(coroutineContext).launch(handler) {

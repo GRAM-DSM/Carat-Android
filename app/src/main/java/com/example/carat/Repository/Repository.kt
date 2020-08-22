@@ -29,13 +29,19 @@ class Repository() {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
+    suspend fun createCaring(hashMap: HashMap<String, Any>, content: String): CreateCaringData {
+        return withContext(Dispatchers.IO) {
+            api.createCaring(TokenData.getInstance().access_token, hashMap, content)
+        }
+    }
+
     suspend fun getProfile(path: String): UserData {
         return withContext(Dispatchers.IO) {
             api.getProfile(TokenData.getInstance().access_token, path)
         }
     }
 
-    suspend fun updateProifle(hash: HashMap<String, Any>): Call<Unit> {
+    suspend fun updateProfile(hash: HashMap<String, Any>): Call<Unit> {
         return withContext(Dispatchers.IO) {
             api.modifyProfile(TokenData.getInstance().access_token, hash)
         }
