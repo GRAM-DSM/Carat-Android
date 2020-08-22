@@ -5,6 +5,7 @@ import com.example.carat.Network.CaratClient
 import com.example.carat.Util.MyApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import retrofit2.Call
 
 class Repository() {
@@ -29,9 +30,9 @@ class Repository() {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
-    suspend fun createCaring(hashMap: HashMap<String, Any>, content: String): CreateCaringData {
+    suspend fun createCaring(images: ArrayList<MultipartBody.Part>, content: String): CreateCaringData {
         return withContext(Dispatchers.IO) {
-            api.createCaring(TokenData.getInstance().access_token, hashMap, content)
+            api.createCaring(TokenData.getInstance().access_token, images, content)
         }
     }
 

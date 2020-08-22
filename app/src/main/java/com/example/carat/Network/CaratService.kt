@@ -1,6 +1,7 @@
 package com.example.carat.Network
 
 import com.example.carat.Model.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 import kotlin.collections.HashMap
@@ -13,7 +14,7 @@ interface CaratService {
     @POST("caring")
     suspend fun createCaring(
         @Header("Authorization") authorization: String,
-        @FieldMap image: HashMap<String, Any>,
+        @Field("image") images: ArrayList<MultipartBody.Part>,
         @Body caring: String
     ): CreateCaringData
 

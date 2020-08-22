@@ -4,15 +4,21 @@ import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
-class WritingPresenter(val writingView: WritingContract.View) : WritingContract.Presenter,
+class WritingPresenter : WritingContract.Presenter,
     BaseCoroutineScope() {
 
     private val repository: Repository = Repository()
+    private val images: ArrayList<MultipartBody.Part> = arrayListOf()
 
-    override fun saveContent() {
+    override fun addImage(image: MultipartBody.Part) {
+        images.add(image)
+    }
+
+    override fun saveContent(content: String) {
         CoroutineScope(coroutineContext).launch(handler) {
-            repository
+            repository.createCaring(images, content)
         }
     }
 }

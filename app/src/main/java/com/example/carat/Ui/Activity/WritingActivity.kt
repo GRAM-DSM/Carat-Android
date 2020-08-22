@@ -12,8 +12,8 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.activity_writing.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
 
-class WritingActivity : AppCompatActivity(), WritingContract.View {
-    private val writingPresenter: WritingContract.Presenter = WritingPresenter(this)
+class WritingActivity : AppCompatActivity() {
+    private val writingPresenter: WritingContract.Presenter = WritingPresenter()
     private val appbar: Toolbar by lazy {
         writing_appbar_include.widget_toolbar
     }
@@ -42,7 +42,8 @@ class WritingActivity : AppCompatActivity(), WritingContract.View {
                 finish()
             }
             appbar_save_textView.setOnClickListener {
-                writingPresenter.saveContent()
+                val content: String = writing_content_editText.text.toString()
+                if (content != "") writingPresenter.saveContent(content)
                 finish()
             }
         }
