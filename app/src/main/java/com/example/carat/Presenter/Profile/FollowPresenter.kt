@@ -35,13 +35,13 @@ class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
 
     override fun sendFollowingState(email: String) {
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.doFollow(UserObject.getInstance().email)
+            repository.doFollow(email)
         }
     }
 
     override fun sendFollowerState(email: String) {
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.cancelFollow(UserObject.getInstance().email)
+            repository.cancelFollow(email)
         }
     }
 }

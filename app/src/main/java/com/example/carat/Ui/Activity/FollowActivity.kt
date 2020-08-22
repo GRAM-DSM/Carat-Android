@@ -75,8 +75,9 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
 
         val showUser = { it: FollowData ->
             UserObject.getInstance().email = it.email
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ShowUserActivity::class.java)
             intent.putExtra("follow", true)
+            intent.putExtra("isFollow", it.following)
             intent.putExtra("email", it.email)
             startActivity(intent)
             finish()

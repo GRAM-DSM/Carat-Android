@@ -11,14 +11,11 @@ import com.example.carat.Ui.Adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private var isHave: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         clickWritingButton()
-        getProfile()
         setPagerAdapter()
         setBottomNavigation()
     }
@@ -30,21 +27,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getProfile() {
-        isHave = intent.getBooleanExtra("follow", false)
-
-        if (isHave) {
-            main_tab_bottomNavigation.selectedItemId = R.id.menu_profile_item
-            UserObject.getInstance().email =
-                intent.getStringExtra("email") ?: UserObject.getInstance().email
-        } else {
-            UserObject.getInstance().email = Repository().getEmail()!!
-        }
-    }
 
     private fun setPagerAdapter() {
-        main_frameLayout.adapter = ViewPagerAdapter(supportFragmentManager, isHave)
-        if (!isHave) main_frameLayout.currentItem = 0
+        main_frameLayout.adapter = ViewPagerAdapter(supportFragmentManager)
+        main_frameLayout.currentItem = 0
     }
 
     private fun setBottomNavigation() {
