@@ -11,6 +11,14 @@ interface CaratService {
     @GET("user/auth")
     suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
 
+    @FormUrlEncoded
+    @POST("caring")
+    suspend fun createCaring(
+        @Header("Authorization") authorization: String,
+        @FieldMap image: HashMap<String, Any>,
+        @Body caring: String
+    )
+
     @GET("profile/{email}")
     suspend fun getProfile(
         @Header("Authorization") authorization: String,
