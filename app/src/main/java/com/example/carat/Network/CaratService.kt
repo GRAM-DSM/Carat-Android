@@ -17,6 +17,12 @@ interface CaratService {
         @Path("email") email: String
     ): UserData
 
+    @GET("carat/{id}/list")
+    suspend fun getCaratList(
+        @Header("Authorization") authorization: String,
+        @Path("id") id: String
+    ): CaratData
+
     @FormUrlEncoded
     @PUT("profile")
     suspend fun modifyProfile(
