@@ -9,7 +9,7 @@ interface CaratService {
     suspend fun login(@Field("password") password: String, @Field("email") email: String): TokenData
 
     @GET("/user/auth")
-    suspend fun reissueToken(@Header("Authorization") authorization: String): ServerMessag
+    suspend fun reissueToken(@Header("Authorization") authorization: String): ServerMessage
   
     @POST ("/user")
     suspend fun signUp(
