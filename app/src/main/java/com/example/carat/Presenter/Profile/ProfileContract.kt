@@ -4,6 +4,7 @@ interface ProfileContract {
     interface View {
         fun setProfileInfo()
     }
+
     interface Presenter {
         fun getProfileInfo()
     }

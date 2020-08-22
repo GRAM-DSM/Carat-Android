@@ -4,6 +4,7 @@ interface FollowContract {
     interface View {
 
     }
+
     interface Presenter {
 
     }

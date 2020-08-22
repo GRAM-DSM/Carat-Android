@@ -1,6 +1,8 @@
 package com.example.carat.Presenter.Profile
 
-class ChangeProfilePresenter : ChangeProfileContract.Presenter {
+import com.example.carat.Util.BaseCoroutineScope
+
+class ChangeProfilePresenter : ChangeProfileContract.Presenter, BaseCoroutineScope() {
     override fun doLogOut() {}
     override fun uploadCarat() {}
 }

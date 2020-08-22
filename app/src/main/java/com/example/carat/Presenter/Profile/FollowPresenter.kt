@@ -1,3 +1,6 @@
 package com.example.carat.Presenter.Profile
 
-class FollowPresenter(var view: ProfileContract.View): FollowContract.Presenter
+import com.example.carat.Util.BaseCoroutineScope
+
+class FollowPresenter(var view: ProfileContract.View) : FollowContract.Presenter,
+    BaseCoroutineScope()
