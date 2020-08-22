@@ -7,7 +7,6 @@ interface CreateUserContract {
     }
 
     interface Presenter{
-        fun saveData()
-        fun sendDataToServer()
+        fun sendDataToServer(name: String, email: String, password: String)
     }
 }
