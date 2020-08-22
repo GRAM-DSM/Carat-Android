@@ -1,9 +1,18 @@
 package com.example.carat.Presenter.Writing
 
+import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-class WritingPresenter(var writingView: WritingContract.View) : WritingContract.Presenter,
+class WritingPresenter(val writingView: WritingContract.View) : WritingContract.Presenter,
     BaseCoroutineScope() {
-    override fun getProfileImage() {}
-    override fun saveContent() {}
+
+    val repository: Repository = Repository()
+
+    override fun saveContent() {
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository
+        }
+    }
 }
