@@ -2,6 +2,7 @@ package com.example.carat.Ui.Activity
 
 import android.content.ClipData
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +11,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.marginTop
 import com.bumptech.glide.Glide
 import com.example.carat.Model.UserObject
 import com.example.carat.Presenter.Writing.WritingContract
@@ -18,6 +18,10 @@ import com.example.carat.Presenter.Writing.WritingPresenter
 import com.example.carat.R
 import kotlinx.android.synthetic.main.activity_writing.*
 import kotlinx.android.synthetic.main.widget_appbar.view.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class WritingActivity : AppCompatActivity() {
     private val PICTURE_REQUEST_CODE = 100
@@ -93,8 +97,9 @@ class WritingActivity : AppCompatActivity() {
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT, 1f
                     )
-                    
+
                     layoutParams.setMargins(0, 10, 0, 0)
+                    writingPresenter.addImage(getImageFromUri(uri))
 
                     val imageView = ImageView(this)
                     imageView.setImageURI(uri)
@@ -103,5 +108,25 @@ class WritingActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun getImageFromUri(uri: Uri): MultipartBody.Part {
+        val file = File(convertImageToPart(uri)!!)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
+        return MultipartBody.Part.createFormData("file", file.name, requestBody)
+    }
+
+    private fun convertImageToPart(uri: Uri): String? {
+        val cursor: Cursor? = this.contentResolver.query(uri, null, null, null, null)
+        val path = if (cursor == null) {
+            uri.path
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            cursor.getString(idx)
+        }
+
+        cursor?.close()
+        return path
     }
 }

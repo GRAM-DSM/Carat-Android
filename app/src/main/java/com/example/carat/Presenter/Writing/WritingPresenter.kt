@@ -12,6 +12,10 @@ class WritingPresenter : WritingContract.Presenter,
     private val repository: Repository = Repository()
     private val images: ArrayList<MultipartBody.Part> = arrayListOf()
 
+    override fun clearImage() {
+        images.clear()
+    }
+
     override fun addImage(image: MultipartBody.Part) {
         images.add(image)
     }
