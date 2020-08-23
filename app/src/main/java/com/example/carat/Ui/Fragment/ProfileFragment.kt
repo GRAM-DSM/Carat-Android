@@ -13,6 +13,7 @@ import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Activity.ChangeProfile
+import com.example.carat.Ui.Activity.FollowActivity
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
@@ -43,6 +44,14 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             info.profile_subscriptionDay_textView.text = profile.created_at
             info.profile_followingCount_textView.text = profile.following_count.toString()
             info.profile_followersCount_textView.text = profile.follower_count.toString()
+
+            val intent = Intent(activity, FollowActivity::class.java)
+            info.profile_followingCount_textView.setOnClickListener {
+                startActivity(intent)
+            }
+            info.profile_followersCount_textView.setOnClickListener {
+                startActivity(intent)
+            }
 
             info.profile_button_imageView.setOnClickListener {
                 startActivity(Intent(activity, ChangeProfile::class.java))
