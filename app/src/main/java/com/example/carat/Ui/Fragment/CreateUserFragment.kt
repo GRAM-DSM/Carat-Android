@@ -12,8 +12,8 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.fragment_create_user.*
 
 class CreateUserFragment : Fragment() ,CreateUserContract.View{
-    private val createuserPresenter: CreateUserContract.Presenter by lazy{
-        CreateUserPresenter(this)
+    private val createUserPresenter: CreateUserContract.Presenter by lazy{
+        CreateUserPresenter()
     }
 
     private var name:String? = null
@@ -32,10 +32,16 @@ class CreateUserFragment : Fragment() ,CreateUserContract.View{
 
         create_sign_button.setOnClickListener {
             getData()
+            sendDataToServer(name,email,password)
 
             val intent = Intent(context,LoginFragment::class.java)
             intent.putExtra("createUser_email",email)
             intent.putExtra("createUser_password",password)
+            startActivity(intent)
+        }
+
+        create_back_button.setOnClickListener {
+            val intent = Intent(context,InitialScreenFragment::class.java)
             startActivity(intent)
         }
 
@@ -48,6 +54,10 @@ class CreateUserFragment : Fragment() ,CreateUserContract.View{
         password = create_password_editText.text?.toString()
     }
 
-
+    private fun sendDataToServer(name: String?, email: String?, password: String?) {
+        if (name != null && email != null && password != null) {
+            createUserPresenter.sendDataToServer(name,email,password)
+        }
+    }
 
 }
