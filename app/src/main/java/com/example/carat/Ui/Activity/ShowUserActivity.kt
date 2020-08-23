@@ -1,41 +1,40 @@
-package com.example.carat.Ui.Fragment
+package com.example.carat.Ui.Activity
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.carat.Model.UserData
-import com.example.carat.Presenter.Profile.ProfileContract
-import com.example.carat.Presenter.Profile.ProfilePresenter
+import com.example.carat.Presenter.Profile.ShowContract
+import com.example.carat.Presenter.Profile.ShowPresenter
 import com.example.carat.R
-import com.example.carat.Ui.Activity.ChangeProfile
-import com.example.carat.Ui.Activity.FollowActivity
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_show_user.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
-class ProfileFragment : Fragment(), ProfileContract.View {
-    private val profilePresenter: ProfilePresenter = ProfilePresenter(this)
+class ShowUserActivity : AppCompatActivity(), ShowContract.View {
+    private val showPresenter: ShowPresenter = ShowPresenter(this)
+    val email: String by lazy {
+        intent.getStringExtra("email")!!
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_show_user)
 
-        profilePresenter.getProfileInfo()
-        setProfileCarat()
-        return view
+        if (intent.getBooleanExtra("follow", false)) {
+            showPresenter.getProfileInfo(email)
+            setProfileCarat()
+        } else {
+            finish()
+        }
     }
 
     override fun setProfileInfo(profile: UserData) {
         if (profile.message != "") {
-            val info = profile_info_include
+            val info = show_info_include
             Glide.with(this).load(profile.cover_image_url).into(info.profile_background_imageView)
             Glide.with(this).load(profile.profile_image_url).into(info.profile_user_imageView)
             info.profile_userName_textView.text = profile.name
@@ -44,20 +43,25 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             info.profile_subscriptionDay_textView.text = profile.created_at
             info.profile_followingCount_textView.text = profile.following_count.toString()
             info.profile_followersCount_textView.text = profile.follower_count.toString()
+            setButtonAction()
+        } else {
+            Toast.makeText(this, profile.message, Toast.LENGTH_LONG).show()
+        }
+    }
 
-            val intent = Intent(activity, FollowActivity::class.java)
-            info.profile_followingCount_textView.setOnClickListener {
-                startActivity(intent)
-            }
-            info.profile_followersCount_textView.setOnClickListener {
-                startActivity(intent)
-            }
+    private fun setButtonAction() {
+        val isFollow = intent.getBooleanExtra("isFollow", false)
 
-            info.profile_button_imageView.setOnClickListener {
-                startActivity(Intent(activity, ChangeProfile::class.java))
+        if (isFollow) {
+            show_info_include.profile_button_imageView.setImageResource(R.drawable.following_button)
+            show_info_include.profile_button_imageView.setOnClickListener {
+                showPresenter.cancelFollow(email)
             }
         } else {
-            Toast.makeText(activity, profile.message, Toast.LENGTH_LONG).show()
+            show_info_include.profile_button_imageView.setImageResource(R.drawable.to_follow_button)
+            show_info_include.profile_button_imageView.setOnClickListener {
+                showPresenter.doFollow(email)
+            }
         }
     }
 
@@ -74,6 +78,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-        profilePresenter.job.cancel()
+        showPresenter.job.cancel()
     }
 }

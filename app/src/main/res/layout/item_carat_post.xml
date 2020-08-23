@@ -27,7 +27,7 @@
                 android:id="@+id/itemCarat_showIcon_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_recarring"
+                android:src="@drawable/icon_re_gray"
                 android:visibility="gone" />
 
             <ImageView
@@ -122,18 +122,11 @@
                         android:textSize="15sp"
                         tools:text="내용" />
 
-                    <TextView
-                        android:id="@+id/itemCarat_link_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
-                        android:textSize="15sp"
-                        tools:text="링크" />
-
                     <GridLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:columnCount="2"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal"
                         android:rowCount="2">
 
@@ -176,9 +169,9 @@
 
         <ImageView
             android:id="@+id/itemCarat_recarring_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_recarring" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_re_gray" />
 
         <TextView
             android:id="@+id/itemCarat_recarring_textView"

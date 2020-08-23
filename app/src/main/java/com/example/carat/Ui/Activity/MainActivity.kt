@@ -4,22 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
+import com.example.carat.Model.UserObject
 import com.example.carat.R
+import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ViewPagerAdapter
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
-    ViewPager.OnPageChangeListener {
-    private var prevMenuItem: MenuItem? = null
-
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         clickWritingButton()
-        setupViewPager()
+        setPagerAdapter()
+        setBottomNavigation()
     }
 
     private fun clickWritingButton() {
@@ -29,29 +27,30 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    private fun setupViewPager() {
-        main_page_viewpager.adapter = ViewPagerAdapter(supportFragmentManager)
+
+    private fun setPagerAdapter() {
+        main_frameLayout.adapter = ViewPagerAdapter(supportFragmentManager)
+        main_frameLayout.currentItem = 0
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_home_item -> main_page_viewpager.currentItem = 0
-            R.id.menu_profile_item -> main_page_viewpager.currentItem = 1
+    private fun setBottomNavigation() {
+        main_tab_bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home_item -> {
+                    it.setIcon(R.drawable.icon_home_fill)
+                    main_tab_bottomNavigation.menu.findItem(R.id.menu_profile_item)
+                        .setIcon(R.drawable.icon_profile_outline)
+                    main_frameLayout.currentItem = 0
+                }
+                R.id.menu_profile_item -> {
+                    it.setIcon(R.drawable.icon_profile_fill)
+                    main_tab_bottomNavigation.menu.findItem(R.id.menu_home_item)
+                        .setIcon(R.drawable.icon_home_outline)
+                    main_frameLayout.currentItem = 1
+                }
+            }
+
+            true
         }
-        return false
     }
-
-    override fun onPageSelected(position: Int) {
-        if (prevMenuItem != null) {
-            prevMenuItem!!.isChecked = false
-        } else {
-            main_tab_bottomNavigation.menu.getItem(0).isChecked = false
-        }
-
-        main_tab_bottomNavigation.menu.getItem(position).isChecked = true
-        prevMenuItem = main_tab_bottomNavigation.menu.getItem(position)
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {}
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 }
