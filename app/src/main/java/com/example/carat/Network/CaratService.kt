@@ -1,14 +1,11 @@
 package com.example.carat.Network
 
 import com.example.carat.Model.*
-import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
-import java.util.*
 import kotlin.collections.HashMap
 import com.example.carat.Model.ServerMessage
 import com.example.carat.Model.TokenData
-import retrofit2.http.*
 
 interface CaratService {
     @GET("user/auth")
@@ -37,7 +34,7 @@ interface CaratService {
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
         @Body body: HashMap<String, Int>
-    ): PostData
+    ): ProfileTimeLinePostData
 
     @POST("/recaring")
     suspend fun recaring(
