@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.carat.Model.Post
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
@@ -61,13 +62,21 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
+    override fun setProfileAdapter(post: ArrayList<Post>) {
+        profile_tab_include.tabLayout_show_recyclerView.adapter
+    }
+
     private fun setProfileCarat() {
         val tab = profile_tab_include.tabLayout_carat
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val pos = tab!!.position
+                if(tab!!.position == 0) {
+                    profilePresenter.getCaring()
+                } else {
+                    profilePresenter.getCarat()
+                }
             }
         })
     }

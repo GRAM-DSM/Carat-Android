@@ -32,6 +32,13 @@ interface CaratService {
         @Field("last_caring_id") caring_id: Int
     )
 
+    @GET("timeline/{email}")
+    suspend fun getProfileTimeLine(
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String,
+        @Body body: ProfileTimeLineParameter
+    ): PostData
+
     @POST("/recaring")
     suspend fun recaring(
         @Header("Authorization") Authorization: String,

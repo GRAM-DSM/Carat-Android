@@ -1,6 +1,6 @@
 package com.example.carat.Model
 
-data class PostData(
+data class ProfileTimeLineData(
     var result: ArrayList<Post> = arrayListOf(),
     var message: String = ""
 )
