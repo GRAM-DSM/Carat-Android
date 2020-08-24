@@ -15,6 +15,7 @@ import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Activity.ChangeProfile
 import com.example.carat.Ui.Activity.FollowActivity
+import com.example.carat.Ui.Adapter.TimeLineAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
@@ -63,7 +64,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun setProfileAdapter(post: ArrayList<Post>) {
-        profile_tab_include.tabLayout_show_recyclerView.adapter
+        profile_tab_include.tabLayout_show_recyclerView.adapter = TimeLineAdapter(post)
     }
 
     private fun setProfileCarat() {

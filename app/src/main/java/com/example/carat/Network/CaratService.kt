@@ -36,7 +36,7 @@ interface CaratService {
     suspend fun getProfileTimeLine(
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
-        @Body body: ProfileTimeLineParameter
+        @Body body: HashMap<String, Int>
     ): PostData
 
     @POST("/recaring")
