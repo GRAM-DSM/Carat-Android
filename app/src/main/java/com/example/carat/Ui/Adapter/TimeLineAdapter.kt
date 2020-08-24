@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.carat.Model.TimeLinePost
@@ -32,9 +33,10 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Time
             itemCarat_email_textView.text = item.owner.email
             itemCarat_time_textView.text = item.post_time
             itemCarat_content_textView.text = item.body
-            itemCarat_recarring_textView.text = item.recaring_count.toString()
+            itemCarat_reCaring_textView.text = item.recaring_count.toString()
             itemCarat_like_textView.text = item.carat_count.toString()
             setImages(this, item)
+            setCarats(this, item)
         }
     }
 
@@ -54,6 +56,32 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Time
             if (image.size == 4) {
                 Glide.with(context).load(item.body_images[3]).into(itemCarat_grid4_imageView)
             }
+        }
+    }
+
+    private fun setCarats(view: View, item: TimeLinePost) {
+        if (item.me_recaring) {
+            view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
+            view.itemCarat_reCaring_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.mainColor)
+            )
+        } else {
+            view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re_gray)
+            view.itemCarat_reCaring_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.gray)
+            )
+        }
+
+        if (item.me_carat) {
+            view.itemCarat_like_imageView.setImageResource(R.drawable.icon_maiin_logo)
+            view.itemCarat_like_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.mainColor)
+            )
+        } else {
+            view.itemCarat_like_imageView.setImageResource(R.drawable.icon_carat_gray)
+            view.itemCarat_like_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.gray)
+            )
         }
     }
 }
