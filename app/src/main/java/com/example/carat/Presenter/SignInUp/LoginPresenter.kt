@@ -1,9 +1,17 @@
 package com.example.carat.Presenter.SignInUp
 
-class LoginPresenter :
-    LoginContract.Presenter{
+import com.example.carat.Repository.Repository
+import com.example.carat.Util.BaseCoroutineScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+
+class LoginPresenter(var view: LoginContract.View) : LoginContract.Presenter,
+    BaseCoroutineScope() {
+
+    private val repository: Repository = Repository()
 
     override fun sendDataToServer(email: String, password: String) {
-
+        CoroutineScope(coroutineContext).launch {
+        }
     }
 }
