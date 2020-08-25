@@ -26,6 +26,26 @@ class Repository(var context: Context) {
     fun getLoginState(): Boolean? = sharedPreferences?.isLogin
     fun getAccess(): String? = sharedPreferences?.saveToken
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
-    
+
+    suspend fun signUp(body: HashMap<String, String>): ServerMessage{
+        return withContext(Dispatchers.IO){
+            api.signUp(body)
+        }
+    }
+
+    suspend fun login(body: HashMap<String, String>): TokenData{
+        return withContext(Dispatchers.IO){
+            api.login(body)
+        }
+    }
+
+    suspend fun deleteUser():ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.deleteUser(TokenData.getInstance().access_token)
+        }
+    }
+
+
+
 
 }

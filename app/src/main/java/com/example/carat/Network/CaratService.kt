@@ -1,5 +1,6 @@
 package com.example.carat.Network
 
+import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import com.example.carat.Model.ServerMessage
 import com.example.carat.Model.TokenData
 import retrofit2.http.*
@@ -7,8 +8,7 @@ import retrofit2.http.*
 interface CaratService {
     @POST("/user/auth")
     suspend fun login(
-        @Body password: String,
-        @Body email: String
+        @Body body: HashMap<String,String>
     ): TokenData
 
     @GET("/user/auth")
@@ -16,10 +16,9 @@ interface CaratService {
   
     @POST ("/user")
     suspend fun signUp(
-        @Body name: String,
-        @Body email: String,
-        @Body password: String
+        @Body body :HashMap<String, String>
     ) : ServerMessage
+
 
     @DELETE("/user")
     suspend fun deleteUser(
@@ -28,8 +27,7 @@ interface CaratService {
 
     @GET("/timeline")
     suspend fun getTimeLine(
-        @Body size: Int,
-        @Body caring_id: Int
+        @Body body: HashMap<String,Int>
     )
 
     @GET("/caring/detail/<id>")

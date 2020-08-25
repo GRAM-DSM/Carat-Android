@@ -8,10 +8,9 @@ import kotlinx.coroutines.launch
 class LoginPresenter(var view: LoginContract.View) : LoginContract.Presenter,
     BaseCoroutineScope() {
 
-    private val repository: Repository = Repository()
-
     override fun sendDataToServer(email: String, password: String) {
         CoroutineScope(coroutineContext).launch {
+
         }
     }
 }
