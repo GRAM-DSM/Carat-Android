@@ -17,27 +17,32 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         }
     }
 
+    override fun getCaring() {
+        val hashMap = HashMap<String, Int>()
+        hashMap["size"] = 0
+        hashMap["last_caring_id"] = 0
+
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository.getCaringTimeLine(UserObject.getInstance().email, hashMap).apply {
+                if (message == "") {
+                    view.setProfileAdapter(result)
+                }
+            }
+        }
+    }
+
     override fun getCarat() {
         val hashMap = HashMap<String, Int>()
         hashMap["size"] = 0
         hashMap["last_caring_id"] = 0
 
         CoroutineScope(coroutineContext).launch(handler) {
-            val result = repository.getProfileTimeLine(
-                UserObject.getInstance().email,
-                hashMap
-            )
-
-            if (result.message == "") {
-                view.setProfileAdapter(result.result)
+            repository.getCaratTimeLine(UserObject.getInstance().email, hashMap).apply {
+                if (message == "") {
+                    view.setProfileAdapter(result)
+                }
             }
 
-        }
-    }
-
-    override fun getCaring() {
-        CoroutineScope(coroutineContext).launch(handler) {
-            view.setProfileInfo(repository.getProfile(UserObject.getInstance().email))
         }
     }
 }

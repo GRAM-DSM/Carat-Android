@@ -29,9 +29,15 @@ class Repository {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
-    suspend fun getProfileTimeLine(email: String, parameter: HashMap<String, Int>): ProfileTimeLinePostData {
+    suspend fun getCaringTimeLine(email: String, parameter: HashMap<String, Int>): ProfileTimeLinePostData {
         return withContext(Dispatchers.IO) {
             api.getCaringTimeLine(email, TokenData.getInstance().access_token, parameter)
+        }
+    }
+
+    suspend fun getCaratTimeLine(email: String, parameter: HashMap<String, Int>): ProfileTimeLinePostData {
+        return withContext(Dispatchers.IO) {
+            api.getCaratTimeLine(email, TokenData.getInstance().access_token, parameter)
         }
     }
 

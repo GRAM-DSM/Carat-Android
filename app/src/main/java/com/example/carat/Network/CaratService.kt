@@ -37,7 +37,7 @@ interface CaratService {
     ): ProfileTimeLinePostData
 
     @GET("timeline/carat/{email}")
-    suspend fun getCaratTimeline(
+    suspend fun getCaratTimeLine(
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
         @Body body: HashMap<String, Int>

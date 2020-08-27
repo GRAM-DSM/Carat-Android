@@ -2,13 +2,13 @@ package com.example.carat.Ui.Fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.carat.Model.TimeLinePost
+import com.example.carat.Model.ProfileTimeLinePost
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
@@ -76,7 +76,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
-    override fun setProfileAdapter(timeLinePost: ArrayList<TimeLinePost>) {
+    override fun setProfileAdapter(timeLinePost: ArrayList<ProfileTimeLinePost>) {
         profile_tab_include.tabLayout_show_recyclerView.adapter
     }
 
