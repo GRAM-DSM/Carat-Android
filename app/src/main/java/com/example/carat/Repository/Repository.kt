@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 
-class Repository() {
+class Repository {
     private val sharedPreferences = SharedPreferencesManager.getInstance(MyApp.context!!)
     private val api = CaratClient.caratApi
 
