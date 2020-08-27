@@ -13,9 +13,6 @@ class ViewPagerAdapter(fm: FragmentManager) :
             0 -> {
                 ProfileFragment()
             }
-            1 -> {
-                ProfileFragment()
-            }
             else -> {
                 ProfileFragment()
             }
