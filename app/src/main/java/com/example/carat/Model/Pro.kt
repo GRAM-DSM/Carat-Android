@@ -1,6 +1,6 @@
 package com.example.carat.Model
 
-data class TimeLinePost(
+data class Pro(
     var recaring_owner: OwnerData = OwnerData(),
     var post_time: String = "",
     var recaring_id: String = "",

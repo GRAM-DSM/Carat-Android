@@ -6,7 +6,7 @@ import com.example.carat.Model.UserData
 interface ProfileContract {
     interface View {
         fun setProfileInfo(profile: UserData)
-        fun setProfileAdapter(timeLinePost: ArrayList<ProfileTimeLinePost>)
+        fun setProfileAdapter(profilePost: ArrayList<ProfileTimeLinePost>)
     }
 
     interface Presenter {

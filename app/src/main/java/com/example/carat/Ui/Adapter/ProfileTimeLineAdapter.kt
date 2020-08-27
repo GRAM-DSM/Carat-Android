@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.carat.Model.Pro
+import com.example.carat.Model.ProfileTimeLinePost
 import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
-class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>) :
-    RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
+class ProfileTimeLineAdapter(val context: Context, val profilePostList: ArrayList<ProfileTimeLinePost>) :
+    RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -20,11 +20,11 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
         LayoutInflater.from(parent.context).inflate(R.layout.item_carat_post, parent, false)
     )
 
-    override fun getItemCount(): Int = timeLinePostList.size
+    override fun getItemCount(): Int = profilePostList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
-        val item: Pro = timeLinePostList[position]
+        val item: ProfileTimeLinePost = profilePostList[position]
 
         view.apply {
             Glide.with(context).load(item.owner.profile_image).circleCrop()
@@ -35,12 +35,25 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
             itemCarat_content_textView.text = item.body
             itemCarat_reCaring_textView.text = item.recaring_count.toString()
             itemCarat_like_textView.text = item.carat_count.toString()
+            setRecaring(this, item)
             setImages(this, item)
             setCarats(this, item)
         }
     }
 
-    private fun setImages(view: View, item: Pro) {
+    private fun setRecaring(view: View, item: ProfileTimeLinePost) {
+        view.apply {
+            if (item.me_recaring) {
+                itemCarat_reCaring_imageView.visibility = View.VISIBLE
+                itemCarat_reCaring_textView.visibility = View.VISIBLE
+            } else {
+                itemCarat_reCaring_imageView.visibility = View.GONE
+                itemCarat_reCaring_textView.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setImages(view: View, item: ProfileTimeLinePost) {
         val image = item.body_images
 
         view.apply {
@@ -59,7 +72,7 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
         }
     }
 
-    private fun setCarats(view: View, item: Pro) {
+    private fun setCarats(view: View, item: ProfileTimeLinePost) {
         if (item.me_recaring) {
             view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
             view.itemCarat_reCaring_textView.setTextColor(
