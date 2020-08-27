@@ -29,8 +29,15 @@ interface CaratService {
         @Field("last_caring_id") caring_id: Int
     )
 
-    @GET("timeline/{email}")
-    suspend fun getProfileTimeLine(
+    @GET("timeline/caring/{email}")
+    suspend fun getCaringTimeLine(
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String,
+        @Body body: HashMap<String, Int>
+    ): ProfileTimeLinePostData
+
+    @GET("timeline/carat/{email}")
+    suspend fun getCaratTimeline(
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
         @Body body: HashMap<String, Int>

@@ -34,6 +34,21 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         return view
     }
 
+    private fun setProfileCarat() {
+        val tab = profile_tab_include.tabLayout_carat
+        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab!!.position == 0) {
+                    profilePresenter.getCaring()
+                } else {
+                    profilePresenter.getCarat()
+                }
+            }
+        })
+    }
+
     override fun setProfileInfo(profile: UserData) {
         if (profile.message != "") {
             val info = profile_info_include
@@ -53,7 +68,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             info.profile_followersCount_textView.setOnClickListener {
                 startActivity(intent)
             }
-
             info.profile_button_imageView.setOnClickListener {
                 startActivity(Intent(activity, ChangeProfile::class.java))
             }
@@ -64,21 +78,6 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun setProfileAdapter(timeLinePost: ArrayList<TimeLinePost>) {
         profile_tab_include.tabLayout_show_recyclerView.adapter
-    }
-
-    private fun setProfileCarat() {
-        val tab = profile_tab_include.tabLayout_carat
-        tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab!!.position == 0) {
-                    profilePresenter.getCaring()
-                } else {
-                    profilePresenter.getCarat()
-                }
-            }
-        })
     }
 
     override fun onDestroy() {

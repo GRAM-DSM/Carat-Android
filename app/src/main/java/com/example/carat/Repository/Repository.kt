@@ -31,7 +31,7 @@ class Repository {
 
     suspend fun getProfileTimeLine(email: String, parameter: HashMap<String, Int>): ProfileTimeLinePostData {
         return withContext(Dispatchers.IO) {
-            api.getProfileTimeLine(email, TokenData.getInstance().access_token, parameter)
+            api.getCaringTimeLine(email, TokenData.getInstance().access_token, parameter)
         }
     }
 
