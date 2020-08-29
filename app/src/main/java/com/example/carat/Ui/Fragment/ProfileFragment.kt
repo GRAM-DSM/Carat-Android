@@ -34,11 +34,11 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         profilePresenter.getProfileInfo()
-        setProfileCarat()
+        setProfileTimeLine()
         return view
     }
 
-    private fun setProfileCarat() {
+    private fun setProfileTimeLine() {
         val tab = profile_tab_include.tabLayout_carat
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -90,11 +90,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun setProfileAdapter(profilePost: ArrayList<ProfileTimeLinePost>, name: String) {
-        profile_tab_include.tabLayout_show_recyclerView.adapter = if (name != "") {
-            ProfileTimeLineAdapter(activity as Context, profilePost, name)
-        } else {
-            ProfileTimeLineAdapter(activity as Context, profilePost)
-        }
+        profile_tab_include.tabLayout_show_recyclerView.adapter =
+            ProfileTimeLineAdapter(profilePost, name)
     }
 
     override fun onDestroy() {
