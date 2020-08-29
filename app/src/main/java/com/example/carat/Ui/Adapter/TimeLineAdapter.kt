@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.carat.Model.Pro
+import com.example.carat.Model.TimeLinePost
 import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
-class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>) :
+class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<TimeLinePost>) :
     RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -24,7 +24,7 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
-        val item: Pro = timeLinePostList[position]
+        val item: TimeLinePost = timeLinePostList[position]
 
         view.apply {
             Glide.with(context).load(item.owner.profile_image).circleCrop()
@@ -40,7 +40,7 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
         }
     }
 
-    private fun setImages(view: View, item: Pro) {
+    private fun setImages(view: View, item: TimeLinePost) {
         val image = item.body_images
 
         view.apply {
@@ -59,7 +59,7 @@ class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<Pro>
         }
     }
 
-    private fun setCarats(view: View, item: Pro) {
+    private fun setCarats(view: View, item: TimeLinePost) {
         if (item.me_recaring) {
             view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
             view.itemCarat_reCaring_textView.setTextColor(
