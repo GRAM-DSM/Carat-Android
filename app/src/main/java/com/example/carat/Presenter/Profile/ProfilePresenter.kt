@@ -10,10 +10,13 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
     BaseCoroutineScope() {
 
     private val repository: Repository = Repository()
+    private var userName: String = ""
 
     override fun getProfileInfo() {
         CoroutineScope(coroutineContext).launch(handler) {
-            view.setProfileInfo(repository.getProfile(UserObject.getInstance().email))
+            val result = repository.getProfile(UserObject.getInstance().email)
+            userName = result.name
+            view.setProfileInfo(result)
         }
     }
 
@@ -25,7 +28,7 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(UserObject.getInstance().email, hashMap).apply {
                 if (message == "") {
-                    view.setProfileAdapter(result)
+                    view.setProfileAdapter(result, userName)
                 }
             }
         }
@@ -39,7 +42,7 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(UserObject.getInstance().email, hashMap).apply {
                 if (message == "") {
-                    view.setProfileAdapter(result)
+                    view.setProfileAdapter(result, "")
                 }
             }
 

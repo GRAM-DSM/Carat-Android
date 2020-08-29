@@ -11,8 +11,11 @@ import com.example.carat.Model.ProfileTimeLinePost
 import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
-class ProfileTimeLineAdapter(val context: Context, val profilePostList: ArrayList<ProfileTimeLinePost>) :
-    RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
+class ProfileTimeLineAdapter(
+    val context: Context,
+    val profilePostList: ArrayList<ProfileTimeLinePost>,
+    val name: String = ""
+) : RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -42,13 +45,16 @@ class ProfileTimeLineAdapter(val context: Context, val profilePostList: ArrayLis
     }
 
     private fun setRecaring(view: View, item: ProfileTimeLinePost) {
-        view.apply {
-            if (item.me_recaring) {
-                itemCarat_reCaring_imageView.visibility = View.VISIBLE
-                itemCarat_reCaring_textView.visibility = View.VISIBLE
-            } else {
-                itemCarat_reCaring_imageView.visibility = View.GONE
-                itemCarat_reCaring_textView.visibility = View.GONE
+        if (name != "") {
+            view.apply {
+                if (item.me_recaring) {
+                    itemCarat_reCaring_textView.text = "$name 님이 리캐링한 캐링"
+                    itemCarat_reCaring_imageView.visibility = View.VISIBLE
+                    itemCarat_reCaring_textView.visibility = View.VISIBLE
+                } else {
+                    itemCarat_reCaring_imageView.visibility = View.GONE
+                    itemCarat_reCaring_textView.visibility = View.GONE
+                }
             }
         }
     }
