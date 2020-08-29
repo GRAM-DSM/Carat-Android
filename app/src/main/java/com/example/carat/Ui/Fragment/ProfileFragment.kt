@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.carat.Model.ProfileTimeLinePost
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
     private val profilePresenter: ProfilePresenter = ProfilePresenter(this)
+    private val MOVE_REQUEST_CODE = 102
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,10 +73,19 @@ class ProfileFragment : Fragment(), ProfileContract.View {
                 startActivity(intent)
             }
             info.profile_button_imageView.setOnClickListener {
-                startActivity(Intent(activity, ChangeProfile::class.java))
+                val editProfileIntent = Intent(activity, ChangeProfile::class.java)
+                startActivityForResult(editProfileIntent, MOVE_REQUEST_CODE)
             }
         } else {
             Toast.makeText(activity, profile.message, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == AppCompatActivity.RESULT_OK && requestCode == MOVE_REQUEST_CODE) {
+            activity?.startActivity(data)
+            activity?.finish()
         }
     }
 

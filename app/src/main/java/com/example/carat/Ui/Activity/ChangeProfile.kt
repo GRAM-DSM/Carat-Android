@@ -1,5 +1,6 @@
 package com.example.carat.Ui.Activity
 
+import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -90,10 +91,10 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
 
     private fun selectImage() {
         changeProfile_cover_imageView.setOnClickListener {
-            startActivityForResult(intent, PROFILE_REQUEST_CODE)
+            startActivityForResult(intentForImage, PROFILE_REQUEST_CODE)
         }
         changeProfile_cover_imageView.setOnClickListener {
-            startActivityForResult(intent, COVER_REQUEST_CODE)
+            startActivityForResult(intentForImage, COVER_REQUEST_CODE)
         }
     }
 
@@ -135,7 +136,8 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     override fun moveLoginPage() {
         val logoutIntent = Intent(this, SignInUpActivity::class.java)
         logoutIntent.putExtra("isLogout", true)
-        startActivity(logoutIntent)
+        setResult(Activity.RESULT_OK, logoutIntent)
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
