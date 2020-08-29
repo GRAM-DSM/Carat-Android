@@ -26,6 +26,7 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
 
     override fun updateProfile(editUserData: EditUserData) {
         if (data.name != editUserData.name || data.introduction != editUserData.intro) {
+            hashMap.clear()
             hashMap["name"] = editUserData.name
             hashMap["about_me"] = editUserData.intro
 
