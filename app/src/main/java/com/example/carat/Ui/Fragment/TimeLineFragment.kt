@@ -15,8 +15,6 @@ class TimeLineFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        
-
         return inflater.inflate(R.layout.fragment_time_line, container, false)
     }
 
