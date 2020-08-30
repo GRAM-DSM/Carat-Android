@@ -1,5 +1,6 @@
 package com.example.carat.Presenter.Profile
 
+import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
@@ -8,9 +9,13 @@ import kotlinx.coroutines.launch
 class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseCoroutineScope() {
     private val repository: Repository = Repository()
 
+    var userName: String = ""
+
     override fun getProfileInfo(email: String) {
         CoroutineScope(coroutineContext).launch(handler) {
-            view.setProfileInfo(repository.getProfile(email))
+            val result = repository.getProfile(email)
+            userName = result.name
+            view.setProfileInfo(result)
         }
     }
 
@@ -27,11 +32,32 @@ class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseC
     }
 
 
-    override fun getCarat() {
+    override fun getCaring() {
+        val hashMap = HashMap<String, Int>()
+        hashMap["size"] = 0
+        hashMap["last_caring_id"] = 0
 
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository.getCaringTimeLine(UserObject.getInstance().email, hashMap).apply {
+                if (message == "") {
+                    view.setProfileAdapter(result, userName)
+                }
+            }
+        }
     }
 
-    override fun getCaring() {
+    override fun getCarat() {
+        val hashMap = HashMap<String, Int>()
+        hashMap["size"] = 0
+        hashMap["last_caring_id"] = 0
 
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository.getCaratTimeLine(UserObject.getInstance().email, hashMap).apply {
+                if (message == "") {
+                    view.setProfileAdapter(result, "")
+                }
+            }
+
+        }
     }
 }
