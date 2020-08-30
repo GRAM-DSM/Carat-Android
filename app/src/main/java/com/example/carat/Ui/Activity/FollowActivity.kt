@@ -35,7 +35,7 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     private fun settingActionBar() {
         SetActionBar(this, follow_appbar_include.widget_toolbar).apply {
             setBackKey(false) { finish() }
-            this.setTitle(UserObject.getInstance().name ?: "")
+            setTitle(UserObject.getInstance().name ?: "")
         }
     }
 
@@ -48,10 +48,11 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 indexOnTab = tab!!.position
+                val email = intent.getStringExtra("email") ?: UserObject.getInstance().email
                 if (indexOnTab == 0) {
-                    followPresenter.getFollowingList()
+                    followPresenter.getFollowingList(email)
                 } else {
-                    followPresenter.getFollowerList()
+                    followPresenter.getFollowerList(email)
                 }
             }
         })

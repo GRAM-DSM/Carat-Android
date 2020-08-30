@@ -54,26 +54,23 @@ class ProfileFragment : Fragment(), ProfileContract.View {
 
     override fun setProfileInfo(profile: UserData) {
         if (profile.message != "") {
-            val info = profile_info_include
-            Glide.with(this).load(profile.cover_image_url).into(info.profile_background_imageView)
-            Glide.with(this).load(profile.profile_image_url).into(info.profile_user_imageView)
-            info.profile_userName_textView.text = profile.name
-            info.profile_userEmail_textView.text = profile.user_email
-            info.profile_introduce_textView.text = profile.about_me
-            info.profile_subscriptionDay_textView.text = profile.created_at
-            info.profile_followingCount_textView.text = profile.following_count.toString()
-            info.profile_followersCount_textView.text = profile.follower_count.toString()
+            profile_info_include.apply {
+                Glide.with(this).load(profile.cover_image_url).into(profile_background_imageView)
+                Glide.with(this).load(profile.profile_image_url).into(profile_user_imageView)
+                profile_userName_textView.text = profile.name
+                profile_userEmail_textView.text = profile.user_email
+                profile_introduce_textView.text = profile.about_me
+                profile_subscriptionDay_textView.text = profile.created_at
+                profile_followingCount_textView.text = profile.following_count.toString()
+                profile_followersCount_textView.text = profile.follower_count.toString()
 
-            val intent = Intent(activity, FollowActivity::class.java)
-            info.profile_followingCount_textView.setOnClickListener {
-                startActivity(intent)
-            }
-            info.profile_followersCount_textView.setOnClickListener {
-                startActivity(intent)
-            }
-            info.profile_button_imageView.setOnClickListener {
-                val editProfileIntent = Intent(activity, ChangeProfile::class.java)
-                startActivityForResult(editProfileIntent, MOVE_REQUEST_CODE)
+                val intent = Intent(activity, FollowActivity::class.java)
+                profile_followingCount_textView.setOnClickListener { startActivity(intent) }
+                profile_followersCount_textView.setOnClickListener { startActivity(intent) }
+                profile_button_imageView.setOnClickListener {
+                    val editProfileIntent = Intent(activity, ChangeProfile::class.java)
+                    startActivityForResult(editProfileIntent, MOVE_REQUEST_CODE)
+                }
             }
         } else {
             Toast.makeText(activity, profile.message, Toast.LENGTH_LONG).show()

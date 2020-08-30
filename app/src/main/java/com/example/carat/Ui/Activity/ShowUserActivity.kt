@@ -1,5 +1,6 @@
 package com.example.carat.Ui.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,11 +42,20 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
                 profile_subscriptionDay_textView.text = profile.created_at
                 profile_followingCount_textView.text = profile.following_count.toString()
                 profile_followersCount_textView.text = profile.follower_count.toString()
+                profile_followingCount_textView.setOnClickListener { clickFollowText() }
+                profile_followersCount_textView.setOnClickListener { clickFollowText() }
             }
             clickFollowButton(intent.getBooleanExtra("isFollow", false))
         } else {
             Toast.makeText(this, profile.message, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun clickFollowText() {
+        val intent = Intent(this@ShowUserActivity, FollowActivity::class.java)
+        intent.putExtra("email", email)
+        startActivity(intent)
+        finish()
     }
 
     private fun clickFollowButton(isFollow: Boolean) {
