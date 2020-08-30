@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class FollowActivity : AppCompatActivity(), FollowContract.View {
     private val followPresenter: FollowPresenter = FollowPresenter(this)
+    private var indexOnTab: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +47,8 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val pos = tab!!.position
-                if (pos == 0) {
+                indexOnTab = tab!!.position
+                if (indexOnTab == 0) {
                     followPresenter.getFollowingList()
                 } else {
                     followPresenter.getFollowerList()
@@ -57,20 +58,20 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     }
 
     override fun setFollowAdapter(followData: ArrayList<FollowData>) {
+        follow_tab_include.tabLayout_carat
         val toFollow = { data: FollowData ->
-            if (data.currentIndex == 0) {
+            if (indexOnTab == 0) {
                 followPresenter.sendFollowingState(data.email)
             } else {
                 followPresenter.sendFollowerState(data.email)
             }
         }
 
-        val showUser = { it: FollowData ->
-            UserObject.getInstance().email = it.email
+        val showUser = { data: FollowData ->
             val intent = Intent(this, ShowUserActivity::class.java)
             intent.putExtra("follow", true)
-            intent.putExtra("isFollow", it.following)
-            intent.putExtra("email", it.email)
+            intent.putExtra("isFollow", data.following)
+            intent.putExtra("email", data.email)
             startActivity(intent)
             finish()
         }
