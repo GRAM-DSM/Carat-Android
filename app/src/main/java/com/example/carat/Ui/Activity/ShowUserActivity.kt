@@ -64,18 +64,22 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
     }
 
     private fun setProfileCarat() {
-        val tab = profile_tab_include.tabLayout_carat
+        val tab = show_tab_include.tabLayout_carat
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val pos = tab!!.position
+                if (tab!!.position == 0) {
+                    showPresenter.getCaring()
+                } else {
+                    showPresenter.getCarat()
+                }
             }
         })
     }
 
-    override fun setProfileAdapter(profilePost: ArrayList<ProfileTimeLinePost>, name: String) {
-
+    override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
+        show_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
     }
 
     override fun onDestroy() {

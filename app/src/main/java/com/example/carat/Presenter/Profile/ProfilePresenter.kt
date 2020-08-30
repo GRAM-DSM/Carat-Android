@@ -2,6 +2,7 @@ package com.example.carat.Presenter.Profile
 
 import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
+import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -26,7 +27,9 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(UserObject.getInstance().email, hashMap).apply {
                 if (message == "") {
-                    view.setProfileAdapter(result, UserObject.getInstance().name)
+                    view.setProfileAdapter(
+                        ProfileTimeLineAdapter(result, UserObject.getInstance().name)
+                    )
                 }
             }
         }
@@ -40,7 +43,7 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(UserObject.getInstance().email, hashMap).apply {
                 if (message == "") {
-                    view.setProfileAdapter(result, "")
+                    view.setProfileAdapter(ProfileTimeLineAdapter(result))
                 }
             }
 

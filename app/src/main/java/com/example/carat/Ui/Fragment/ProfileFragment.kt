@@ -88,9 +88,8 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
-    override fun setProfileAdapter(profilePost: ArrayList<ProfileTimeLinePost>, name: String) {
-        profile_tab_include.tabLayout_show_recyclerView.adapter =
-            ProfileTimeLineAdapter(profilePost, name)
+    override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
+        profile_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
     }
 
     override fun onDestroy() {

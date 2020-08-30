@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class ProfileTimeLineAdapter(
     private val profilePostList: ArrayList<ProfileTimeLinePost>,
-    val name: String
+    val name: String = ""
 ) : RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
