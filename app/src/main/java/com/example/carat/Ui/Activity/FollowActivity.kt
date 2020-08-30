@@ -57,19 +57,11 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     }
 
     override fun setFollowAdapter(followData: ArrayList<FollowData>) {
-        val toFollow = { data: FollowData, view: View ->
-            val btn = view.itemFollow_follow_button
-            distinguishButtonImage(data, btn)
-
-            btn.setOnClickListener {
-                data.following = !data.following
-                distinguishButtonImage(data, btn)
-
-                if (data.currentIndex == 0) {
-                    followPresenter.sendFollowingState(data.email)
-                } else {
-                    followPresenter.sendFollowerState(data.email)
-                }
+        val toFollow = { data: FollowData ->
+            if (data.currentIndex == 0) {
+                followPresenter.sendFollowingState(data.email)
+            } else {
+                followPresenter.sendFollowerState(data.email)
             }
         }
 
@@ -88,14 +80,6 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
-    private fun distinguishButtonImage(data: FollowData, btn: Button) {
-        if (data.following) {
-            btn.background = getDrawable(R.drawable.following_button)
-        } else {
-            btn.background = getDrawable(R.drawable.to_follow_button)
-        }
     }
 
     override fun onDestroy() {
