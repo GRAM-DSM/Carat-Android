@@ -1,18 +1,18 @@
 package com.example.carat.Presenter.Profile
 
-import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseCoroutineScope() {
-    private val repository: Repository = Repository()
+class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContract.Presenter,
+    BaseCoroutineScope() {
 
+    private val repository: Repository = Repository()
     var userName: String = ""
 
-    override fun getProfileInfo(email: String) {
+    override fun getProfileInfo() {
         CoroutineScope(coroutineContext).launch(handler) {
             val result = repository.getProfile(email)
             userName = result.name
@@ -20,13 +20,13 @@ class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseC
         }
     }
 
-    override fun doFollow(email: String) {
+    override fun doFollow() {
         CoroutineScope(coroutineContext).launch(handler) {
             repository.doFollow(email)
         }
     }
 
-    override fun cancelFollow(email: String) {
+    override fun cancelFollow() {
         CoroutineScope(coroutineContext).launch(handler) {
             repository.cancelFollow(email)
         }
@@ -39,7 +39,7 @@ class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseC
         hashMap["last_caring_id"] = 0
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaringTimeLine(UserObject.getInstance().email, hashMap).apply {
+            repository.getCaringTimeLine(email, hashMap).apply {
                 if (message == "") {
                     view.setProfileAdapter(ProfileTimeLineAdapter(result, userName))
                 }
@@ -53,12 +53,11 @@ class ShowPresenter(val view: ShowContract.View) : ShowContract.Presenter, BaseC
         hashMap["last_caring_id"] = 0
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaratTimeLine(UserObject.getInstance().email, hashMap).apply {
+            repository.getCaratTimeLine(email, hashMap).apply {
                 if (message == "") {
                     view.setProfileAdapter(ProfileTimeLineAdapter(result))
                 }
             }
-
         }
     }
 }

@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
 class ShowUserActivity : AppCompatActivity(), ShowContract.View {
-    private val showPresenter: ShowPresenter = ShowPresenter(this)
+    private lateinit var showPresenter: ShowPresenter
     private var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,8 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
         setContentView(R.layout.activity_show_user)
 
         email = intent.getStringExtra("email")!!
-        showPresenter.getProfileInfo(email)
+        showPresenter = ShowPresenter(this, email)
+        showPresenter.getProfileInfo()
         setProfileCarat()
     }
 
@@ -51,13 +52,13 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
         if (isFollow) {
             show_info_include.profile_button_imageView.setImageResource(R.drawable.following_button)
             show_info_include.profile_button_imageView.setOnClickListener {
-                showPresenter.cancelFollow(email)
+                showPresenter.cancelFollow()
                 clickFollowButton(false)
             }
         } else {
             show_info_include.profile_button_imageView.setImageResource(R.drawable.to_follow_button)
             show_info_include.profile_button_imageView.setOnClickListener {
-                showPresenter.doFollow(email)
+                showPresenter.doFollow()
             }
             clickFollowButton(true)
         }

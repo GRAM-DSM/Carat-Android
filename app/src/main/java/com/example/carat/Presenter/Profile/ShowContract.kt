@@ -10,9 +10,9 @@ interface ShowContract {
     }
 
     interface Presenter {
-        fun getProfileInfo(email: String)
-        fun doFollow(email: String)
-        fun cancelFollow(email: String)
+        fun getProfileInfo()
+        fun doFollow()
+        fun cancelFollow()
         fun getCarat()
         fun getCaring()
     }
