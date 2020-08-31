@@ -94,10 +94,9 @@ interface CaratService {
     @PUT("profile")
     suspend fun modifyProfile(
         @Header("Authorization") authorization: String,
-        @Part("cover_image") cover_image: MultipartBody.Part,
-        @Part("profile_image") profile_image: MultipartBody.Part,
+        @PartMap parameter: HashMap<String, MultipartBody.Part>,
         @Part("name") name: String,
-        @Part("about_me") about_me: String,
+        @Part("about_me") about_me: String
     ): Call<Unit>
 
     @POST("profile/{email}/following")
