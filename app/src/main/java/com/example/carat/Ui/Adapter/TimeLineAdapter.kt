@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.carat.Model.TimeLinePost
+import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
-class TimeLineAdapter(private val timeLinePostList: ArrayList<TimeLinePost>) :
+class TimeLineAdapter(private val timeLinePostList: ArrayList<DetailTimeLineData>) :
     RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -72,7 +72,7 @@ class TimeLineAdapter(private val timeLinePostList: ArrayList<TimeLinePost>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
-        val item: TimeLinePost = timeLinePostList[position]
+        val item: DetailTimeLineData = timeLinePostList[position]
 
         view.apply {
             Glide.with(context).load(item.owner.profile_image).circleCrop()

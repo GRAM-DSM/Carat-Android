@@ -1,7 +1,8 @@
 package com.example.carat.Model
 
 data class CaratData(
-    var result: ArrayList<CaratUnitData> = arrayListOf()
+    var result: ArrayList<CaratUnitData> = arrayListOf(),
+    var message: String
 )
 
 data class CaratUnitData(
