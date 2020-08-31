@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.carat.Model.ProfileTimeLinePost
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ShowContract
 import com.example.carat.Presenter.Profile.ShowPresenter
@@ -13,7 +12,6 @@ import com.example.carat.R
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_show_user.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 

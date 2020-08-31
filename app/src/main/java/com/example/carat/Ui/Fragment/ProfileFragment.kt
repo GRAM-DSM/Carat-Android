@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.carat.Model.ProfileTimeLinePost
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter

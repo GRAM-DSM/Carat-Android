@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.carat.Model.ProfileTimeLinePost
+import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class ProfileTimeLineAdapter(
-    private val profilePostList: ArrayList<ProfileTimeLinePost>,
+    private val profilePostList: ArrayList<DetailTimeLineData>,
     val name: String = ""
 ) : RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
@@ -23,7 +23,7 @@ class ProfileTimeLineAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
-        val item: ProfileTimeLinePost = profilePostList[position]
+        val item: DetailTimeLineData = profilePostList[position]
 
         view.apply {
             Glide.with(context).load(item.owner.profile_image).circleCrop()
@@ -42,7 +42,7 @@ class ProfileTimeLineAdapter(
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun setReCaring(name: String, item: ProfileTimeLinePost) {
+        fun setReCaring(name: String, item: DetailTimeLineData) {
             if (name != "") {
                 itemView.apply {
                     if (item.me_recaring) {
@@ -57,7 +57,7 @@ class ProfileTimeLineAdapter(
             }
         }
 
-        fun setImages(item: ProfileTimeLinePost) {
+        fun setImages(item: DetailTimeLineData) {
             val image = item.body_images
 
             itemView.apply {
@@ -76,7 +76,7 @@ class ProfileTimeLineAdapter(
             }
         }
 
-        fun setCarats(item: ProfileTimeLinePost) {
+        fun setCarats(item: DetailTimeLineData) {
             itemView.apply {
                 if (item.me_recaring) {
                     itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
