@@ -32,14 +32,14 @@ interface CaratService {
     suspend fun getCaringTimeLine(
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
-        @Body body: HashMap<String, Int>
+        @Body parameter: RequestCaringData
     ): ProfileTimeLinePostData
 
     @GET("timeline/carat/{email}")
     suspend fun getCaratTimeLine(
         @Path("email") email: String,
         @Header("Authorization") authorization: String,
-        @Body body: HashMap<String, Int>
+        @Body parameter: RequestCaringData
     ): ProfileTimeLinePostData
 
     @Multipart
@@ -86,38 +86,41 @@ interface CaratService {
 
     @GET("profile/{email}")
     suspend fun getProfile(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String
     ): UserData
 
-    @FormUrlEncoded
+    @Multipart
     @PUT("profile")
     suspend fun modifyProfile(
         @Header("Authorization") authorization: String,
-        @FieldMap parameter: HashMap<String, Any>
+        @Part("cover_image") cover_image: MultipartBody.Part,
+        @Part("profile_image") profile_image: MultipartBody.Part,
+        @Part("name") name: String,
+        @Part("about_me") about_me: String,
     ): Call<Unit>
 
     @POST("profile/{email}/following")
     suspend fun doFollow(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String
     ): Call<Unit>
 
     @DELETE("profile/{email}/following")
     suspend fun cancelFollow(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String
     ): Call<Unit>
 
     @GET("profile/{email}/following")
     suspend fun getFollowingList(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String
     ): FollowingData
 
     @GET("profile/{email}/followers")
     suspend fun getFollowersList(
-        @Header("Authorization") authorization: String,
-        @Path("email") email: String
+        @Path("email") email: String,
+        @Header("Authorization") authorization: String
     ): FollowerData
 }
