@@ -6,28 +6,27 @@ import retrofit2.http.*
 import kotlin.collections.HashMap
 import com.example.carat.Model.ServerMessage
 import com.example.carat.Model.TokenData
+import okhttp3.MultipartBody
 
 interface CaratService {
     @GET("user/auth")
     suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
 
-    @POST ("/user")
+    @POST("/user")
     suspend fun signUp(
         @Field("name") name: String,
         @Field("email") email: String,
-        @Field ("password") password: String
-    ) : ServerMessage
+        @Field("password") password: String
+    ): ServerMessage
 
     @DELETE("/user")
     suspend fun deleteUser(
         @Header("Authorization") authorization: String
     ): ServerMessage
 
+
     @GET("/timeline")
-    suspend fun getTimeLine(
-        @Field("size") size: Int,
-        @Field("last_caring_id") caring_id: Int
-    )
+    suspend fun getTimeLine(@Body parameter: RequestCaringData): TimeLineData
 
     @GET("timeline/caring/{email}")
     suspend fun getCaringTimeLine(
@@ -43,41 +42,53 @@ interface CaratService {
         @Body body: HashMap<String, Int>
     ): ProfileTimeLinePostData
 
+    @Multipart
+    @POST("/caring")
+    suspend fun createCaring(
+        @Header("Authorization") authorization: String,
+        @Part image: List<MultipartBody.Part>,
+        @Body caring: String
+    ): ServerMessage
+
+    @GET("/caring/detail/{id}")
+    suspend fun detailCaring(@Path("id") id: String): DetailTimeLineData
+
     @POST("/recaring")
-    suspend fun recaring(
+    suspend fun reCaring(
         @Header("Authorization") Authorization: String,
-        @Field("id") id: Int
-    ) : ServerMessage
+        @Body id: Int
+    ): ServerMessage
 
-    @DELETE("/recaring")
-    suspend fun deleteRecaring(
+    @DELETE("/recaring/{id}")
+    suspend fun cancelReCaring(
         @Header("Authorization") Authorization: String,
-        @Field("id") caring_id: Int
-    ) : ServerMessage
+        @Path("id") id: String
+    ): ServerMessage
 
-    @POST("/carat/<id>")
-    suspend fun like(
-        @Path("id") id: Int,
+    @POST("/carat/{id}")
+    suspend fun doCarat(
+        @Path("id") id: String,
         @Header("Authorization") Authorization: String
-    ) : ServerMessage
+    ): ServerMessage
 
-    @DELETE("/carat/<id>")
-    suspend fun deleteCarat(
-        @Path("id") id: Int,
+    @DELETE("/carat/{id}")
+    suspend fun cancelCarat(
+        @Path("id") id: String,
         @Header("Authorization") Authorization: String
-    ) : ServerMessage
-  
+    ): ServerMessage
+
+    @GET("carat/{id}/list")
+    suspend fun getCaratList(
+        @Path("id") id: String,
+        @Header("Authorization") authorization: String
+    ): CaratData
+
+
     @GET("profile/{email}")
     suspend fun getProfile(
         @Header("Authorization") authorization: String,
         @Path("email") email: String
     ): UserData
-
-    @GET("carat/{id}/list")
-    suspend fun getCaratList(
-        @Header("Authorization") authorization: String,
-        @Path("id") id: String
-    ): CaratData
 
     @FormUrlEncoded
     @PUT("profile")
