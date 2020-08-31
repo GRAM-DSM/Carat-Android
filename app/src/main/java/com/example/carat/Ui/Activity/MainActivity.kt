@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun setPagerAdapter() {
         main_frameLayout.adapter = ViewPagerAdapter(supportFragmentManager)
         main_frameLayout.currentItem = 0

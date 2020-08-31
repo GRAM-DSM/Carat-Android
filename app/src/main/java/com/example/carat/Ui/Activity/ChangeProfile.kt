@@ -1,5 +1,6 @@
 package com.example.carat.Ui.Activity
 
+import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -58,19 +59,17 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     }
 
     private fun initUserInfo() {
-        val data = UserObject.getInstance()
-
-        Glide.with(this).load(data.background).into(changeProfile_cover_imageView)
-        Glide.with(this).load(data.profile).circleCrop().into(changeProfile_profile_imageView)
-        changeProfile_name_editText.setText(data.name)
-        changeProfile_introduction_editText.setText(data.introduction)
+        UserObject.getInstance().apply {
+            Glide.with(this@ChangeProfile).load(background).into(changeProfile_cover_imageView)
+            Glide.with(this@ChangeProfile).load(profile).circleCrop()
+                .into(changeProfile_profile_imageView)
+            changeProfile_name_editText.setText(name)
+            changeProfile_introduction_editText.setText(introduction)
+        }
     }
 
     private fun setDialog() {
-        val negativeListener = View.OnClickListener {
-            customDialog?.dismiss()
-        }
-
+        val negativeListener = View.OnClickListener { customDialog?.dismiss() }
         val positiveListener = View.OnClickListener {
             changeProfilePresenter.doLogOut()
             customDialog?.dismiss()
@@ -92,34 +91,25 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
 
     private fun selectImage() {
         changeProfile_cover_imageView.setOnClickListener {
-            startActivityForResult(intent, PROFILE_REQUEST_CODE)
+            startActivityForResult(intentForImage, PROFILE_REQUEST_CODE)
         }
         changeProfile_cover_imageView.setOnClickListener {
-            startActivityForResult(intent, COVER_REQUEST_CODE)
+            startActivityForResult(intentForImage, COVER_REQUEST_CODE)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-            val uri = data?.data
-
-            when (requestCode) {
-                PROFILE_REQUEST_CODE -> {
-                    Glide.with(this).load(uri).into(changeProfile_profile_imageView)
-                    editUserData.profileUri = uri
-                }
-                COVER_REQUEST_CODE -> {
-                    Glide.with(this).load(uri).into(changeProfile_cover_imageView)
-                    editUserData.backUri = uri
-                }
-            }
+    private fun getPathFromUri(uri: Uri): String? {
+        val cursor: Cursor? = this.contentResolver.query(uri, null, null, null, null)
+        val path = if (cursor == null) {
+            uri.path
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            cursor.getString(idx)
         }
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        changeProfilePresenter.job.cancel()
+        cursor?.close()
+        return path
     }
 
     override fun convertToImage(editUserData: EditUserData) {
@@ -144,22 +134,32 @@ class ChangeProfile : AppCompatActivity(), ChangeProfileContract.View {
     }
 
     override fun moveLoginPage() {
-        val loginIntent = Intent(this, SignInUpActivity::class.java)
-        loginIntent.putExtra("isLogin", true)
-        startActivity(loginIntent)
+        val logoutIntent = Intent(this, SignInUpActivity::class.java)
+        logoutIntent.putExtra("isLogout", true)
+        setResult(Activity.RESULT_OK, logoutIntent)
+        finish()
     }
 
-    private fun getPathFromUri(uri: Uri): String? {
-        val cursor: Cursor? = this.contentResolver.query(uri, null, null, null, null)
-        val path = if (cursor == null) {
-            uri.path
-        } else {
-            cursor.moveToFirst()
-            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            cursor.getString(idx)
-        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            val uri = data?.data
 
-        cursor?.close()
-        return path
+            when (requestCode) {
+                PROFILE_REQUEST_CODE -> {
+                    Glide.with(this).load(uri).into(changeProfile_profile_imageView)
+                    editUserData.profileUri = uri
+                }
+                COVER_REQUEST_CODE -> {
+                    Glide.with(this).load(uri).into(changeProfile_cover_imageView)
+                    editUserData.backUri = uri
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        changeProfilePresenter.job.cancel()
     }
 }
