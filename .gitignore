@@ -230,3 +230,5 @@ fabric.properties
 
 .gradle/6.1.1/fileHashes/fileHashes.bin
 .idea/inspectionProfiles/Project_Default.xml
+
+.idea/codeStyles/Project.xml
