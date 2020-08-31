@@ -1,12 +1,16 @@
 package com.example.carat.Ui.Adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.carat.Model.Post
+import com.bumptech.glide.Glide
+import com.example.carat.Model.TimeLinePost
 import com.example.carat.R
+import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<TimeLinePost>) :
     RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
