@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 class ProfileFragment : Fragment(), ProfileContract.View {
     private val profilePresenter: ProfilePresenter = ProfilePresenter(this)
     private val MOVE_REQUEST_CODE = 102
+    private var profileTimeLineData: ArrayList<DetailTimeLineData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,9 +47,33 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab!!.position == 0) {
-                    profilePresenter.getCaring()
+                    profilePresenter.getCaring(profileTimeLineData.last().caring_id)
+                    profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            val lastVisibleItemPosition =
+                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                            if (lastVisibleItemPosition == itemTotalCount) {
+                                profilePresenter.getCaring(profileTimeLineData.last().caring_id)
+                            }
+                        }
+                    })
                 } else {
-                    profilePresenter.getCarat()
+                    profilePresenter.getCarat(profileTimeLineData.last().caring_id)
+                    profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            val lastVisibleItemPosition =
+                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                            if (lastVisibleItemPosition == itemTotalCount) {
+                                profilePresenter.getCarat(profileTimeLineData.last().caring_id)
+                            }
+                        }
+                    })
                 }
             }
         })
@@ -85,6 +113,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
     }
 
     override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
+        profileTimeLineData = profileAdapter.profilePostList
         profile_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
     }
 

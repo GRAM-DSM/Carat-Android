@@ -34,8 +34,8 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     }
 
 
-    override fun getCaring() {
-        val parameter = RequestCaringData()
+    override fun getCaring(caringId: String) {
+        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
 
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(email, parameter).apply {
@@ -46,8 +46,8 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
         }
     }
 
-    override fun getCarat() {
-        val parameter = RequestCaringData()
+    override fun getCarat(caringId: String) {
+        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
 
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(email, parameter).apply {

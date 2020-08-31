@@ -4,7 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ShowContract
 import com.example.carat.Presenter.Profile.ShowPresenter
@@ -12,12 +15,14 @@ import com.example.carat.R
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_show_user.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
 class ShowUserActivity : AppCompatActivity(), ShowContract.View {
     private lateinit var showPresenter: ShowPresenter
     private var email: String = ""
+    private var profileTimeLineData: ArrayList<DetailTimeLineData> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,15 +84,40 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab!!.position == 0) {
-                    showPresenter.getCaring()
+                    showPresenter.getCaring(profileTimeLineData.last().caring_id)
+                    show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            val lastVisibleItemPosition =
+                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                            if (lastVisibleItemPosition == itemTotalCount) {
+                                showPresenter.getCaring(profileTimeLineData.last().caring_id)
+                            }
+                        }
+                    })
                 } else {
-                    showPresenter.getCarat()
+                    showPresenter.getCarat(profileTimeLineData.last().caring_id)
+                    show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            val lastVisibleItemPosition =
+                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                            if (lastVisibleItemPosition == itemTotalCount) {
+                                showPresenter.getCarat(profileTimeLineData.last().caring_id)
+                            }
+                        }
+                    })
                 }
             }
         })
     }
 
     override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
+        profileTimeLineData = profileAdapter.profilePostList
         show_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
     }
 

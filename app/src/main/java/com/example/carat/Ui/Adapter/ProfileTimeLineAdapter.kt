@@ -11,7 +11,7 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class ProfileTimeLineAdapter(
-    private val profilePostList: ArrayList<DetailTimeLineData>,
+    val profilePostList: ArrayList<DetailTimeLineData>,
     val name: String = ""
 ) : RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
