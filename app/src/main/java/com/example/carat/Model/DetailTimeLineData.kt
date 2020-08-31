@@ -2,8 +2,8 @@ package com.example.carat.Model
 
 data class DetailTimeLineData(
     var recaring_name: String = "",
-    var recaring_id: String = "",
-    var caring_id: String = "",
+    var recaring_id: String = "0",
+    var caring_id: String = "0",
     var owner: OwnerData = OwnerData(),
     var post_time: String = "",
     var body: String = "",

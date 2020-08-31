@@ -1,5 +1,6 @@
 package com.example.carat.Presenter.Profile
 
+import com.example.carat.Model.RequestCaringData
 import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
@@ -33,13 +34,11 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     }
 
 
-    override fun getCaring() {
-        val hashMap = HashMap<String, Int>()
-        hashMap["size"] = 0
-        hashMap["last_caring_id"] = 0
+    override fun getCaring(caringId: String) {
+        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaringTimeLine(email, hashMap).apply {
+            repository.getCaringTimeLine(email, parameter).apply {
                 if (message == "") {
                     view.setProfileAdapter(ProfileTimeLineAdapter(result, userName))
                 }
@@ -47,13 +46,11 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
         }
     }
 
-    override fun getCarat() {
-        val hashMap = HashMap<String, Int>()
-        hashMap["size"] = 0
-        hashMap["last_caring_id"] = 0
+    override fun getCarat(caringId: String) {
+        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaratTimeLine(email, hashMap).apply {
+            repository.getCaratTimeLine(email, parameter).apply {
                 if (message == "") {
                     view.setProfileAdapter(ProfileTimeLineAdapter(result))
                 }

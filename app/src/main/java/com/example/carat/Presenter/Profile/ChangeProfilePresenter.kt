@@ -6,16 +6,17 @@ import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
+import okhttp3.MultipartBody
 
 class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
     ChangeProfileContract.Presenter, BaseCoroutineScope() {
 
     private val data = UserObject.getInstance()
     private val repository: Repository = Repository()
-    private val hashMap: HashMap<String, Any> = HashMap()
+    private val hashMap: HashMap<String, MultipartBody.Part> = HashMap()
+    private var name: String = ""
+    private var about: String = ""
 
     override fun doLogOut() {
         TokenData.getInstance().access_token = ""
@@ -27,14 +28,14 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
     override fun updateProfile(editUserData: EditUserData) {
         if (data.name != editUserData.name || data.introduction != editUserData.intro) {
             hashMap.clear()
-            hashMap["name"] = editUserData.name
-            hashMap["about_me"] = editUserData.intro
+            name = editUserData.name
+            about = editUserData.intro
 
             if (editUserData.profileUri != null || editUserData.backUri != null) {
                 view.convertToImage(editUserData)
             } else {
                 CoroutineScope(coroutineContext).launch(handler) {
-                    repository.updateProifle(hashMap)
+                    repository.updateProfile(hashMap, name, about)
                 }
             }
         }
@@ -49,7 +50,7 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
         }
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.updateProifle(hashMap)
+            repository.updateProfile(hashMap, name, about)
         }
     }
 }
