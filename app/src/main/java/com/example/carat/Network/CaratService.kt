@@ -25,6 +25,7 @@ interface CaratService {
     ): ServerMessage
 
 
+
     @GET("/timeline")
     suspend fun getTimeLine(@Body parameter: RequestCaringData): TimeLineData
 
@@ -61,8 +62,8 @@ interface CaratService {
 
     @DELETE("/recaring/{id}")
     suspend fun cancelReCaring(
-        @Header("Authorization") Authorization: String,
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Header("Authorization") Authorization: String
     ): ServerMessage
 
     @POST("/carat/{id}")
@@ -82,6 +83,7 @@ interface CaratService {
         @Path("id") id: String,
         @Header("Authorization") authorization: String
     ): CaratData
+
 
 
     @GET("profile/{email}")

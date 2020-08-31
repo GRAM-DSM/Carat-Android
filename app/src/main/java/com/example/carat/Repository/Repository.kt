@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Part
+import retrofit2.http.*
 
 class Repository {
     private val sharedPreferences = SharedPreferencesManager.getInstance(MyApp.context!!)
@@ -31,6 +31,14 @@ class Repository {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
+
+
+    suspend fun getTimeLine(parameter: RequestCaringData): TimeLineData {
+        return withContext(Dispatchers.IO) {
+            api.getTimeLine(parameter)
+        }
+    }
+
     suspend fun getCaringTimeLine(
         email: String,
         parameter: RequestCaringData
@@ -49,11 +57,49 @@ class Repository {
         }
     }
 
+    suspend fun createCaring(image: List<MultipartBody.Part>, caring: String): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.createCaring(TokenData.getInstance().access_token, image, caring)
+        }
+    }
+
+    suspend fun detailCaring(id: String): DetailTimeLineData {
+        return withContext(Dispatchers.IO) {
+            api.detailCaring(id)
+        }
+    }
+
+    suspend fun reCaring(id: Int): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.reCaring(TokenData.getInstance().access_token, id)
+        }
+    }
+
+    suspend fun cancelReCaring(id: String): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.cancelReCaring(id, TokenData.getInstance().access_token)
+        }
+    }
+
+    suspend fun doCarat(id: String): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.doCarat(id, TokenData.getInstance().access_token)
+        }
+    }
+
+    suspend fun cancelCarat(id: String): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.cancelCarat(id, TokenData.getInstance().access_token)
+        }
+    }
+
     suspend fun getCaratList(id: String): CaratData {
         return withContext(Dispatchers.IO) {
             api.getCaratList(id, TokenData.getInstance().access_token)
         }
     }
+
+
 
     suspend fun getProfile(path: String): UserData {
         return withContext(Dispatchers.IO) {
