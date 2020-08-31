@@ -8,34 +8,77 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.carat.Model.Post
 import com.example.carat.R
 
-class TimeLineAdapter(val postList: ArrayList<Post>) :
+class TimeLineAdapter(val context: Context, val timeLinePostList: ArrayList<TimeLinePost>) :
     RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_carat_post,parent,false)
-        return ViewHolder(view)
-    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun getItemCount(): Int {
-        return postList.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+        LayoutInflater.from(parent.context).inflate(R.layout.item_carat_post, parent, false)
+    )
+
+    override fun getItemCount(): Int = timeLinePostList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val post: Post = postList[position]
+        val view = holder.itemView
+        val item: TimeLinePost = timeLinePostList[position]
 
-        holder.adapter_email_textView.text= post.email
-        holder.adapter_name_textView.text= post.name
-        holder.adapter_time_textView.text = post.time
-        holder.adapter_content_textView.text = post.content
-        holder.adapter_link_textView.text = post.link
+        view.apply {
+            Glide.with(context).load(item.owner.profile_image).circleCrop()
+                .into(itemCarat_profile_imageView)
+            itemCarat_name_textView.text = item.owner.id
+            itemCarat_email_textView.text = item.owner.email
+            itemCarat_time_textView.text = item.post_time
+            itemCarat_content_textView.text = item.body
+            itemCarat_reCaring_textView.text = item.recaring_count.toString()
+            itemCarat_like_textView.text = item.carat_count.toString()
+            setImages(this, item)
+            setCarats(this, item)
+        }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val adapter_name_textView = itemView.findViewById<TextView>(R.id.itemCarat_name_textView)
-        val adapter_email_textView = itemView.findViewById<TextView>(R.id.itemCarat_email_textView)
-        val adapter_time_textView = itemView.findViewById<TextView>(R.id.itemCarat_time_textView)
-        val adapter_content_textView = itemView.findViewById<TextView>(R.id.itemCarat_content_textView)
-        val adapter_link_textView = itemView.findViewById<TextView>(R.id.itemCarat_link_textView)
+    private fun setImages(view: View, item: TimeLinePost) {
+        val image = item.body_images
+
+        view.apply {
+            if (image.size == 1) {
+                Glide.with(context).load(item.body_images[0]).into(itemCarat_grid1_imageView)
+            }
+            if (image.size == 2) {
+                Glide.with(context).load(item.body_images[1]).into(itemCarat_grid2_imageView)
+            }
+            if (image.size == 3) {
+                Glide.with(context).load(item.body_images[2]).into(itemCarat_grid3_imageView)
+            }
+            if (image.size == 4) {
+                Glide.with(context).load(item.body_images[3]).into(itemCarat_grid4_imageView)
+            }
+        }
     }
 
+    private fun setCarats(view: View, item: TimeLinePost) {
+        if (item.me_recaring) {
+            view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
+            view.itemCarat_reCaring_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.mainColor)
+            )
+        } else {
+            view.itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re_gray)
+            view.itemCarat_reCaring_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.gray)
+            )
+        }
+
+        if (item.me_carat) {
+            view.itemCarat_like_imageView.setImageResource(R.drawable.icon_maiin_logo)
+            view.itemCarat_like_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.mainColor)
+            )
+        } else {
+            view.itemCarat_like_imageView.setImageResource(R.drawable.icon_carat_gray)
+            view.itemCarat_like_textView.setTextColor(
+                ContextCompat.getColor(context, R.color.gray)
+            )
+        }
+    }
 }
