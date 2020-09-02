@@ -84,8 +84,8 @@ class TimeLineAdapter(private val timeLinePostList: ArrayList<DetailTimeLineData
             itemCarat_reCaring_textView.text = item.recaring_count.toString()
             itemCarat_like_textView.text = item.carat_count.toString()
             holder.setImages(item.body_images)
-            holder.setCarats(item.me_recaring)
-            holder.setCaring(item.me_carat)
+            holder.setCarats(item.am_i_recaring)
+            holder.setCaring(item.am_i_carat)
         }
     }
 }

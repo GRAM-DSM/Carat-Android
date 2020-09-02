@@ -11,7 +11,7 @@ interface ProfileContract {
 
     interface Presenter {
         fun getProfileInfo()
-        fun getCarat(caringId: String)
-        fun getCaring(caringId: String)
+        fun getCarat(time: String)
+        fun getCaring(time: String)
     }
 }

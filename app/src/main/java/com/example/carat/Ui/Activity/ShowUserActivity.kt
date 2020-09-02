@@ -84,33 +84,43 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab!!.position == 0) {
-                    showPresenter.getCaring(profileTimeLineData.last().caring_id)
-                    show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
-                        RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            super.onScrolled(recyclerView, dx, dy)
-                            val lastVisibleItemPosition =
-                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
-                            if (lastVisibleItemPosition == itemTotalCount) {
-                                showPresenter.getCaring(profileTimeLineData.last().caring_id)
+                    if (profileTimeLineData.isNotEmpty()) {
+                        showPresenter.getCaring(profileTimeLineData.last().post_time)
+                        show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                            RecyclerView.OnScrollListener() {
+                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                                super.onScrolled(recyclerView, dx, dy)
+                                val lastVisibleItemPosition =
+                                    (recyclerView.layoutManager as LinearLayoutManager)
+                                        .findLastCompletelyVisibleItemPosition()
+                                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                                if (lastVisibleItemPosition == itemTotalCount) {
+                                    showPresenter.getCaring(profileTimeLineData.last().post_time)
+                                }
                             }
-                        }
-                    })
+                        })
+                    } else {
+                        showPresenter.getCaring("")
+                    }
                 } else {
-                    showPresenter.getCarat(profileTimeLineData.last().caring_id)
-                    show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
-                        RecyclerView.OnScrollListener() {
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                            super.onScrolled(recyclerView, dx, dy)
-                            val lastVisibleItemPosition =
-                                (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                            val itemTotalCount = recyclerView.adapter!!.itemCount - 1
-                            if (lastVisibleItemPosition == itemTotalCount) {
-                                showPresenter.getCarat(profileTimeLineData.last().caring_id)
+                    if (profileTimeLineData.isNotEmpty()) {
+                        showPresenter.getCarat(profileTimeLineData.last().post_time)
+                        show_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                            RecyclerView.OnScrollListener() {
+                            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                                super.onScrolled(recyclerView, dx, dy)
+                                val lastVisibleItemPosition =
+                                    (recyclerView.layoutManager as LinearLayoutManager)
+                                        .findLastCompletelyVisibleItemPosition()
+                                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                                if (lastVisibleItemPosition == itemTotalCount) {
+                                    showPresenter.getCarat(profileTimeLineData.last().post_time)
+                                }
                             }
-                        }
-                    })
+                        })
+                    } else {
+                        showPresenter.getCarat("")
+                    }
                 }
             }
         })
