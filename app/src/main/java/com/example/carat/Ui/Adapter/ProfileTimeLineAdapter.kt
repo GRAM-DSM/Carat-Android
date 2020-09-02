@@ -45,7 +45,7 @@ class ProfileTimeLineAdapter(
         fun setReCaring(name: String, item: DetailTimeLineData) {
             if (name != "") {
                 itemView.apply {
-                    if (item.me_recaring) {
+                    if (item.am_i_recaring) {
                         itemCarat_reCaring_textView.text = "$name 님이 리캐링한 캐링"
                         itemCarat_reCaring_imageView.visibility = View.VISIBLE
                         itemCarat_reCaring_textView.visibility = View.VISIBLE
@@ -78,7 +78,7 @@ class ProfileTimeLineAdapter(
 
         fun setCarats(item: DetailTimeLineData) {
             itemView.apply {
-                if (item.me_recaring) {
+                if (item.am_i_recaring) {
                     itemCarat_reCaring_imageView.setImageResource(R.drawable.icon_re)
                     itemCarat_reCaring_textView.setTextColor(
                         ContextCompat.getColor(context, R.color.mainColor)
@@ -90,7 +90,7 @@ class ProfileTimeLineAdapter(
                     )
                 }
 
-                if (item.me_carat) {
+                if (item.am_i_carat) {
                     itemCarat_like_imageView.setImageResource(R.drawable.icon_maiin_logo)
                     itemCarat_like_textView.setTextColor(
                         ContextCompat.getColor(context, R.color.mainColor)

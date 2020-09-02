@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/writing_appbar_include" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout_writing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -45,7 +45,18 @@
             android:layout_weight="1"
             android:background="#0000"
             android:hint="@string/writing_message"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            tools:ignore="Autofill" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_showImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_writing" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

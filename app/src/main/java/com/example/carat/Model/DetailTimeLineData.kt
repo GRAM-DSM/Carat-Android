@@ -10,6 +10,6 @@ data class DetailTimeLineData(
     var body_images: ArrayList<String> = arrayListOf(),
     var carat_count: Int = 0,
     var recaring_count: Int = 0,
-    var me_recaring: Boolean = false,
-    var me_carat: Boolean = false
+    var am_i_recaring: Boolean = false,
+    var am_i_carat: Boolean = false
 )

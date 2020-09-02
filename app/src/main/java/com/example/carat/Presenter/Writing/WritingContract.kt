@@ -1,12 +1,11 @@
 package com.example.carat.Presenter.Writing
 
-interface WritingContract {
-    interface View {
-        fun setProfileImageForm(result: String)
-    }
+import okhttp3.MultipartBody
 
+interface WritingContract {
     interface Presenter {
-        fun saveContent()
-        fun getProfileImage()
+        fun clearImage()
+        fun addImage(image: MultipartBody.Part)
+        fun saveContent(content: String)
     }
 }

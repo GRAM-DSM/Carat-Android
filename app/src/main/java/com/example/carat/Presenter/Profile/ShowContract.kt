@@ -13,7 +13,7 @@ interface ShowContract {
         fun getProfileInfo()
         fun doFollow()
         fun cancelFollow()
-        fun getCarat(caringId: String)
-        fun getCaring(caringId: String)
+        fun getCarat(time: String)
+        fun getCaring(time: String)
     }
 }

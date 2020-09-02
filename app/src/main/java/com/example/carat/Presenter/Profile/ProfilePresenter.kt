@@ -20,8 +20,8 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         }
     }
 
-    override fun getCaring(caringId: String) {
-        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
+    override fun getCaring(time: String) {
+        val parameter = RequestCaringData(base_time = time)
 
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(UserObject.getInstance().email, parameter).apply {
@@ -34,8 +34,8 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         }
     }
 
-    override fun getCarat(caringId: String) {
-        val parameter = RequestCaringData(last_caring_id = caringId.toInt())
+    override fun getCarat(time: String) {
+        val parameter = RequestCaringData(base_time = time)
 
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(UserObject.getInstance().email, parameter).apply {
