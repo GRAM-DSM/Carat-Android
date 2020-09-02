@@ -9,8 +9,8 @@ interface FollowContract {
     }
 
     interface Presenter {
-        fun getFollowingList()
-        fun getFollowerList()
+        fun getFollowingList(email: String)
+        fun getFollowerList(email: String)
         fun sendFollowingState(email: String)
         fun sendFollowerState(email: String)
     }

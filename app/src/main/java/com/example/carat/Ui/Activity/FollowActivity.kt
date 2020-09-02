@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.widget_appbar.view.*
 
 class FollowActivity : AppCompatActivity(), FollowContract.View {
     private val followPresenter: FollowPresenter = FollowPresenter(this)
+    private var indexOnTab: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
     private fun settingActionBar() {
         SetActionBar(this, follow_appbar_include.widget_toolbar).apply {
             setBackKey(false) { finish() }
-            this.setTitle(UserObject.getInstance().name ?: "")
+            setTitle(UserObject.getInstance().name ?: "")
         }
     }
 
@@ -46,38 +47,31 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val pos = tab!!.position
-                if (pos == 0) {
-                    followPresenter.getFollowingList()
+                indexOnTab = tab!!.position
+                val email = intent.getStringExtra("email") ?: UserObject.getInstance().email
+                if (indexOnTab == 0) {
+                    followPresenter.getFollowingList(email)
                 } else {
-                    followPresenter.getFollowerList()
+                    followPresenter.getFollowerList(email)
                 }
             }
         })
     }
 
     override fun setFollowAdapter(followData: ArrayList<FollowData>) {
-        val toFollow = { data: FollowData, view: View ->
-            val btn = view.itemFollow_follow_button
-            distinguishButtonImage(data, btn)
-
-            btn.setOnClickListener {
-                data.following = !data.following
-                distinguishButtonImage(data, btn)
-
-                if (data.currentIndex == 0) {
-                    followPresenter.sendFollowingState(data.email)
-                } else {
-                    followPresenter.sendFollowerState(data.email)
-                }
+        follow_tab_include.tabLayout_carat
+        val toFollow = { data: FollowData ->
+            if (indexOnTab == 0) {
+                followPresenter.sendFollowingState(data.email)
+            } else {
+                followPresenter.sendFollowerState(data.email)
             }
         }
 
-        val showUser = { it: FollowData ->
-            UserObject.getInstance().email = it.email
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("follow", true)
-            intent.putExtra("email", it.email)
+        val showUser = { data: FollowData ->
+            val intent = Intent(this, ShowUserActivity::class.java)
+            intent.putExtra("isFollow", data.following)
+            intent.putExtra("email", data.email)
             startActivity(intent)
             finish()
         }
@@ -87,14 +81,6 @@ class FollowActivity : AppCompatActivity(), FollowContract.View {
 
     override fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
-    private fun distinguishButtonImage(data: FollowData, btn: Button) {
-        if (data.following) {
-            btn.background = getDrawable(R.drawable.following_button)
-        } else {
-            btn.background = getDrawable(R.drawable.to_follow_button)
-        }
     }
 
     override fun onDestroy() {

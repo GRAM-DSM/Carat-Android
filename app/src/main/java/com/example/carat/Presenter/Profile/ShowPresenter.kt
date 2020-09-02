@@ -1,34 +1,46 @@
 package com.example.carat.Presenter.Profile
 
 import com.example.carat.Model.RequestCaringData
-import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter,
+class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContract.Presenter,
     BaseCoroutineScope() {
 
     private val repository: Repository = Repository()
+    var userName: String = ""
 
     override fun getProfileInfo() {
         CoroutineScope(coroutineContext).launch(handler) {
-            val result = repository.getProfile(UserObject.getInstance().email)
+            val result = repository.getProfile(email)
+            userName = result.name
             view.setProfileInfo(result)
         }
     }
+
+    override fun doFollow() {
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository.doFollow(email)
+        }
+    }
+
+    override fun cancelFollow() {
+        CoroutineScope(coroutineContext).launch(handler) {
+            repository.cancelFollow(email)
+        }
+    }
+
 
     override fun getCaring(time: String) {
         val parameter = RequestCaringData(base_time = time)
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaringTimeLine(UserObject.getInstance().email, parameter).apply {
+            repository.getCaringTimeLine(email, parameter).apply {
                 if (message == "") {
-                    view.setProfileAdapter(
-                        ProfileTimeLineAdapter(result, UserObject.getInstance().name)
-                    )
+                    view.setProfileAdapter(ProfileTimeLineAdapter(result, userName))
                 }
             }
         }
@@ -38,12 +50,11 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         val parameter = RequestCaringData(base_time = time)
 
         CoroutineScope(coroutineContext).launch(handler) {
-            repository.getCaratTimeLine(UserObject.getInstance().email, parameter).apply {
+            repository.getCaratTimeLine(email, parameter).apply {
                 if (message == "") {
                     view.setProfileAdapter(ProfileTimeLineAdapter(result))
                 }
             }
-
         }
     }
 }
