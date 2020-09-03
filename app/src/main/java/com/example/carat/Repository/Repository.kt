@@ -3,11 +3,12 @@ package com.example.carat.Repository
 import android.content.Context
 import com.example.carat.Model.*
 import com.example.carat.Network.CaratClient
+import com.example.carat.Util.MyApp.Companion.context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class Repository(var context: Context) {
-    private val sharedPreferences = SharedPreferencesManager.getInstance(context)
+class Repository() {
+    private val sharedPreferences = context?.let { SharedPreferencesManager.getInstance(it) }
     private val api = CaratClient.caratApi
 
     fun saveLoginState(isLogin: Boolean) {
