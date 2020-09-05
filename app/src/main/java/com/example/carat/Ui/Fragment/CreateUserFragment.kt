@@ -12,9 +12,7 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.fragment_create_user.*
 
 class CreateUserFragment : Fragment() ,CreateUserContract.View{
-    private val createUserPresenter: CreateUserContract.Presenter by lazy{
-        CreateUserPresenter()
-    }
+    private val createUserPresenter: CreateUserContract.Presenter = CreateUserPresenter()
 
     private var name:String? = null
     private var email:String? = null

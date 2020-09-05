@@ -14,9 +14,7 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import java.net.PasswordAuthentication
 
 class LoginFragment : Fragment() ,LoginContract.View{
-    private val loginPresenter: LoginContract.Presenter by lazy{
-        LoginPresenter()
-    }
+    private val loginPresenter: LoginContract.Presenter = LoginPresenter(this)
 
     var email: String? =null
     var password: String? =null

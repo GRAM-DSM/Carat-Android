@@ -1,19 +1,32 @@
 package com.example.carat.Ui.Adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.R
+import com.example.carat.Ui.Activity.DetailCaratActivity
+import com.example.carat.Util.MyApp.Companion.context
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class TimeLineAdapter(private val timeLinePostList: ArrayList<DetailTimeLineData>) :
     RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener{
+
+        override fun onClick(view:View?) {
+            var intent = Intent(view?.context,DetailCaratActivity::class.java)
+            intent.putExtra("key","키값을.,ㅜ")
+
+            context?.startActivity(intent)
+        }
+
+
         fun setImages(itemImages: ArrayList<String>) {
             itemView.apply {
                 if (itemImages.size == 1) {
@@ -66,6 +79,7 @@ class TimeLineAdapter(private val timeLinePostList: ArrayList<DetailTimeLineData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_carat_post, parent, false)
+
     )
 
     override fun getItemCount(): Int = timeLinePostList.size
@@ -73,6 +87,7 @@ class TimeLineAdapter(private val timeLinePostList: ArrayList<DetailTimeLineData
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val view = holder.itemView
         val item: DetailTimeLineData = timeLinePostList[position]
+
 
         view.apply {
             Glide.with(context).load(item.owner.profile_image).circleCrop()
