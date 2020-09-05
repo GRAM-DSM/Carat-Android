@@ -4,7 +4,6 @@ import com.example.carat.Model.RequestCaringData
 import com.example.carat.Model.TimeLineData
 import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
-import com.example.carat.Ui.Adapter.TimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ class TimeLinePresenter(private var view: TimeLineContract.View) : TimeLineContr
             if (result.message != "") {
                 view.showMessage(result.message)
             } else {
-                view.setTimeLineAdapter(TimeLineAdapter(result.result))
+                view.setTimeLineAdapter(result.result)
             }
         }
     }
