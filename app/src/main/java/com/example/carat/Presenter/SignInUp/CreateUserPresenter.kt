@@ -27,8 +27,7 @@ class CreateUserPresenter(var view: CreateUserContract.View) :
     }
 
     private fun saveEmail(email: String) {
-        UserObject.getInstance().email = email
-        repository.saveEmail()
+        repository.saveEmail(email)
     }
 
     private fun setLoginData(signData: SignData) {

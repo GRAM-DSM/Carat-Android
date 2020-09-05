@@ -22,8 +22,8 @@ class Repository {
         sharedPreferences?.saveRefreshToken = refresh
     }
 
-    fun saveEmail() {
-        sharedPreferences?.saveEmail = UserObject.getInstance().email
+    fun saveEmail(email: String) {
+        sharedPreferences?.saveEmail = email
     }
 
     fun getLoginState(): Boolean? = sharedPreferences?.isLogin
