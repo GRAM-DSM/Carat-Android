@@ -1,6 +1,5 @@
 package com.example.carat.Presenter.SignInUp
 
-import com.example.carat.Model.LoginData
 import com.example.carat.Model.TokenData
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
@@ -11,18 +10,23 @@ class LoginPresenter(var view: LoginContract.View) : LoginContract.Presenter,
     BaseCoroutineScope() {
     private val repository: Repository = Repository()
 
-    override fun sendDataToServer(loginData: LoginData) {
+    override fun sendDataToServer() {
         CoroutineScope(coroutineContext).launch(handler) {
-            val result = repository.doLogin(loginData)
+            val result = repository.doLogin()
             if (result.message != "") {
                 view.showMessage(result.message)
             } else {
-                repository.saveToken(
-                    TokenData.getInstance().access_token,
-                    TokenData.getInstance().refresh_token
-                )
+                saveData()
+                view.moveToMain()
             }
-
         }
+    }
+
+    private fun saveData() {
+        repository.saveToken(
+            TokenData.getInstance().access_token,
+            TokenData.getInstance().refresh_token
+        )
+        repository.saveLoginState(true)
     }
 }

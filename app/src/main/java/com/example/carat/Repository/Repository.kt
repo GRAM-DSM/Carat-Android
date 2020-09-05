@@ -31,9 +31,15 @@ class Repository {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
-    suspend fun doLogin(parameter: LoginData): TokenData {
+    suspend fun doLogin(): TokenData {
         return withContext(Dispatchers.IO) {
-            api.doLogin(parameter)
+            api.doLogin(LoginData.getInstance())
+        }
+    }
+
+    suspend fun doSignUp(parameter: SignData): ServerMessage {
+        return withContext(Dispatchers.IO) {
+            api.signUp(parameter)
         }
     }
 

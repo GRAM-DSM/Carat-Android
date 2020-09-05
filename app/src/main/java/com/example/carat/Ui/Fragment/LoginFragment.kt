@@ -2,48 +2,51 @@ package com.example.carat.Ui.Fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.carat.Model.LoginData
 import com.example.carat.Presenter.SignInUp.LoginContract
 import com.example.carat.Presenter.SignInUp.LoginPresenter
 import com.example.carat.R
 import com.example.carat.Ui.Activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.net.PasswordAuthentication
+import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class LoginFragment : Fragment(), LoginContract.View {
     private val loginPresenter: LoginContract.Presenter = LoginPresenter(this)
-    private var loginData = LoginData()
+    private var loginData = LoginData.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        login_back_button.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.sign_fragment, InitialScreenFragment())
-                .commit()
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+
+        login_email_editText.setText(loginData.email)
+        login_password_editText.setText(loginData.password)
+
+        view.login_back_button.setOnClickListener {
+            changeFragment(InitialScreenFragment())
         }
 
-        login_sign_button.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.sign_fragment, CreateUserFragment())
-                .commit()
+        view.login_sign_button.setOnClickListener {
+            changeFragment(CreateUserFragment())
         }
 
-        login_login_button.setOnClickListener {
+        view.login_login_button.setOnClickListener {
             sendDataToServer()
-
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(intent)
         }
 
+        return view
+    }
 
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    private fun changeFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.sign_fragment, fragment)
+            .commit()
     }
 
     private fun getLoginFieldInputData() {
@@ -53,10 +56,15 @@ class LoginFragment : Fragment(), LoginContract.View {
 
     private fun sendDataToServer() {
         getLoginFieldInputData()
-        loginPresenter.sendDataToServer(loginData)
+        loginPresenter.sendDataToServer()
+    }
+
+    override fun moveToMain() {
+        val intent = Intent(context, MainActivity::class.java)
+        requireActivity().startActivity(intent)
     }
 
     override fun showMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

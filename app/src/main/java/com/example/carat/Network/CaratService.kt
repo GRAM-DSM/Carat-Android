@@ -9,24 +9,14 @@ import com.example.carat.Model.TokenData
 import okhttp3.MultipartBody
 
 interface CaratService {
-    @GET("user/auth")
-    suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
-
     @POST("user/auth")
     suspend fun doLogin(@Body body: LoginData): TokenData
 
+    @GET("user/auth")
+    suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
+
     @POST("/user")
-    suspend fun signUp(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): ServerMessage
-
-    @DELETE("/user")
-    suspend fun deleteUser(
-        @Header("Authorization") authorization: String
-    ): ServerMessage
-
+    suspend fun signUp(@Body body: SignData): ServerMessage
 
 
     @GET("/timeline")
@@ -86,7 +76,6 @@ interface CaratService {
         @Path("id") id: String,
         @Header("Authorization") authorization: String
     ): CaratData
-
 
 
     @GET("profile/{email}")
