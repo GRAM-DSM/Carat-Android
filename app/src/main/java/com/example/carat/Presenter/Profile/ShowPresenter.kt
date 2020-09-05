@@ -13,6 +13,7 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     private val repository: Repository = Repository()
     var userName: String = ""
 
+
     override fun getProfileInfo() {
         CoroutineScope(coroutineContext).launch(handler) {
             val result = repository.getProfile(email)
@@ -40,7 +41,7 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(email, parameter).apply {
                 if (message == "") {
-                    view.setProfileAdapter(ProfileTimeLineAdapter(result, userName))
+                    view.setProfileAdapter(result, userName)
                 }
             }
         }
@@ -52,7 +53,7 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(email, parameter).apply {
                 if (message == "") {
-                    view.setProfileAdapter(ProfileTimeLineAdapter(result))
+                    view.setProfileAdapter(result, "")
                 }
             }
         }

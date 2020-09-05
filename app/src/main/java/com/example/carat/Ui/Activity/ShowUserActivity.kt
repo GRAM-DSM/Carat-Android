@@ -13,6 +13,7 @@ import com.example.carat.Presenter.Profile.ShowContract
 import com.example.carat.Presenter.Profile.ShowPresenter
 import com.example.carat.R
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
+import com.example.carat.Util.MyApp.Companion.context
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_show_user.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -126,9 +127,20 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
         })
     }
 
-    override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
-        profileTimeLineData = profileAdapter.profilePostList
-        show_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
+    override fun setProfileAdapter(result: ArrayList<DetailTimeLineData>, name: String) {
+        val toDetail = { data: DetailTimeLineData ->
+            val intent = Intent(this, DetailCaratActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            startActivity(intent)
+        }
+
+        profileTimeLineData = result
+        show_tab_include.tabLayout_show_recyclerView.adapter =
+            ProfileTimeLineAdapter(result, name, toDetail)
     }
 
     override fun onDestroy() {

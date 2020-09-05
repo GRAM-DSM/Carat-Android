@@ -26,9 +26,7 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaringTimeLine(UserObject.getInstance().email, parameter).apply {
                 if (message == "") {
-                    view.setProfileAdapter(
-                        ProfileTimeLineAdapter(result, UserObject.getInstance().name)
-                    )
+                    view.setProfileAdapter(result, UserObject.getInstance().name)
                 }
             }
         }
@@ -40,7 +38,7 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
         CoroutineScope(coroutineContext).launch(handler) {
             repository.getCaratTimeLine(UserObject.getInstance().email, parameter).apply {
                 if (message == "") {
-                    view.setProfileAdapter(ProfileTimeLineAdapter(result))
+                    view.setProfileAdapter(result, "")
                 }
             }
 

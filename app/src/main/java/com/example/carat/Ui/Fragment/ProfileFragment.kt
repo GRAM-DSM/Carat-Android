@@ -17,6 +17,7 @@ import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
 import com.example.carat.Ui.Activity.ChangeProfile
+import com.example.carat.Ui.Activity.DetailCaratActivity
 import com.example.carat.Ui.Activity.FollowActivity
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.google.android.material.tabs.TabLayout
@@ -120,9 +121,21 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         }
     }
 
-    override fun setProfileAdapter(profileAdapter: ProfileTimeLineAdapter) {
-        profileTimeLineData = profileAdapter.profilePostList
-        profile_tab_include.tabLayout_show_recyclerView.adapter = profileAdapter
+    override fun setProfileAdapter(result: ArrayList<DetailTimeLineData>, name: String) {
+        val toDetail = { data: DetailTimeLineData ->
+            val intent = Intent(context, DetailCaratActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+
+            requireActivity().startActivity(intent)
+        }
+
+        profileTimeLineData = result
+        profile_tab_include.tabLayout_show_recyclerView.adapter =
+            ProfileTimeLineAdapter(result, name, toDetail)
     }
 
     override fun onDestroy() {
