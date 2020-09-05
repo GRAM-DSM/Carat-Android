@@ -27,7 +27,7 @@
                 android:id="@+id/itemCarat_showIcon_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_recarring"
+                android:src="@drawable/icon_re_gray"
                 android:visibility="gone" />
 
             <ImageView
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/recarring_carring"
+                android:text="@string/reCaring_caring"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:visibility="gone"
@@ -122,40 +122,41 @@
                         android:textSize="15sp"
                         tools:text="내용" />
 
-                    <TextView
-                        android:id="@+id/itemCarat_link_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
-                        android:textSize="15sp"
-                        tools:text="링크" />
-
                     <GridLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:columnCount="2"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal"
                         android:rowCount="2">
 
                         <ImageView
+                            android:id="@+id/itemCarat_grid1_imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            tools:visibility="gone" />
 
                         <ImageView
+                            android:id="@+id/itemCarat_grid2_imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            tools:visibility="gone" />
 
                         <ImageView
+                            android:id="@+id/itemCarat_grid3_imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            tools:visibility="gone" />
 
                         <ImageView
+                            android:id="@+id/itemCarat_grid4_imageView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            tools:visibility="gone" />
                     </GridLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -163,7 +164,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout_recarring"
+        android:id="@+id/linearLayout_reCaring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -175,13 +176,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_carat">
 
         <ImageView
-            android:id="@+id/itemCarat_recarring_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_recarring" />
+            android:id="@+id/itemCarat_reCaring_imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/icon_re_gray" />
 
         <TextView
-            android:id="@+id/itemCarat_recarring_textView"
+            android:id="@+id/itemCarat_reCaring_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="6dp"
@@ -200,7 +201,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout_recarring"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout_reCaring"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_carat">
 
         <ImageView

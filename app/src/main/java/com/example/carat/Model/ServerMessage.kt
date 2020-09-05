@@ -1,6 +1,6 @@
 package com.example.carat.Model
 
 data class ServerMessage(
-    var message: String?,
-    var token: String
+    var message: String = "",
+    var token: String = ""
 )
