@@ -13,7 +13,7 @@ class SignInUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in_up)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.layout.fragment_initial_screen, InitialScreenFragment())
+            .replace(R.id.sign_fragment, InitialScreenFragment())
             .commit()
     }
 }

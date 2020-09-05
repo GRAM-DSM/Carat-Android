@@ -12,6 +12,9 @@ interface CaratService {
     @GET("user/auth")
     suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
 
+    @POST("user/auth")
+    suspend fun doLogin(@Body body: LoginData): TokenData
+
     @POST("/user")
     suspend fun signUp(
         @Field("name") name: String,
