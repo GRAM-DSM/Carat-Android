@@ -16,6 +16,7 @@ import com.example.carat.Model.UserData
 import com.example.carat.Presenter.Profile.ProfileContract
 import com.example.carat.Presenter.Profile.ProfilePresenter
 import com.example.carat.R
+import com.example.carat.Ui.Activity.CaringActivity
 import com.example.carat.Ui.Activity.ChangeProfile
 import com.example.carat.Ui.Activity.DetailCaratActivity
 import com.example.carat.Ui.Activity.FollowActivity
@@ -133,9 +134,31 @@ class ProfileFragment : Fragment(), ProfileContract.View {
             requireActivity().startActivity(intent)
         }
 
+        val toCaring = { data: DetailTimeLineData ->
+            val intent = Intent(context, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCaring", data.am_i_recaring)
+            requireActivity().startActivity(intent)
+        }
+
+        val toCarat = { data: DetailTimeLineData ->
+            val intent = Intent(context, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCarat", data.am_i_carat)
+            requireActivity().startActivity(intent)
+        }
+
         profileTimeLineData = result
         profile_tab_include.tabLayout_show_recyclerView.adapter =
-            ProfileTimeLineAdapter(result, name, toDetail)
+            ProfileTimeLineAdapter(result, name, toDetail, toCaring, toCarat)
     }
 
     override fun onDestroy() {

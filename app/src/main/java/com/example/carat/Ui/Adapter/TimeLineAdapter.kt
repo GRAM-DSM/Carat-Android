@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class TimeLineAdapter(
     private val timeLinePostList: ArrayList<DetailTimeLineData>,
-    private val showDetail: (DetailTimeLineData) -> Unit
+    private val showDetail: (DetailTimeLineData) -> Unit,
+    private val toCaring: (DetailTimeLineData) -> Unit,
+    private val toCarat: (DetailTimeLineData) -> Unit
 ) : RecyclerView.Adapter<TimeLineAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -86,11 +88,14 @@ class TimeLineAdapter(
             itemCarat_content_textView.text = item.body
             itemCarat_reCaring_textView.text = item.recaring_count.toString()
             itemCarat_like_textView.text = item.carat_count.toString()
+
+            itemCarat_reCaring_textView.setOnClickListener { toCaring(item) }
+            itemCarat_like_textView.setOnClickListener { toCarat(item) }
+
             holder.setImages(item.body_images)
             holder.setCarats(item.am_i_recaring)
             holder.setCaring(item.am_i_carat)
+            setOnClickListener { showDetail(item) }
         }
-
-        holder.itemView.setOnClickListener { showDetail(item) }
     }
 }

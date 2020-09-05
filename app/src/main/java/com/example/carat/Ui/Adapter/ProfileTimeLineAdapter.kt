@@ -11,9 +11,11 @@ import com.example.carat.R
 import kotlinx.android.synthetic.main.item_carat_post.view.*
 
 class ProfileTimeLineAdapter(
-    val profilePostList: ArrayList<DetailTimeLineData>,
-    val name: String = "",
-    val toDetail: (DetailTimeLineData) -> Unit
+    private val profilePostList: ArrayList<DetailTimeLineData>,
+    private val name: String = "",
+    private val toDetail: (DetailTimeLineData) -> Unit,
+    private val toCaring: (DetailTimeLineData) -> Unit,
+    private val toCarat: (DetailTimeLineData) -> Unit
 ) : RecyclerView.Adapter<ProfileTimeLineAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
@@ -41,6 +43,8 @@ class ProfileTimeLineAdapter(
             holder.setCarats(item)
 
             setOnClickListener { toDetail(item) }
+            itemCarat_reCaring_textView.setOnClickListener { toCaring(item) }
+            itemCarat_like_textView.setOnClickListener { toCarat(item) }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.carat.Ui.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -75,5 +76,26 @@ class DetailCaratActivity : AppCompatActivity(), DetailCaratContract.View {
         detailCarat_like_textView.text = result.carat_count.toString()
         detailCarat_reCaring_textView.text = result.recaring_count.toString()
 
+        detailCarat_reCaring_textView.setOnClickListener {
+            val intent = Intent(this, CaringActivity::class.java)
+            if (result.recaring_id != "") {
+                intent.putExtra("id", result.recaring_id)
+            } else {
+                intent.putExtra("id", result.caring_id)
+            }
+            intent.putExtra("isCaring", result.am_i_recaring)
+            startActivity(intent)
+        }
+
+        detailCarat_like_textView.setOnClickListener {
+            val intent = Intent(this, CaringActivity::class.java)
+            if (result.recaring_id != "") {
+                intent.putExtra("id", result.recaring_id)
+            } else {
+                intent.putExtra("id", result.caring_id)
+            }
+            intent.putExtra("isCarat", result.am_i_recaring)
+            startActivity(intent)
+        }
     }
 }

@@ -13,10 +13,8 @@ import com.example.carat.Presenter.Profile.ShowContract
 import com.example.carat.Presenter.Profile.ShowPresenter
 import com.example.carat.R
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
-import com.example.carat.Util.MyApp.Companion.context
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_show_user.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
 
@@ -140,7 +138,7 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
 
         profileTimeLineData = result
         show_tab_include.tabLayout_show_recyclerView.adapter =
-            ProfileTimeLineAdapter(result, name, toDetail)
+            ProfileTimeLineAdapter(result, name, toDetail, toCaring, toCarat)
     }
 
     override fun onDestroy() {

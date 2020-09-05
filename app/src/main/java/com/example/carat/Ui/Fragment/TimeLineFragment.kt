@@ -11,6 +11,7 @@ import com.example.carat.Model.DetailTimeLineData
 import com.example.carat.Presenter.TimeLine.TimeLineContract
 import com.example.carat.Presenter.TimeLine.TimeLinePresenter
 import com.example.carat.R
+import com.example.carat.Ui.Activity.CaringActivity
 import com.example.carat.Ui.Activity.DetailCaratActivity
 import com.example.carat.Ui.Adapter.TimeLineAdapter
 import kotlinx.android.synthetic.main.fragment_time_line.*
@@ -42,7 +43,29 @@ class TimeLineFragment : Fragment(), TimeLineContract.View {
             requireActivity().startActivity(intent)
         }
 
-        timeline_recyclerView.adapter = TimeLineAdapter(timeLineArray, toDetail)
+        val toCaring = { data: DetailTimeLineData ->
+            val intent = Intent(context, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCaring", data.am_i_recaring)
+            requireActivity().startActivity(intent)
+        }
+
+        val toCarat = { data: DetailTimeLineData ->
+            val intent = Intent(context, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCarat", data.am_i_carat)
+            requireActivity().startActivity(intent)
+        }
+
+        timeline_recyclerView.adapter = TimeLineAdapter(timeLineArray, toDetail, toCaring, toCarat)
     }
 
     override fun showMessage(message: String) {

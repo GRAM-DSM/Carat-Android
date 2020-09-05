@@ -1,6 +1,5 @@
 package com.example.carat.Presenter.Profile
 
-import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
