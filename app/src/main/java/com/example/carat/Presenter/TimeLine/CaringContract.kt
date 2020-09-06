@@ -1,10 +1,12 @@
 package com.example.carat.Presenter.TimeLine
 
 import com.example.carat.Model.CaratUnitData
+import com.example.carat.Model.FollowData
 
 interface CaringContract {
     interface View {
-        fun setCaringAdapter(caratData: ArrayList<CaratUnitData>)
+        fun setCaratAdapter(caratData: ArrayList<CaratUnitData>)
+        fun setCaringAdapter(caringData: ArrayList<FollowData>)
         fun showToast(message: String)
     }
 

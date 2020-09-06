@@ -71,6 +71,12 @@ interface CaratService {
         @Header("Authorization") Authorization: String
     ): ServerMessage
 
+    @GET("recaring/{id}/list")
+    suspend fun getCaringList(
+        @Path("id") id: String,
+        @Header("Authorization") authorization: String
+    ): FollowingData
+
     @GET("carat/{id}/list")
     suspend fun getCaratList(
         @Path("id") id: String,

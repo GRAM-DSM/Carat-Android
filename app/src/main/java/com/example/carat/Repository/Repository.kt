@@ -103,6 +103,12 @@ class Repository {
         }
     }
 
+    suspend fun getCaringList(id: String): FollowingData {
+        return withContext(Dispatchers.IO) {
+            api.getCaringList(id, TokenData.getInstance().access_token)
+        }
+    }
+
     suspend fun getCaratList(id: String): CaratData {
         return withContext(Dispatchers.IO) {
             api.getCaratList(id, TokenData.getInstance().access_token)

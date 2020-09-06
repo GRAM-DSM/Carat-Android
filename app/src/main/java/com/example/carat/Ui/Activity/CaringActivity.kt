@@ -4,15 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.carat.Model.CaratData
 import com.example.carat.Model.CaratUnitData
 import com.example.carat.Model.FollowData
 import com.example.carat.Model.UserObject
 import com.example.carat.Presenter.TimeLine.CaringContract
 import com.example.carat.Presenter.TimeLine.CaringPresenter
 import com.example.carat.R
+import com.example.carat.Ui.Adapter.CaratAdapter
 import com.example.carat.Ui.Adapter.CaringAdapter
-import com.example.carat.Ui.Adapter.FollowAdapter
 import com.example.carat.Util.SetActionBar
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_caring.*
@@ -72,7 +71,7 @@ class CaringActivity : AppCompatActivity(), CaringContract.View {
         })
     }
 
-    override fun setCaringAdapter(caratData: ArrayList<CaratUnitData>) {
+    override fun setCaratAdapter(caratData: ArrayList<CaratUnitData>) {
         val toFollow = { data: CaratUnitData ->
             if (indexOnTab == 0) {
                 caringPresenter.sendFollowingState(data.email)
@@ -89,7 +88,27 @@ class CaringActivity : AppCompatActivity(), CaringContract.View {
             finish()
         }
 
-        tabLayout_show_recyclerView.adapter = CaringAdapter(caratData, toFollow, showUser)
+        tabLayout_show_recyclerView.adapter = CaratAdapter(caratData, toFollow, showUser)
+    }
+
+    override fun setCaringAdapter(caringData: ArrayList<FollowData>) {
+        val toFollow = { data: FollowData ->
+            if (indexOnTab == 0) {
+                caringPresenter.sendFollowingState(data.email)
+            } else {
+                caringPresenter.sendFollowerState(data.email)
+            }
+        }
+
+        val showUser = { data: FollowData ->
+            val intent = Intent(this, ShowUserActivity::class.java)
+            intent.putExtra("isFollow", data.following)
+            intent.putExtra("email", data.email)
+            startActivity(intent)
+            finish()
+        }
+
+        tabLayout_show_recyclerView.adapter = CaringAdapter(caringData, toFollow, showUser)
     }
 
     override fun showToast(message: String) {

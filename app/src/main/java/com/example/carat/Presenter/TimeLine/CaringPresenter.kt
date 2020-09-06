@@ -11,7 +11,12 @@ class CaringPresenter(private val view: CaringContract.View, private val id: Str
 
     override fun getCaringList() {
         CoroutineScope(coroutineContext).launch(handler) {
-
+            val result = repository.getCaringList(id)
+            if (result.message != "") {
+                view.showToast(result.message)
+            } else {
+                view.setCaringAdapter(result.followings)
+            }
         }
     }
 
@@ -21,7 +26,7 @@ class CaringPresenter(private val view: CaringContract.View, private val id: Str
             if (result.message != "") {
                 view.showToast(result.message)
             } else {
-                view.setCaringAdapter(result.result)
+                view.setCaratAdapter(result.result)
             }
         }
     }
