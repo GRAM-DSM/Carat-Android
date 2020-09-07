@@ -14,8 +14,11 @@ class ViewPagerAdapter(fm: FragmentManager) :
             0 -> {
                 TimeLineFragment()
             }
-            else -> {
+            1 -> {
                 ProfileFragment()
+            }
+            else -> {
+                TimeLineFragment()
             }
         }
 

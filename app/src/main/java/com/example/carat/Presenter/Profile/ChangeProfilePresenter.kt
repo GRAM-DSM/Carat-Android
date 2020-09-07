@@ -8,6 +8,7 @@ import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import retrofit2.await
 
 class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
     ChangeProfileContract.Presenter, BaseCoroutineScope() {
@@ -34,8 +35,8 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
             if (editUserData.profileUri != null || editUserData.backUri != null) {
                 view.convertToImage(editUserData)
             } else {
-                CoroutineScope(coroutineContext).launch(handler) {
-                    repository.updateProfile(hashMap, name, about)
+                launch(handler) {
+                    repository.updateProfile(hashMap, name, about).await()
                 }
             }
         }
@@ -49,8 +50,8 @@ class ChangeProfilePresenter(val view: ChangeProfileContract.View) :
             hashMap["cover_image"] = editUserData.backToUpload!!
         }
 
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.updateProfile(hashMap, name, about)
+        launch(handler) {
+            repository.updateProfile(hashMap, name, about).await()
         }
     }
 }

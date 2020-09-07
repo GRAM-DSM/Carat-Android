@@ -6,6 +6,7 @@ import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import retrofit2.await
 
 class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContract.Presenter,
     BaseCoroutineScope() {
@@ -13,9 +14,8 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     private val repository: Repository = Repository()
     var userName: String = ""
 
-
     override fun getProfileInfo() {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             val result = repository.getProfile(email)
             userName = result.name
             view.setProfileInfo(result)
@@ -23,14 +23,14 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     }
 
     override fun doFollow() {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.doFollow(email)
+        launch(handler) {
+            repository.doFollow(email).await()
         }
     }
 
     override fun cancelFollow() {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.cancelFollow(email)
+        launch(handler) {
+            repository.cancelFollow(email).await()
         }
     }
 
@@ -38,7 +38,7 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     override fun getCaring(time: String) {
         val parameter = RequestCaringData(base_time = time)
 
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             repository.getCaringTimeLine(email, parameter).apply {
                 if (message == "") {
                     view.setProfileAdapter(result, userName)
@@ -50,7 +50,7 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
     override fun getCarat(time: String) {
         val parameter = RequestCaringData(base_time = time)
 
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             repository.getCaratTimeLine(email, parameter).apply {
                 if (message == "") {
                     view.setProfileAdapter(result, "")

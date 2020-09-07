@@ -4,19 +4,19 @@ import com.example.carat.Model.*
 import retrofit2.Call
 import retrofit2.http.*
 import kotlin.collections.HashMap
-import com.example.carat.Model.ServerMessage
 import com.example.carat.Model.TokenData
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface CaratService {
     @POST("user/auth")
-    suspend fun doLogin(@Body body: LoginData): TokenData
+    suspend fun doLogin(@Body body: RequestBody): TokenData
 
     @GET("user/auth")
     suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
 
-    @POST("user")
-    suspend fun signUp(@Body body: SignData): ServerMessage
+    @POST("user/")
+    suspend fun signUp(@Body body: RequestBody): Call<ServerMessage>
 
 
     @GET("/timeline")
@@ -42,7 +42,7 @@ interface CaratService {
         @Header("Authorization") authorization: String,
         @Part image: List<MultipartBody.Part>,
         @Body caring: String
-    ): ServerMessage
+    ): Call<Void>
 
     @GET("/caring/detail/{id}")
     suspend fun detailCaring(@Path("id") id: String): DetailTimeLineData
@@ -51,25 +51,25 @@ interface CaratService {
     suspend fun reCaring(
         @Header("Authorization") Authorization: String,
         @Body id: Int
-    ): ServerMessage
+    ): Call<Void>
 
     @DELETE("/recaring/{id}")
     suspend fun cancelReCaring(
         @Path("id") id: String,
         @Header("Authorization") Authorization: String
-    ): ServerMessage
+    ): Call<Void>
 
     @POST("/carat/{id}")
     suspend fun doCarat(
         @Path("id") id: String,
         @Header("Authorization") Authorization: String
-    ): ServerMessage
+    ): Call<Void>
 
     @DELETE("/carat/{id}")
     suspend fun cancelCarat(
         @Path("id") id: String,
         @Header("Authorization") Authorization: String
-    ): ServerMessage
+    ): Call<Void>
 
     @GET("recaring/{id}/list")
     suspend fun getCaringList(
@@ -97,19 +97,19 @@ interface CaratService {
         @PartMap parameter: HashMap<String, MultipartBody.Part>,
         @Part("name") name: String,
         @Part("about_me") about_me: String
-    ): Call<Unit>
+    ): Call<Void>
 
     @POST("profile/{email}/following")
     suspend fun doFollow(
         @Path("email") email: String,
         @Header("Authorization") authorization: String
-    ): Call<Unit>
+    ): Call<Void>
 
     @DELETE("profile/{email}/following")
     suspend fun cancelFollow(
         @Path("email") email: String,
         @Header("Authorization") authorization: String
-    ): Call<Unit>
+    ): Call<Void>
 
     @GET("profile/{email}/following")
     suspend fun getFollowingList(

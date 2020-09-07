@@ -4,18 +4,18 @@ import com.example.carat.Model.TokenData
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginPresenter(var view: LoginContract.View) : LoginContract.Presenter,
     BaseCoroutineScope() {
     private val repository: Repository = Repository()
 
     override fun sendDataToServer() {
-        CoroutineScope(coroutineContext).launch(handler) {
-            val result = repository.doLogin()
-            if (result.message != "") {
-                view.showMessage(result.message)
-            } else {
+        launch(handler) {
+            repository.doLogin()
+            withContext(Dispatchers.Main) {
                 saveData()
                 view.moveToMain()
             }

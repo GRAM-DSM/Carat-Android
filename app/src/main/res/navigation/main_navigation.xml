@@ -5,11 +5,11 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_profile">
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_home"-->
-<!--        android:name=""-->
-<!--        android:label="home"-->
-<!--        tools:layout="@layout/fragment_home" />-->
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.carat.Ui.Fragment.TimeLineFragment"
+        android:label="home"
+        tools:layout="@layout/fragment_time_line" />
 
     <fragment
         android:id="@+id/navigation_profile"

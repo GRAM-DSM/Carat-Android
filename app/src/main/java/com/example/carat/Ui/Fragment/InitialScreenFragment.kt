@@ -18,17 +18,19 @@ class InitialScreenFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_initial_screen, container, false)
 
         view.initial_create_button.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.sign_fragment, CreateUserFragment())
-                .commit()
+            changeFragment(CreateUserFragment())
         }
 
         view.initial_login_button.setOnClickListener{
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.sign_fragment, LoginFragment())
-                .commit()
+            changeFragment(LoginFragment())
         }
 
         return view
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.sign_fragment, fragment)
+            .commit()
     }
 }

@@ -4,13 +4,14 @@ import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import retrofit2.await
 
 class CaringPresenter(private val view: CaringContract.View, private val id: String) :
     CaringContract.Presenter, BaseCoroutineScope() {
     val repository = Repository()
 
     override fun getCaringList() {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             val result = repository.getCaringList(id)
             if (result.message != "") {
                 view.showToast(result.message)
@@ -21,7 +22,7 @@ class CaringPresenter(private val view: CaringContract.View, private val id: Str
     }
 
     override fun getCaratList() {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             val result = repository.getCaratList(id)
             if (result.message != "") {
                 view.showToast(result.message)
@@ -32,41 +33,34 @@ class CaringPresenter(private val view: CaringContract.View, private val id: Str
     }
 
     override fun sendCaringState(isCaring: Boolean) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            val result = if(isCaring) {
-                repository.cancelReCaring(id)
+        launch(handler) {
+            if(isCaring) {
+                repository.cancelReCaring(id).await()
             } else {
-                repository.reCaring(id.toInt())
-            }
-            if (result.message != "") {
-                view.showToast(result.message)
+                repository.reCaring(id.toInt()).await()
             }
         }
     }
 
     override fun sendCaratState(isCarat: Boolean) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            val result = if (isCarat) {
-                repository.cancelCarat(id)
+        launch(handler) {
+            if (isCarat) {
+                repository.cancelCarat(id).await()
             } else {
-                repository.doCarat(id)
-            }
-
-            if (result.message != "") {
-                view.showToast(result.message)
+                repository.doCarat(id).await()
             }
         }
     }
 
     override fun sendFollowingState(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.doFollow(email)
+        launch(handler) {
+            repository.doFollow(email).await()
         }
     }
 
     override fun sendFollowerState(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.cancelFollow(email)
+        launch(handler) {
+            repository.cancelFollow(email).await()
         }
     }
 }

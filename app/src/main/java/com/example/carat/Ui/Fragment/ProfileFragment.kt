@@ -25,6 +25,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.layout_profile_info.view.*
 import kotlinx.android.synthetic.main.layout_profile_tab.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 class ProfileFragment : Fragment(), ProfileContract.View {
     private val profilePresenter: ProfilePresenter = ProfilePresenter(this)
@@ -38,12 +39,12 @@ class ProfileFragment : Fragment(), ProfileContract.View {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         profilePresenter.getProfileInfo()
-        setProfileTimeLine()
+        setProfileTimeLine(view)
         return view
     }
 
-    private fun setProfileTimeLine() {
-        val tab = profile_tab_include.tabLayout_carat
+    private fun setProfileTimeLine(view: View) {
+        val tab = view.profile_tab_include.tabLayout_carat
         tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -51,7 +52,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
                 if (tab!!.position == 0) {
                     if (profileTimeLineData.isNotEmpty()) {
                         profilePresenter.getCaring(profileTimeLineData.last().post_time)
-                        profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        view.profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
                             RecyclerView.OnScrollListener() {
                             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                                 super.onScrolled(recyclerView, dx, dy)
@@ -69,7 +70,7 @@ class ProfileFragment : Fragment(), ProfileContract.View {
                 } else {
                     if (profileTimeLineData.isNotEmpty()) {
                         profilePresenter.getCarat(profileTimeLineData.last().post_time)
-                        profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
+                        view.profile_tab_include.tabLayout_show_recyclerView.addOnScrollListener(object :
                             RecyclerView.OnScrollListener() {
                             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                                 super.onScrolled(recyclerView, dx, dy)

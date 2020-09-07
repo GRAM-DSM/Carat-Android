@@ -2,11 +2,12 @@ package com.example.carat.Presenter.SignInUp
 
 import com.example.carat.Model.LoginData
 import com.example.carat.Model.SignData
-import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.await
 
 class CreateUserPresenter(var view: CreateUserContract.View) :
     CreateUserContract.Presenter, BaseCoroutineScope() {
@@ -14,11 +15,9 @@ class CreateUserPresenter(var view: CreateUserContract.View) :
     private val repository: Repository = Repository()
 
     override fun sendDataToServer(signData: SignData) {
-        CoroutineScope(coroutineContext).launch {
-            val result = repository.doSignUp(signData)
-            if (result.message != "") {
-                view.showMessage(result.message)
-            } else {
+        launch(handler) {
+            repository.doSignUp(signData).await()
+            withContext(Dispatchers.Main) {
                 saveEmail(signData.email)
                 setLoginData(signData)
                 view.moveToLogin()

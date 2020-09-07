@@ -2,8 +2,8 @@ package com.example.carat.Presenter.Profile
 
 import com.example.carat.Repository.Repository
 import com.example.carat.Util.BaseCoroutineScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import retrofit2.await
 
 class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
     BaseCoroutineScope() {
@@ -11,7 +11,7 @@ class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
     private val repository: Repository = Repository()
 
     override fun getFollowingList(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             val result = repository.getFollowingList(email)
             if (result.message != "") {
                 view.setFollowAdapter(result.followings)
@@ -22,7 +22,7 @@ class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
     }
 
     override fun getFollowerList(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             val result = repository.getFollowersList(email)
             if (result.message != "") {
                 view.setFollowAdapter(result.followers)
@@ -33,14 +33,14 @@ class FollowPresenter(val view: FollowContract.View) : FollowContract.Presenter,
     }
 
     override fun sendFollowingState(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.doFollow(email)
+        launch(handler) {
+            repository.doFollow(email).await()
         }
     }
 
     override fun sendFollowerState(email: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
-            repository.cancelFollow(email)
+        launch(handler) {
+            repository.cancelFollow(email).await()
         }
     }
 }

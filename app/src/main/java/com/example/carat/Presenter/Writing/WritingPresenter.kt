@@ -21,7 +21,7 @@ class WritingPresenter : WritingContract.Presenter,
     }
 
     override fun saveContent(content: String) {
-        CoroutineScope(coroutineContext).launch(handler) {
+        launch(handler) {
             repository.createCaring(images, content)
         }
     }

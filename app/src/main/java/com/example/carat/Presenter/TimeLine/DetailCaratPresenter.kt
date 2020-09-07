@@ -10,7 +10,7 @@ class DetailCaratPresenter(private val view: DetailCaratContract.View): DetailCa
     private val repository: Repository = Repository()
 
     override fun getDetailCarat(id: String) {
-        CoroutineScope(coroutineContext).launch {
+        launch(handler) {
             val result = repository.detailCaring(id)
             view.setDetailCarat(result)
         }

@@ -15,7 +15,7 @@ class TimeLinePresenter(private var view: TimeLineContract.View) : TimeLineContr
     private val repository: Repository = Repository()
 
     override fun getPost(postData: TimeLineData) {
-        CoroutineScope(coroutineContext).launch {
+        launch(handler) {
             val result = repository.getTimeLine(requestCaringData)
             if (result.message != "") {
                 view.showMessage(result.message)
@@ -26,7 +26,7 @@ class TimeLinePresenter(private var view: TimeLineContract.View) : TimeLineContr
     }
 
     override fun getUserData() {
-        CoroutineScope(coroutineContext).launch {
+        launch(handler) {
             val email: String = repository.getEmail()!!
             val result = repository.getProfile(email)
             UserObject.getInstance().apply {
