@@ -25,8 +25,8 @@ class LoginFragment : Fragment(), LoginContract.View {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        login_email_editText.setText(loginData.email)
-        login_password_editText.setText(loginData.password)
+        view.login_email_editText.setText(loginData.email)
+        view.login_password_editText.setText(loginData.password)
 
         view.login_back_button.setOnClickListener {
             changeFragment(InitialScreenFragment())
@@ -56,7 +56,9 @@ class LoginFragment : Fragment(), LoginContract.View {
 
     private fun sendDataToServer() {
         getLoginFieldInputData()
-        loginPresenter.sendDataToServer()
+        if (loginData.email != "" && loginData.password != "") {
+            loginPresenter.sendDataToServer()
+        }
     }
 
     override fun moveToMain() {

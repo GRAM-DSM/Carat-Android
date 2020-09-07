@@ -52,7 +52,9 @@ class CreateUserFragment : Fragment(), CreateUserContract.View {
     }
 
     private fun sendDataToServer() {
-        createUserPresenter.sendDataToServer(signData)
+        if (signData.name != "" && signData.email != "" && signData.password != "") {
+            createUserPresenter.sendDataToServer(signData)
+        }
     }
 
     override fun moveToLogin() {

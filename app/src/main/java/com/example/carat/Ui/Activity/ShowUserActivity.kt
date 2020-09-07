@@ -136,6 +136,28 @@ class ShowUserActivity : AppCompatActivity(), ShowContract.View {
             startActivity(intent)
         }
 
+        val toCaring = { data: DetailTimeLineData ->
+            val intent = Intent(this, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCaring", data.am_i_recaring)
+            startActivity(intent)
+        }
+
+        val toCarat = { data: DetailTimeLineData ->
+            val intent = Intent(this, CaringActivity::class.java)
+            if (data.recaring_id != "") {
+                intent.putExtra("id", data.recaring_id)
+            } else {
+                intent.putExtra("id", data.caring_id)
+            }
+            intent.putExtra("isCarat", data.am_i_carat)
+            startActivity(intent)
+        }
+
         profileTimeLineData = result
         show_tab_include.tabLayout_show_recyclerView.adapter =
             ProfileTimeLineAdapter(result, name, toDetail, toCaring, toCarat)

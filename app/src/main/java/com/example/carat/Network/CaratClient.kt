@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object CaratClient {
-    private const val baseUrl = "https://api.carat.com/"
+    private const val baseUrl = "http://caratserver.pythonanywhere.com/"
 
     val client = OkHttpClient.Builder()
         .addInterceptor(TokenAuthenticator(MyApp.context!!))
