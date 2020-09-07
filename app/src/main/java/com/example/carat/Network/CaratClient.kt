@@ -17,7 +17,6 @@ object CaratClient {
         Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-            .addConverterFactory(NullOnEmptyConverterFactory())
             .client(client)
             .build()
             .create(CaratService::class.java)

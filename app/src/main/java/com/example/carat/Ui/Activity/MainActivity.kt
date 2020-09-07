@@ -2,8 +2,10 @@ package com.example.carat.Ui.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.example.carat.Model.TokenData
 import com.example.carat.Model.UserObject
 import com.example.carat.R
 import com.example.carat.Repository.Repository
@@ -15,9 +17,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        getToken()
         clickWritingButton()
         setPagerAdapter()
         setBottomNavigation()
+    }
+
+    private fun getToken() {
+        TokenData.getInstance().access_token = Repository().getAccess() ?: ""
+        TokenData.getInstance().refresh_token = Repository().getRefresh() ?: ""
+        Log.e("main", Repository().getAccess().toString())
     }
 
     private fun clickWritingButton() {

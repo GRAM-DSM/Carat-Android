@@ -7,16 +7,17 @@ import kotlin.collections.HashMap
 import com.example.carat.Model.TokenData
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 
 interface CaratService {
     @POST("user/auth")
-    suspend fun doLogin(@Body body: RequestBody): TokenData
+    suspend fun doLogin(@Body body: RequestBody): Response<TokenData>
 
     @GET("user/auth")
     suspend fun reissueToken(@Header("Authorization") authorization: String): TokenData
 
     @POST("user/")
-    suspend fun signUp(@Body body: RequestBody): Call<ServerMessage>
+    suspend fun signUp(@Body body: RequestBody): Response<ServerMessage>
 
 
     @GET("/timeline")

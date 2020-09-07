@@ -6,6 +6,7 @@ import com.example.carat.Util.MyApp
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 
 class Repository {
     private val sharedPreferences = SharedPreferencesManager.getInstance(MyApp.context!!)
@@ -29,7 +30,7 @@ class Repository {
     fun getRefresh(): String? = sharedPreferences?.saveRefreshToken
     fun getEmail() = sharedPreferences?.saveEmail
 
-    suspend fun doLogin(): TokenData {
+    suspend fun doLogin(): Response<TokenData> {
         val login = LoginData.getInstance()
         val requestBody: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -40,7 +41,7 @@ class Repository {
         return api.doLogin(requestBody)
     }
 
-    suspend fun doSignUp(parameter: SignData): Call<ServerMessage> {
+    suspend fun doSignUp(parameter: SignData): Response<ServerMessage> {
         val requestBody: RequestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("name", parameter.name)
