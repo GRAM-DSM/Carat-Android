@@ -1,11 +1,15 @@
 package com.example.carat.Presenter.Profile
 
+import android.util.Log
 import com.example.carat.Model.RequestCaringData
+import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.await
 
 class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContract.Presenter,
@@ -16,9 +20,18 @@ class ShowPresenter(val view: ShowContract.View, val email: String) : ShowContra
 
     override fun getProfileInfo() {
         launch(handler) {
-            val result = repository.getProfile(email)
-            userName = result.name
-            view.setProfileInfo(result)
+            val result = withContext(Dispatchers.IO) {
+                val response = repository.getProfile(email)
+                Log.e("ShowPresenter", response.code().toString())
+                Log.e("ShowPresenter", response.isSuccessful.toString())
+                Log.e("ShowPresenter", response.message())
+                response.body()
+            }
+
+            if (result != null) {
+                userName = result.name
+                view.setProfileInfo(result)
+            }
         }
     }
 

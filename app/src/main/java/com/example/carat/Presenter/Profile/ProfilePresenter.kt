@@ -1,12 +1,15 @@
 package com.example.carat.Presenter.Profile
 
+import android.util.Log
 import com.example.carat.Model.RequestCaringData
 import com.example.carat.Model.UserObject
 import com.example.carat.Repository.Repository
 import com.example.carat.Ui.Adapter.ProfileTimeLineAdapter
 import com.example.carat.Util.BaseCoroutineScope
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Presenter,
     BaseCoroutineScope() {
@@ -15,8 +18,16 @@ class ProfilePresenter(var view: ProfileContract.View) : ProfileContract.Present
 
     override fun getProfileInfo() {
         launch(handler) {
-            val result = repository.getProfile(UserObject.getInstance().email)
-            view.setProfileInfo(result)
+            val result = withContext(Dispatchers.IO) {
+                val response = repository.getProfile(UserObject.getInstance().email)
+                Log.e("ProfilePresenter", response.code().toString())
+                Log.e("ProfilePresenter", response.isSuccessful.toString())
+                Log.e("ProfilePresenter", response.message())
+                response.body()
+            }
+            if (result != null) {
+                view.setProfileInfo(result)
+            }
         }
     }
 

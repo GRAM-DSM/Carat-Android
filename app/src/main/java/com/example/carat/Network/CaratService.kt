@@ -21,7 +21,7 @@ interface CaratService {
 
 
     @GET("/timeline")
-    suspend fun getTimeLine(@Body parameter: RequestCaringData): TimeLineData
+    suspend fun getTimeLine(@Body parameter: RequestCaringData): Response<TimeLineData>
 
     @GET("timeline/caring/{email}")
     suspend fun getCaringTimeLine(
@@ -89,7 +89,7 @@ interface CaratService {
     suspend fun getProfile(
         @Path("email") email: String,
         @Header("Authorization") authorization: String
-    ): UserData
+    ): Response<UserData>
 
     @Multipart
     @PUT("profile")

@@ -24,8 +24,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getToken() {
-        TokenData.getInstance().access_token = Repository().getAccess() ?: ""
-        TokenData.getInstance().refresh_token = Repository().getRefresh() ?: ""
+        val token = TokenData.getInstance()
+        if(token.access_token.isEmpty() || token.refresh_token.isEmpty()) {
+            TokenData.getInstance().access_token = Repository().getAccess() ?: ""
+            TokenData.getInstance().refresh_token = Repository().getRefresh() ?: ""
+        }
+
         Log.e("main", Repository().getAccess().toString())
     }
 

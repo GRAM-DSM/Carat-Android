@@ -64,6 +64,7 @@ class LoginFragment : Fragment(), LoginContract.View {
     override fun moveToMain() {
         val intent = Intent(context, MainActivity::class.java)
         requireActivity().startActivity(intent)
+        requireActivity().finish()
     }
 
     override fun showMessage(message: String) {

@@ -52,7 +52,7 @@ class Repository {
         return api.signUp(requestBody)
     }
 
-    suspend fun getTimeLine(parameter: RequestCaringData): TimeLineData {
+    suspend fun getTimeLine(parameter: RequestCaringData): Response<TimeLineData> {
         return api.getTimeLine(parameter)
     }
 
@@ -103,7 +103,7 @@ class Repository {
     }
 
 
-    suspend fun getProfile(path: String): UserData {
+    suspend fun getProfile(path: String): Response<UserData> {
         return api.getProfile(path, TokenData.getInstance().access_token)
     }
 
